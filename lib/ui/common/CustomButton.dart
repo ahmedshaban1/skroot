@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skroot/theming/colors.dart';
 
 
 class CustomButton extends StatelessWidget {
@@ -16,12 +17,14 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .primaryColor
-                  .withOpacity(opacity ?? 1),
-              borderRadius: BorderRadius.circular(raduis??25)),
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [  Color(0xffA750D2) ,Color(0xff2C066E) ]
+            ),
+              borderRadius: BorderRadius.circular(raduis??10)),
           width: width ?? 140,
-          height: higth ?? 40,
+          height: higth ?? 55,
           child: Center(
             child: Text(
               text ?? "",

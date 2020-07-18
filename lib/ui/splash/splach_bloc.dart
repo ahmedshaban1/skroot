@@ -19,14 +19,26 @@ class SplashBloc extends Bloc<AppEvent, AppState> {
 
     var mNamedNavigator = NamedNavigatorImpl();
     if (event is AnimationEnd) {
-      var status = await mSharedPreferenceManager.readBoolean(CachingKey.IS_LOGGED_IN);
+      var status = await mSharedPreferenceManager.readBoolean(
+          CachingKey.IS_LOGGED_IN);
       print("Status =========>" + status.toString());
 
-      AuthenticationRepo.signUp(SignUpRequest(name: "Jemy" , phone:  "+971524555806" , password: "123456" , cityId: "1" , countryId: "1" , email: "mowagdy2021@gmail.com"));
-//      status == false
+//      AuthenticationRepo
+//          .signUp(SignUpRequest(name: "Jemy",
+//          phone: "+971524555806",
+//          password: "123456",
+//          cityId: "1",
+//          countryId: "1",
+//          email: "mowagdy2021@gmail.com"))
+//          .then((response){
+//
+//      });
+
+      mNamedNavigator.push(Routes.LOGIN_ROUTER , replace: true , clean: true);
+
 //          ? NamedNavigatorImpl().push(Routes.INTRO, replace: true, clean: true)
-//          : mNamedNavigator.push(Routes.HOME_ROUTER,
-//              replace: true, clean: true);
+//          : mNamedNavitugator.push(Routes.HOME_ROUTER,
+ //             replace: true, clean: true);
     }
   }
 }

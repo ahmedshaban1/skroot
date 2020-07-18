@@ -41,7 +41,7 @@ class ImagesPreviewPage extends StatelessWidget {
               // Saved with this method.
               var imageId =
                   await ImageDownloader.downloadImage(images[selectedIndex]);
-                Navigator.of(context).pop();
+              Navigator.of(context).pop();
               Fluttertoast.showToast(
                   msg: "تم تحميل الصورة بنجاح",
                   toastLength: Toast.LENGTH_SHORT,
@@ -49,8 +49,7 @@ class ImagesPreviewPage extends StatelessWidget {
                   timeInSecForIosWeb: 1,
                   backgroundColor: Colors.red,
                   textColor: Colors.white,
-                  fontSize: 16.0
-              );
+                  fontSize: 16.0);
               if (imageId == null) {
                 return;
               }
