@@ -122,9 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          var mNamedNavigator = NamedNavigatorImpl();
-                          mNamedNavigator.push(Routes.SEND_CODE,
-                              arguments: "resetPassword", replace: false, clean: false);
+                          NamedNavigatorImpl().push(Routes.ENTER_PHONE , clean:  false , replace:  false , arguments:  "");
+
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

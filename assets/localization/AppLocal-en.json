@@ -17,7 +17,10 @@
   "city" : "State",
   "terms" : "Agree with terms & conditions",
   "re-password" : "Repassword",
-  "reset-password" : "Forget Password",
+  "confirm" : "Confirm",
+  "reset-password" : "Reset Password",
+  "forget-password" : "Reset Password",
   "sub-reset" : "Please set your new password",
+  "sub-forget" : "Please set your new password",
   "re-set" : "Re-set"
 }

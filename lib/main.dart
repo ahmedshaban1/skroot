@@ -2,7 +2,6 @@ import 'package:skroot/theming/build_theme_data.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tinycolor/tinycolor.dart';
 
 import 'helpers/localization.dart';
 import 'navigator/named-navigator.dart';

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:skroot/ui/authentication/enter_phone_number/enter_phone_number.dart';
 import 'package:skroot/ui/authentication/log_in/log_in_page.dart';
 import 'package:skroot/ui/authentication/reset_password/reset_password.dart';
 import 'package:skroot/ui/authentication/sign_up/sign_up.dart';
@@ -19,6 +20,7 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.SIGNUP_ROUTER :return MaterialPageRoute(builder: (_) => SignUpPage());
       case Routes.RESET_PASSWORD :return MaterialPageRoute(builder: (_) => ResetPasswordPage());
       case Routes.SEND_CODE :return MaterialPageRoute(builder: (_) => VerificationCodePage(stateOfCode: settings.arguments,));
+      case Routes.ENTER_PHONE :return MaterialPageRoute(builder: (_) => EnterPhoneNumber());
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());
