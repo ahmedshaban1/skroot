@@ -5,7 +5,6 @@ class Routes {
   static const INTRO = "INTRO";
   static const SEND_CODE = "SEND_CODE";
   static const RESET_PASSWORD = "RESET_PASSWORD";
-  static const LOG_IN = "LOG_IN";
   static const HOME_ROUTER = "HOME_ROUTER";
   static const ENTER_PHONE = "ENTER_PHONE";
 }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:skroot/Components/custom_back_arrow.dart';
+import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/helpers/localization.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_bloc.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/common/error_dialog.dart';
+import 'package:skroot/ui/common/loading_dialog.dart';
 class VerificationCodePage extends StatefulWidget {
   final String stateOfCode ;
 
@@ -36,17 +39,20 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                     return ListView(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 20 , bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/images/sign_up_image.png",
-                                fit: BoxFit.cover,
-                              ),
-                            ],
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * .4,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                      "assets/images/verification_bg.png",
+                                    ),
+                                    fit: BoxFit.fill)),
+                            child: Center(child: Icon(Icons.message , size: 70.0,),),
                           ),
                         ),
+
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -71,20 +77,28 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             ),
                           ],
                         ),
-
-
+                        PinEntryTextField(
+                          onSubmit: (String pin){
+                              print("PIN IS $pin");//e
+                            verificationCodeBloc.updateCode(pin);
+                          }, // end onSubmit
+                          fields: 4,
+                          showFieldAsBox: true,
+                        ),
                         CustomButton(
                           onButtonPress: () {
 
                             if(widget.stateOfCode == "createAccount"){
+                              verificationCodeBloc.add(Click());// nd show
+                              showLoadingDialog(context);
+// Dialog()
+                            }
+                            else if(widget.stateOfCode.contains("resetPassword")){
+                              verificationCodeBloc.add(Add());// nd showDialog()
+                              showLoadingDialog(context);
 
-                            }else if(widget.stateOfCode.contains("resetPassword")){
-                              var mNamedNavigator = NamedNavigatorImpl();
-                              mNamedNavigator.push(Routes.RESET_PASSWORD,
-                                  arguments: "", replace: false, clean: false);
                             }else{
                               // Change Password
-
                             }
 //                            if(null){}else{
 //

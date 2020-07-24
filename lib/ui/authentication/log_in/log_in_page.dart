@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:international_phone_input/international_phone_input.dart';
 import 'package:skroot/Components/inputTextField.dart';
+import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/helpers/localization.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
-import 'package:skroot/ui/common/AnimatedWidget.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
-import 'package:skroot/ui/common/CustomTextField.dart';
+import 'package:skroot/ui/common/loading_dialog.dart';
 
 import 'Widgets/media_container.dart';
 import 'Widgets/or-widget.dart';
@@ -80,20 +81,50 @@ class _LoginPageState extends State<LoginPage> {
                         child: StreamBuilder<String>(
                             stream: logInBloc.phoneNumber,
                             builder: (context, snapshot) {
-                              return InputFieldArea(
-                                icon: Padding(
-                                  padding: const EdgeInsets.only(right:8.0 , left: 8.0),
-                                  child: Icon(
-                                    Icons.phone,
-                                    color: Colors.white,
-                                  ),
+//                              return InputFieldArea(
+//                                icon: Padding(
+//                                  padding: const EdgeInsets.only(right:8.0 , left: 8.0),
+//                                  child: Icon(
+//                                    Icons.phone,
+//                                    color: Colors.white,
+//                                  ),
+//                                ),
+//                                hint: AppLocalization.of(context)
+//                                    .getLocalizedText("phone"),
+//                                errorTxt: snapshot.error,
+//                                changedFunction: logInBloc.updatePhone,
+//                                textInputType: TextInputType.number,
+//                              );
+
+                            return Container(
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  color: Color(lightThemeColors['sign-bg'])),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InternationalPhoneInput(
+
+                                  initialSelection:"+971" ,
+                                    decoration: InputDecoration(   border: InputBorder.none,
+                                        fillColor: Color(lightThemeColors['sign-bg']),
+                                    ),
+                                    onPhoneNumberChange:(x,y,z) =>logInBloc.updatePhone(x),
+                                    showCountryCodes: true,
+                                  showCountryFlags: false,
+
+                                  errorText: snapshot.error,
+                                  hintStyle: const TextStyle(
+                                      color: Color(0xff707070),
+                                      fontSize: 15.0,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'cairo'),
+//                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
                                 ),
-                                hint: AppLocalization.of(context)
-                                    .getLocalizedText("phone"),
-                                errorTxt: snapshot.error,
-                                changedFunction: logInBloc.updatePhone,
-                                textInputType: TextInputType.number,
-                              );
+                              ),
+                            );
+
                             }),
                       ),
                       Padding(
@@ -116,7 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                             }),
                       ),
                       CustomButton(
-                        onButtonPress: () {},
+                        onButtonPress: () {
+                          logInBloc.add(Click());
+                          showLoadingDialog(context);
+                        },
                         text: AppLocalization.of(context)
                             .getLocalizedText("cap-login"),
                       ),

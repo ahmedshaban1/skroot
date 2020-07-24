@@ -1,6 +1,5 @@
 
 import 'package:skroot/network/network-mappers.dart';
-
 abstract class AppState {}
 
 class Done extends AppState {

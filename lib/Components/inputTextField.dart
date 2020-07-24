@@ -96,7 +96,7 @@ class InputFieldArea extends StatelessWidget {
                   keyboardType: textInputType,
                   onChanged: changedFunction,
                   style: const TextStyle(
-                      color: Color(0xff707070), fontFamily: 'cairo'),
+                      color: Color(0xffffffff), fontFamily: 'cairo'),
                   decoration: InputDecoration(
                     suffixIcon: suffixIcon,
                     errorText: errorTxt,

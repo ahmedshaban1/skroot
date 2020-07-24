@@ -13,6 +13,7 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
     fontFamily: "Cairo",
     primaryColorBrightness: Brightness.light,
     brightness: Brightness.light,
+    splashColor: Color(lightThemeColors['sign-bg']),
     primaryColor: Color(lightThemeColors['primary']),
     accentColor: Color(lightThemeColors['secondary']),
     backgroundColor: Color(lightThemeColors['surface-dim']),

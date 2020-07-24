@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skroot/Components/custom_back_arrow.dart';
 import 'package:skroot/Components/inputTextField.dart';
+import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/helpers/localization.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/authentication/reset_password/reset_password_bloc.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
+import 'package:skroot/ui/common/loading_dialog.dart';
 class ResetPasswordPage extends StatefulWidget {
   @override
   _ResetPasswordPageState createState() => _ResetPasswordPageState();
@@ -90,6 +92,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     errorTxt: snapshot.error,
                                     changedFunction: resetPasswordBloc.updatePassword,
                                     textInputType: TextInputType.number,
+                                    show: true,
                                   );
                                 }),
                           ),
@@ -113,7 +116,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 }),
                           ),
                           CustomButton(
-                            onButtonPress: () {},
+                            onButtonPress: () {
+                              resetPasswordBloc.add(Click());
+                              showLoadingDialog(context);
+                            },
                             text: AppLocalization.of(context)
                                 .getLocalizedText("re-set"),
                           ),

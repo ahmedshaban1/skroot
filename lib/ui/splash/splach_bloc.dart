@@ -34,7 +34,7 @@ class SplashBloc extends Bloc<AppEvent, AppState> {
 //
 //      });
 
-      mNamedNavigator.push(Routes.LOGIN_ROUTER , replace: true , clean: true);
+      mNamedNavigator.push(Routes.INTRO , replace: true , clean: true);
 
 //          ? NamedNavigatorImpl().push(Routes.INTRO, replace: true, clean: true)
 //          : mNamedNavitugator.push(Routes.HOME_ROUTER,

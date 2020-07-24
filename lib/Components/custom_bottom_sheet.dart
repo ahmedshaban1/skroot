@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skroot/models/lists/country_model.dart';
 import 'package:skroot/theming/colors.dart';
 
 class CustomBottomSheet extends StatefulWidget {
@@ -6,19 +7,20 @@ class CustomBottomSheet extends StatefulWidget {
 
   final width;
 
-  final list;
+  final List<CountryModel>list;
 
   final inputIcon;
 
-  final stateOfSheet;
+  final Function onItemClick;
 
+  final String type ;
   const CustomBottomSheet(
       {Key key,
       this.text,
       this.width,
       this.list,
       this.inputIcon,
-      this.stateOfSheet})
+      this.onItemClick, this.type})
       : super(key: key);
 
   @override
@@ -51,23 +53,22 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                       return InkWell(
                         onTap: () {
                           Navigator.pop(context);
-                          if (widget.stateOfSheet == 1) {
-                            print("__________________ : hay country");
-                            country = widget.list[index];
-                          } else {
-                            print("__________________ : hay city");
-                            city = widget.list[index];
+                          widget.onItemClick(index);
+                          if(widget.type == "city"){
+                            city = widget.list[index].nameEn;
+                          }
+                          else{
+                          country=  widget.list[index].nameEn;
                           }
                         },
                         child: Container(
                           margin: EdgeInsets.only(top: 10),
                           child: Text(
-                            "${widget.list[index]}",
+                            "${widget.list[index].nameEn}",
                             style: Theme.of(context).textTheme.title.copyWith(
                               fontWeight: FontWeight.w200 ,
                               fontSize: 18,
                               color: Colors.white
-
                             ),
                             textAlign: TextAlign.center,
                           ),

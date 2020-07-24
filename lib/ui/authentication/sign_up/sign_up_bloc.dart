@@ -1,13 +1,18 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/app/appState.dart';
 import 'package:skroot/helpers/shared_preference_manger.dart';
 import 'package:skroot/helpers/vaildator.dart';
+import 'package:skroot/models/requests/sign_up/sign_up_request.dart';
 import 'package:skroot/navigator/named-navigator.dart';
+import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/network/networkUtlis.dart';
+import 'package:skroot/network/repos/authentication_repos.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   @override
@@ -18,6 +23,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   final userNameController = BehaviorSubject<String>();
   final countryIdController = BehaviorSubject<int>();
   final cityIdController = BehaviorSubject<int>();
+  final emailController = BehaviorSubject<String>();
   String msg;
 
 
@@ -27,20 +33,57 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Function(String) get userNameChanged => userNameController.sink.add;
   Function(int) get countryIdChanged => countryIdController.sink.add;
   Function(int) get cityIdChanged => cityIdController.sink.add;
+  Function(String) get emailChanged => emailController.sink.add;
 
   Stream<String> get phoneNumber => phoneController.stream.transform(number);
   Stream<String> get userName => userNameController.stream.transform(nameValidator);
   Stream<String> get password => passwordController.stream.transform(passwordValidator);
+  Stream<String> get email => emailController.stream.transform(emailValidator);
+
+//  Stream<bool> get submitChanged => Observable.combineLatest4(phoneNumber, password, email, userName, (n,p,e,u,)=>true);
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     var netUtil = NetworkUtil();
     if (event is Click) {
       SharedPreferenceManager preferenceManager = SharedPreferenceManager();
-      var token = await preferenceManager.readString(CachingKey.AUTH_TOKEN);
-      yield (Start(null));
+//      var token = await preferenceManager.readString(CachingKey.AUTH_TOKEN);
+   yield (Start(null));
+  var signUpResponse = await  AuthenticationRepo.signUp(
+      SignUpRequest(phone: "+971"+phoneController.value ,email: emailController.value, countryId: "1" , cityId: "1" , name: userNameController.value  , password: passwordController.value));
 
-    }
+
+  if(signUpResponse.message == ""){
+
+    preferenceManager.writeData(CachingKey.MOBILE_NUMBER, signUpResponse.phone);
+    Fluttertoast.showToast(
+        msg: signUpResponse.token.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.purple,
+        fontSize: 16.0
+    );
+
+    NamedNavigatorImpl().push(Routes.SEND_CODE , arguments: "createAccount");
+
+  }
+  else {
+  NamedNavigatorImpl().pop();
+    Fluttertoast.showToast(
+        msg: signUpResponse.message.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.purple,
+        fontSize: 16.0
+    );
+
+
+  }
+}
   }
 
   dispose() {
@@ -49,6 +92,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
     userNameController.close();
     cityIdController.close();
     countryIdController.close();
+    emailController.close();
   }
 }
 

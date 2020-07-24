@@ -5,19 +5,21 @@ class Validator{
 
   var emailValidator = StreamTransformer<String,String>.fromHandlers(
     handleData: (email, sink){
-      if(email.contains('@')){
+      if (email == null ||
+          !RegExp(r"[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'+/=?^_`{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+              .hasMatch(email)) {
         sink.add(email);
       }else{
-        sink.addError('يجب ان يحتوي الاميل علي @');
+        sink.addError('please enter valid email');
       }
     }
   );
   var nameValidator = StreamTransformer<String,String>.fromHandlers(
       handleData: (name , sink){
-        if(name.length > 2){
+        if(name.length > 6){
           sink.add(name);
         }else{
-          sink.addError('');
+          sink.addError('please enter valid name');
         }
       }
   );
@@ -54,7 +56,7 @@ class Validator{
 
   var number = StreamTransformer<String,String>.fromHandlers(
       handleData: (num , sink){
-        if(num.length > 9){
+        if(num.length > 8){
           sink.add(num);
         }else{
           sink.addError("Enter a valid phone number");
@@ -84,7 +86,7 @@ class Validator{
 
   var passwordValidator = StreamTransformer<String,String>.fromHandlers(
     handleData: (password , sink){
-      if(password.length > 6){
+      if(password.length >= 6){
         sink.add(password);
       }else{
         sink.addError('Password must be at least 6 character');
