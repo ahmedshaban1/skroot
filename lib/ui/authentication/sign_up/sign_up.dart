@@ -27,7 +27,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   Color activeColor = Color(lightThemeColors["sign-text"]);
-
   bool isChecked = false;
 
   @override
@@ -56,277 +55,324 @@ class _SignUpPageState extends State<SignUpPage> {
               BlocBuilder(
                   bloc: signUpBloC,
                   builder: (context, state) {
-                    return ListView(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/images/sign_up_image.png",
-                                fit: BoxFit.cover,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    return SingleChildScrollView(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: ListView(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
                           children: <Widget>[
-                            Text(
-                              AppLocalization.of(context)
-                                  .getLocalizedText("join_us"),
-                              style: Theme.of(context).textTheme.title.copyWith(
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * .7,
-                              child: Text(
-                                AppLocalization.of(context)
-                                    .getLocalizedText("sign_des"),
-                                style: Theme.of(context).textTheme.display1,
-                                textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20, bottom: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    "assets/images/sign_up_image.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: StreamBuilder<String>(
-                              stream: signUpBloC.userName,
-                              builder: (context, snapshot) {
-                                return InputFieldArea(
-                                  icon: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 8.0, left: 8.0),
-                                    child: Icon(
-                                      Icons.person_outline,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  hint: AppLocalization.of(context)
-                                      .getLocalizedText("full_name"),
-                                  errorTxt: snapshot.error,
-                                  changedFunction: signUpBloC.userNameChanged,
-                                  textInputType: TextInputType.text,
-                                  inputFieldWithBorder: false,
-
-                                );
-                              }),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: StreamBuilder<String>(
-                              stream: signUpBloC.phoneNumber,
-                              builder: (context, snapshot) {
-                                return Container(
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      color: Color(lightThemeColors['sign-bg'])),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InternationalPhoneInput(
-                                      initialSelection:"+971" ,
-                                      decoration: InputDecoration(   border: InputBorder.none,
-                                        fillColor: Color(lightThemeColors['sign-bg']),
-                                      ),
-                                      onPhoneNumberChange:(x,y,z) =>signUpBloC.updatePhone(x),
-                                      showCountryCodes: true,
-                                      showCountryFlags: false,
-                                      errorText: snapshot.error,
-                                      hintStyle: const TextStyle(
-                                          color: Color(0xff707070),
-                                          fontSize: 15.0,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'cairo'),
-//                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: StreamBuilder<String>(
-                              stream: signUpBloC.email,
-                              builder: (context, snapshot) {
-                                return InputFieldArea(
-                                  inputFieldWithBorder: false,
-                                  icon: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 8.0, left: 8.0),
-                                    child: Icon(
-                                      Icons.email,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  hint: AppLocalization.of(context)
-                                      .getLocalizedText("email"),
-                                  errorTxt: snapshot.error,
-                                  changedFunction: signUpBloC.emailChanged,
-                                  textInputType: TextInputType.emailAddress,
-                                );
-                              }),
-                        ),
-                        BlocListener<CountriesBloc, AppState>(
-                          listener: (context, state) {},
-                          bloc: countriesBloc,
-                          child: BlocBuilder(
-                            bloc: countriesBloc,
-                            builder: (context, state) {
-                              var countriesResponse = state.model as CountriesResponse;
-                              print("_______ : state is $state");
-                              if (state is Done) {
-                                return CustomBottomSheet(
-                                  type: "country",
-                                  text: AppLocalization.of(context)
-                                      .getLocalizedText("country"),
-                                  inputIcon: FontAwesomeIcons.globeAfrica,
-                                  list: countriesResponse.data,
-                                  onItemClick: (index) {
-                                    citiesBloc.updateCountryId(1);
-                                    citiesBloc.add(Click());
-                                  },
-                                );
-                              } else {
-                                return CustomBottomSheet(
-                                    type: "country",
-                                    text: AppLocalization.of(context)
-                                        .getLocalizedText("country"),
-                                    inputIcon: FontAwesomeIcons.globeAfrica,
-                                    list: [],
-                                    onItemClick: (index) {});
-                              }
-                            },
-                          ),
-                        ),
-                        BlocListener<CitiesBloc, AppState>(
-                          listener: (context, state) {},
-                          bloc: citiesBloc,
-                          child: BlocBuilder(
-                            bloc: citiesBloc,
-                            builder: (context, state) {
-                              var countriesResponse = state.model as CountriesResponse;
-                              print("_______ : state is $state");
-                              if (state is Done) {
-                                return CustomBottomSheet(
-                                  type: "city",
-                                  text: AppLocalization.of(context)
-                                      .getLocalizedText("city"),
-                                  inputIcon: FontAwesomeIcons.globeAfrica,
-                                  list: countriesResponse.data,
-                                  onItemClick: (index) {},
-                                );
-                              } else {
-                                return CustomBottomSheet(
-                                    type: "city",
-                                    text: AppLocalization.of(context)
-                                        .getLocalizedText("city"),
-                                    inputIcon: FontAwesomeIcons.globeAfrica,
-                                    list: [],
-                                    onItemClick: (index) {});
-                              }
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: StreamBuilder<String>(
-                              stream: signUpBloC.password,
-                              builder: (context, snapshot) {
-                                return InputFieldArea(
-                                  icon: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8.0, right: 8.0),
-                                    child: Icon(
-                                      Icons.lock_outline,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  hint: AppLocalization.of(context)
-                                      .getLocalizedText("password"),
-                                  textInputType: TextInputType.text,
-                                  show: true,
-                                  inputFieldWithBorder: false,
-                                  changedFunction: signUpBloC.updatePassword,
-                                  errorTxt: snapshot.error,
-                                );
-                              }),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (isChecked != false) {
-                              setState(() {
-                                activeColor =
-                                    Color(lightThemeColors["sign-text"]);
-                                isChecked = false;
-                              });
-                            } else {
-                              setState(() {
-                                activeColor = Theme.of(context).primaryColor;
-                                isChecked = true;
-                              });
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: CircleAvatar(
-                                    radius: 10,
-                                    backgroundColor: activeColor,
-                                    child: Icon(
-                                      Icons.done,
-                                      size: 12,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                Text(
+                                  AppLocalization.of(context)
+                                      .getLocalizedText("join_us"),
+                                  style: Theme.of(context).textTheme.title.copyWith(
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Container(
+                                  width: MediaQuery.of(context).size.width * .7,
                                   child: Text(
                                     AppLocalization.of(context)
-                                        .getLocalizedText("terms"),
+                                        .getLocalizedText("sign_des"),
+                                    style: Theme.of(context).textTheme.display1,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Color(
-                                            lightThemeColors["sign-text"]),
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                        CustomButton(
-                          onButtonPress: () {
-                            if (isChecked) {
-                              signUpBloC.add(Click());
-                              showLoadingDialog(context);
-                            } else {
-                              ErrorDialog(
-                                  context: context,
-                                  title:
-                                      "Please you have to accept the conditions",
-                                  btnAction: () {
-                                    Navigator.pop(context);
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: StreamBuilder<String>(
+                                  stream: signUpBloC.userName,
+                                  builder: (context, snapshot) {
+                                    return InputFieldArea(
+                                      icon: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 8.0, left: 8.0),
+                                        child: Icon(
+                                          Icons.person_outline,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      hint: AppLocalization.of(context)
+                                          .getLocalizedText("full_name"),
+                                      errorTxt: snapshot.error,
+                                      changedFunction: signUpBloC.userNameChanged,
+                                      textInputType: TextInputType.text,
+                                      inputFieldWithBorder: false,
+
+                                    );
+                                  }),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: StreamBuilder<String>(
+                                  stream: signUpBloC.phoneNumber,
+                                  builder: (context, snapshot) {
+                                    return Container(
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                          color: Color(lightThemeColors['sign-bg'])),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InternationalPhoneInput(
+                                          initialSelection:"+971" ,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              fillColor: Color(lightThemeColors['sign-bg']),
+                                              hintText: AppLocalization.of(context)
+                                                  .getLocalizedText("phone"),
+                                              errorText: snapshot.error,
+                                              errorStyle:  const TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 15.0,
+                                                  decoration: TextDecoration.none,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'cairo'),
+                                              hintStyle: const TextStyle(
+                                                  color: Color(0xff707070),
+                                                  fontSize: 15.0,
+                                                  decoration: TextDecoration.none,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'cairo')
+                                          ),
+                                          errorText: snapshot.error,
+                                          onPhoneNumberChange:(x,y,z) =>signUpBloC.updatePhone(x),
+                                          showCountryCodes: true,
+                                          showCountryFlags: false,
+
+
+//                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: StreamBuilder<String>(
+                                  stream: signUpBloC.email,
+                                  builder: (context, snapshot) {
+                                    return InputFieldArea(
+                                      inputFieldWithBorder: false,
+                                      icon: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 8.0, left: 8.0),
+                                        child: Icon(
+                                          Icons.email,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      hint: AppLocalization.of(context)
+                                          .getLocalizedText("email"),
+                                      errorTxt: snapshot.error,
+                                      changedFunction: signUpBloC.emailChanged,
+                                      textInputType: TextInputType.emailAddress,
+                                    );
+                                  }),
+                            ),
+                            BlocListener<CountriesBloc, AppState>(
+                              listener: (context, state) {},
+                              bloc: countriesBloc,
+                              child: BlocBuilder(
+                                bloc: countriesBloc,
+                                builder: (context, state) {
+                                  var countriesResponse = state.model as CountriesResponse;
+                                  print("_______ : state is $state");
+                                  if (state is Done) {
+                                    return StreamBuilder<int>(
+                                      stream: signUpBloC.country,
+                                      builder: (context, snapshot) {
+                                        return CustomBottomSheet(
+                                          type: "country",
+                                          text: AppLocalization.of(context)
+                                              .getLocalizedText("country"),
+                                          inputIcon: FontAwesomeIcons.globeAfrica,
+                                          list: countriesResponse.data,
+                                          onItemClick: (index) {
+                                            citiesBloc.updateCountryId(1);
+                                            citiesBloc.add(Click());
+                                          },
+                                        );
+                                      }
+                                    );
+                                  } else {
+                                    return CustomBottomSheet(
+                                        type: "country",
+                                        text: AppLocalization.of(context)
+                                            .getLocalizedText("country"),
+                                        inputIcon: FontAwesomeIcons.globeAfrica,
+                                        list: [],
+                                        onItemClick: (index) {});
+                                  }
+                                },
+                              ),
+                            ),
+                            BlocListener<CitiesBloc, AppState>(
+                              listener: (context, state) {},
+                              bloc: citiesBloc,
+                              child: BlocBuilder(
+                                bloc: citiesBloc,
+                                builder: (context, state) {
+                                  var countriesResponse = state.model as CountriesResponse;
+                                  print("_______ : state is $state");
+                                  if (state is Done) {
+                                    return StreamBuilder<int>(
+                                      stream: signUpBloC.city,
+                                      builder: (context, snapshot) {
+                                        return CustomBottomSheet(
+                                          type: "city",
+                                          text: AppLocalization.of(context)
+                                              .getLocalizedText("city"),
+                                          inputIcon: FontAwesomeIcons.globeAfrica,
+                                          list: countriesResponse.data,
+                                          onItemClick: (index) {},
+                                        );
+                                      }
+                                    );
+                                  } else {
+                                    return CustomBottomSheet(
+                                        type: "city",
+                                        text: AppLocalization.of(context)
+                                            .getLocalizedText("city"),
+                                        inputIcon: FontAwesomeIcons.globeAfrica,
+                                        list: [],
+                                        onItemClick: (index) {});
+                                  }
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: StreamBuilder<String>(
+                                  stream: signUpBloC.password,
+                                  builder: (context, snapshot) {
+                                    return InputFieldArea(
+                                      icon: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8.0),
+                                        child: Icon(
+                                          Icons.lock_outline,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      hint: AppLocalization.of(context)
+                                          .getLocalizedText("password"),
+                                      textInputType: TextInputType.text,
+                                      show: true,
+                                      inputFieldWithBorder: false,
+                                      changedFunction: signUpBloC.updatePassword,
+                                      errorTxt: snapshot.error,
+                                    );
+                                  }),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                FocusScope.of(context).requestFocus(FocusNode());
+                                if (isChecked != false) {
+                                  setState(() {
+                                    activeColor =
+                                        Color(lightThemeColors["sign-text"]);
+                                    isChecked = false;
+                                  });
+                                } else {
+                                  setState(() {
+                                    activeColor = Theme.of(context).primaryColor;
+                                    isChecked = true;
+                                  });
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
+                                      child: CircleAvatar(
+                                        radius: 10,
+                                        backgroundColor: activeColor,
+                                        child: Icon(
+                                          Icons.done,
+                                          size: 12,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        AppLocalization.of(context)
+                                            .getLocalizedText("terms"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            decoration: TextDecoration.underline,
+                                            color: Color(
+                                                lightThemeColors["sign-text"]),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            StreamBuilder<bool>(
+                              stream: signUpBloC.submitChanged,
+                              builder: (context, snapshot) {
+                                print("_______________________________________ snapshot is ${snapshot.hasData}");
+                                print("_______________________________________ snapshot is ${snapshot.data}");
+                                return CustomButton(
+                                  snapshot: snapshot.hasData,
+                                  onButtonPress: () {
+                                    if(snapshot.hasData){
+                                      if (isChecked) {
+                                        signUpBloC.add(Click());
+                                        showLoadingDialog(context);
+                                      } else {
+                                        ErrorDialog(
+                                            context: context,
+                                            title: "Please you have to accept the conditions",
+                                            btnAction: () {
+                                              Navigator.pop(context);
+                                            },
+                                            buttonText: "OK");
+                                      }
+                                    }else{
+                                      ErrorDialog(
+                                          context: context,
+                                          title: "Please you have to fill the conditions",
+                                          btnAction: () {
+                                            Navigator.pop(context);
+                                          },
+                                          buttonText: "OK");
+                                    }
+
                                   },
-                                  buttonText: "OK");
-                            }
-                          },
-                          text: AppLocalization.of(context)
-                              .getLocalizedText("create"),
+                                  text: AppLocalization.of(context).getLocalizedText("create"),
+                                );
+                              }
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     );
                   }),
               CustomBackArrow(

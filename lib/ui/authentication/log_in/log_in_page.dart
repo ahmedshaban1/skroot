@@ -104,22 +104,32 @@ class _LoginPageState extends State<LoginPage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: InternationalPhoneInput(
-
                                   initialSelection:"+971" ,
-                                    decoration: InputDecoration(   border: InputBorder.none,
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
                                         fillColor: Color(lightThemeColors['sign-bg']),
+                                      hintText: AppLocalization.of(context)
+                                          .getLocalizedText("phone"),
+                                        errorText: snapshot.error,
+                                        errorStyle:  const TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 15.0,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'cairo'),
+                                        hintStyle: const TextStyle(
+                                            color: Color(0xff707070),
+                                            fontSize: 15.0,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'cairo')
                                     ),
-                                    onPhoneNumberChange:(x,y,z) =>logInBloc.updatePhone(x),
+                                  errorText: snapshot.error,
+                                  onPhoneNumberChange:(x,y,z) =>logInBloc.updatePhone(x),
                                     showCountryCodes: true,
                                   showCountryFlags: false,
 
-                                  errorText: snapshot.error,
-                                  hintStyle: const TextStyle(
-                                      color: Color(0xff707070),
-                                      fontSize: 15.0,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'cairo'),
+
 //                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
                                 ),
                               ),

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,21 +25,35 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   final emailController = BehaviorSubject<String>();
   String msg;
 
-
-
   Function(String) get updatePhone => phoneController.sink.add;
+
   Function(String) get updatePassword => passwordController.sink.add;
+
   Function(String) get userNameChanged => userNameController.sink.add;
+
   Function(int) get countryIdChanged => countryIdController.sink.add;
+
   Function(int) get cityIdChanged => cityIdController.sink.add;
+
   Function(String) get emailChanged => emailController.sink.add;
 
   Stream<String> get phoneNumber => phoneController.stream.transform(number);
-  Stream<String> get userName => userNameController.stream.transform(nameValidator);
-  Stream<String> get password => passwordController.stream.transform(passwordValidator);
+
+  Stream<String> get userName =>
+      userNameController.stream.transform(nameValidator);
+
+  Stream<String> get password =>
+      passwordController.stream.transform(passwordValidator);
+
   Stream<String> get email => emailController.stream.transform(emailValidator);
 
-//  Stream<bool> get submitChanged => Observable.combineLatest4(phoneNumber, password, email, userName, (n,p,e,u,)=>true);
+  Stream<int> get city => cityIdController.stream.transform(selectedId);
+
+  Stream<int> get country => countryIdController.stream.transform(selectedId);
+
+  Stream<bool> get submitChanged =>
+      Rx.combineLatest5( password, email, userName, city , country ,( p, e, u , s , c )=>true);
+
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
@@ -48,42 +61,40 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
     if (event is Click) {
       SharedPreferenceManager preferenceManager = SharedPreferenceManager();
 //      var token = await preferenceManager.readString(CachingKey.AUTH_TOKEN);
-   yield (Start(null));
-  var signUpResponse = await  AuthenticationRepo.signUp(
-      SignUpRequest(phone: "+971"+phoneController.value ,email: emailController.value, countryId: "1" , cityId: "1" , name: userNameController.value  , password: passwordController.value));
+      yield (Start(null));
+      var signUpResponse = await AuthenticationRepo.signUp(SignUpRequest(
+          phone: "+971" + phoneController.value,
+          email: emailController.value,
+          countryId: countryIdController.value.toString(),
+          cityId: cityIdController.value.toString(),
+          name: userNameController.value,
+          password: passwordController.value));
 
+      if (signUpResponse.message == "") {
+        preferenceManager.writeData(
+            CachingKey.MOBILE_NUMBER, signUpResponse.phone);
+        Fluttertoast.showToast(
+            msg: signUpResponse.token.toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.purple,
+            fontSize: 16.0);
 
-  if(signUpResponse.message == ""){
-
-    preferenceManager.writeData(CachingKey.MOBILE_NUMBER, signUpResponse.phone);
-    Fluttertoast.showToast(
-        msg: signUpResponse.token.toString(),
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.black,
-        textColor: Colors.purple,
-        fontSize: 16.0
-    );
-
-    NamedNavigatorImpl().push(Routes.SEND_CODE , arguments: "createAccount");
-
-  }
-  else {
-  NamedNavigatorImpl().pop();
-    Fluttertoast.showToast(
-        msg: signUpResponse.message.toString(),
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.black,
-        textColor: Colors.purple,
-        fontSize: 16.0
-    );
-
-
-  }
-}
+        NamedNavigatorImpl().push(Routes.SEND_CODE, arguments: "createAccount");
+      } else {
+        NamedNavigatorImpl().pop();
+        Fluttertoast.showToast(
+            msg: signUpResponse.message.toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.purple,
+            fontSize: 16.0);
+      }
+    }
   }
 
   dispose() {

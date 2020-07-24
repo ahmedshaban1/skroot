@@ -5,11 +5,13 @@ class Validator{
 
   var emailValidator = StreamTransformer<String,String>.fromHandlers(
     handleData: (email, sink){
-      if (email == null ||
-          !RegExp(r"[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'+/=?^_`{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-              .hasMatch(email)) {
-        sink.add(email);
-      }else{
+      if (email.contains("@")){
+//          !RegExp(r"[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'+/=?^_`{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+//              .hasMatch(email)) {
+//        sink.add(email);
+      sink.add(email);
+      }
+      else{
         sink.addError('please enter valid email');
       }
     }
@@ -60,6 +62,16 @@ class Validator{
           sink.add(num);
         }else{
           sink.addError("Enter a valid phone number");
+        }
+      }
+  );
+
+  var selectedId = StreamTransformer<int,int>.fromHandlers(
+      handleData: (id , sink){
+        if(id != null){
+          sink.add(id);
+        }else{
+          sink.addError("Enter a valid City Id");
         }
       }
   );

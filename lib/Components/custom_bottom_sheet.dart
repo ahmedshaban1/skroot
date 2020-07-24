@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skroot/models/lists/country_model.dart';
 import 'package:skroot/theming/colors.dart';
+import 'package:skroot/ui/authentication/sign_up/sign_up_bloc.dart';
 
 class CustomBottomSheet extends StatefulWidget {
   final text;
@@ -56,9 +57,13 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                           widget.onItemClick(index);
                           if(widget.type == "city"){
                             city = widget.list[index].nameEn;
+                            print("______________________ city id ${widget.list[index].id}");
+                            signUpBloC.cityIdChanged(widget.list[index].id);
                           }
                           else{
                           country=  widget.list[index].nameEn;
+                          print("______________________ country id ${widget.list[index].id}");
+                          signUpBloC.countryIdChanged(widget.list[index].id);
                           }
                         },
                         child: Container(
