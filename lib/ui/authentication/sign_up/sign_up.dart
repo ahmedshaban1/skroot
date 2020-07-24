@@ -337,8 +337,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             StreamBuilder<bool>(
                               stream: signUpBloC.submitChanged,
                               builder: (context, snapshot) {
-                                print("_______________________________________ snapshot is ${snapshot.hasData}");
-                                print("_______________________________________ snapshot is ${snapshot.data}");
                                 return CustomButton(
                                   snapshot: snapshot.hasData,
                                   onButtonPress: () {
@@ -358,7 +356,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     }else{
                                       ErrorDialog(
                                           context: context,
-                                          title: "Please you have to fill the conditions",
+                                          title: "Please you have to fill all fields",
                                           btnAction: () {
                                             Navigator.pop(context);
                                           },

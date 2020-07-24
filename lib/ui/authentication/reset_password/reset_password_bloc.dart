@@ -31,6 +31,9 @@ class ResetPasswordBloc extends Bloc<AppEvent, AppState> with Validator {
   Stream<String> get confirmPassword => confirmPasswordController.stream.transform(confirmPassWordValidator);
   Stream<String> get password => passwordController.stream.transform(passwordValidator);
 
+  Stream<bool> get submitChanged =>
+      Rx.combineLatest2( password, confirmPassword,( p, c, )=>true);
+
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     var netUtil = NetworkUtil();

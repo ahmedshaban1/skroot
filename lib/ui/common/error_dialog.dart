@@ -31,7 +31,8 @@ void ErrorDialog(
                   children: [
                     Text(
                       title,
-                      style: TextStyle(color: Theme.of(context).primaryColor ,fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Theme.of(context).primaryColor ,fontWeight: FontWeight.bold ,) ,
+                      textAlign: TextAlign.center,
                     ),
 //                    Container(
 //                      margin: EdgeInsetsDirectional.only(top: 20),

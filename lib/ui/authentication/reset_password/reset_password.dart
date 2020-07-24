@@ -9,6 +9,7 @@ import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/authentication/reset_password/reset_password_bloc.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
+import 'package:skroot/ui/common/error_dialog.dart';
 import 'package:skroot/ui/common/loading_dialog.dart';
 class ResetPasswordPage extends StatefulWidget {
   @override
@@ -115,13 +116,29 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   );
                                 }),
                           ),
-                          CustomButton(
-                            onButtonPress: () {
-                              resetPasswordBloc.add(Click());
-                              showLoadingDialog(context);
-                            },
-                            text: AppLocalization.of(context)
-                                .getLocalizedText("re-set"),
+                          StreamBuilder<bool>(
+                            stream: resetPasswordBloc.submitChanged,
+                            builder: (context, snapshot) {
+                              return CustomButton(
+                                onButtonPress: () {
+                                  if(snapshot.hasData){
+                                    resetPasswordBloc.add(Click());
+                                    showLoadingDialog(context);
+                                  }else{
+                                    ErrorDialog(
+                                        context: context,
+                                        title: "Please you have to fill all the fields",
+                                        btnAction: () {
+                                          Navigator.pop(context);
+                                        },
+                                        buttonText: "OK");
+                                  }
+
+                                },
+                                text: AppLocalization.of(context)
+                                    .getLocalizedText("re-set"),
+                              );
+                            }
                           ),
                           SizedBox(height: 10.0,),
                         ],

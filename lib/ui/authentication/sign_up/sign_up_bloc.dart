@@ -52,7 +52,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Stream<int> get country => countryIdController.stream.transform(selectedId);
 
   Stream<bool> get submitChanged =>
-      Rx.combineLatest5( password, email, userName, city , country ,( p, e, u , s , c )=>true);
+      Rx.combineLatest5( password, email, userName, city , country ,( p, e, u , s , c)=>true);
 
 
   @override

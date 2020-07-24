@@ -30,6 +30,9 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 
   Stream<String> get password => passwordController.stream.transform(passwordValidator);
 
+//  Stream<bool> get submitChanged =>
+//      Rx.combineLatest2( password, phoneNumber ,( n ,p  )=>true);
+
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     var netUtil = NetworkUtil();

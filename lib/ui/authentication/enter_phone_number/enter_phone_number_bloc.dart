@@ -27,6 +27,8 @@ class EnterPhoneNumberBloc extends Bloc<AppEvent, AppState> with Validator {
 
   Stream<String> get phoneNumber => phoneController.stream.transform(number);
 
+
+
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     var netUtil = NetworkUtil();

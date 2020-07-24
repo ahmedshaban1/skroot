@@ -8,6 +8,7 @@ import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
+import 'package:skroot/ui/common/error_dialog.dart';
 import 'package:skroot/ui/common/loading_dialog.dart';
 
 import 'Widgets/media_container.dart';
@@ -81,20 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: StreamBuilder<String>(
                             stream: logInBloc.phoneNumber,
                             builder: (context, snapshot) {
-//                              return InputFieldArea(
-//                                icon: Padding(
-//                                  padding: const EdgeInsets.only(right:8.0 , left: 8.0),
-//                                  child: Icon(
-//                                    Icons.phone,
-//                                    color: Colors.white,
-//                                  ),
-//                                ),
-//                                hint: AppLocalization.of(context)
-//                                    .getLocalizedText("phone"),
-//                                errorTxt: snapshot.error,
-//                                changedFunction: logInBloc.updatePhone,
-//                                textInputType: TextInputType.number,
-//                              );
 
                             return Container(
                               height: 60,
@@ -129,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                                     showCountryCodes: true,
                                   showCountryFlags: false,
 
-
 //                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
                                 ),
                               ),
@@ -156,13 +142,28 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             }),
                       ),
-                      CustomButton(
-                        onButtonPress: () {
-                          logInBloc.add(Click());
-                          showLoadingDialog(context);
-                        },
-                        text: AppLocalization.of(context)
-                            .getLocalizedText("cap-login"),
+                      StreamBuilder<bool>(
+                        stream: null,
+                        builder: (context, snapshot) {
+                          return CustomButton(
+                            onButtonPress: () {
+                              if(logInBloc.phoneController.value != null && logInBloc.passwordController.value != null){
+                                logInBloc.add(Click());
+                                showLoadingDialog(context);
+                              }else{
+                                ErrorDialog(
+                                    context: context,
+                                    title: "Please you have to fill all fields",
+                                    btnAction: () {
+                                      Navigator.pop(context);
+                                    },
+                                    buttonText: "OK");
+                              }
+                            },
+                            text: AppLocalization.of(context)
+                                .getLocalizedText("cap-login"),
+                          );
+                        }
                       ),
                       InkWell(
                         onTap: () {
