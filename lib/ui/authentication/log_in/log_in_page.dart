@@ -97,13 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                                         fillColor: Color(lightThemeColors['sign-bg']),
                                       hintText: AppLocalization.of(context)
                                           .getLocalizedText("phone"),
-                                        errorText: snapshot.error,
-                                        errorStyle:  const TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 15.0,
-                                            decoration: TextDecoration.none,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'cairo'),
                                         hintStyle: const TextStyle(
                                             color: Color(0xff707070),
                                             fontSize: 15.0,
@@ -143,11 +136,12 @@ class _LoginPageState extends State<LoginPage> {
                             }),
                       ),
                       StreamBuilder<bool>(
-                        stream: null,
+                        stream: logInBloc.submitChanged,
                         builder: (context, snapshot) {
                           return CustomButton(
                             onButtonPress: () {
-                              if(logInBloc.phoneController.value != null && logInBloc.passwordController.value != null){
+                              print("____________ phone : ${logInBloc.phoneController.value})");
+                              if(snapshot.hasData){
                                 logInBloc.add(Click());
                                 showLoadingDialog(context);
                               }else{

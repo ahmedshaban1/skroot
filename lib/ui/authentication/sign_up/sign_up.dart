@@ -155,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                   fontFamily: 'cairo')
                                           ),
                                           errorText: snapshot.error,
-                                          onPhoneNumberChange:(x,y,z) =>signUpBloC.updatePhone(x),
+                                          onPhoneNumberChange:(x,y,z)=>signUpBloC.updatePhone(x),
                                           showCountryCodes: true,
                                           showCountryFlags: false,
 
