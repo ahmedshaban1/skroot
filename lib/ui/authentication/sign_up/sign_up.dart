@@ -340,6 +340,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                 return CustomButton(
                                   snapshot: snapshot.hasData,
                                   onButtonPress: () {
+                                    print("_______________ snapshot is  ${snapshot.error}" );
+
                                     if(snapshot.hasData){
                                       if (isChecked) {
                                         signUpBloC.add(Click());
