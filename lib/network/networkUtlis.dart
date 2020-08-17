@@ -18,8 +18,12 @@ class NetworkUtil {
     var response;
     try {
       dio.options.baseUrl = base_url;
-      response = await dio.get(url, options: Options(headers: headers));
+      print("HERE I COME");
+      response = await dio.get(url,options: Options(headers: headers , ) );
     } on DioError catch (e) {
+      print("HERE I COMEW");
+
+      print((e.message));
       if (e.response != null) {
         response = e.response;
       }

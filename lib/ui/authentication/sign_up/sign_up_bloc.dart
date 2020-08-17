@@ -62,6 +62,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
       SharedPreferenceManager preferenceManager = SharedPreferenceManager();
 //      var token = await preferenceManager.readString(CachingKey.AUTH_TOKEN);
       yield (Start(null));
+      print("PHONE IS ${phoneController.value}");
       var signUpResponse = await AuthenticationRepo.signUp(SignUpRequest(
           phone: "+971" + phoneController.value,
           email: emailController.value,

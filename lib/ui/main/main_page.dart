@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/main/master_page/master_page.dart';
 
+import 'account/account_page.dart';
+
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -21,7 +23,7 @@ class _MainPageState extends State<MainPage> {
     MasterPage(),
     MasterPage(),
     MasterPage(),
-    MasterPage(),
+    AccountPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,9 @@ class _MainPageState extends State<MainPage> {
       extendBody: true,
       body:_pages[_index] ,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(lightThemeColors["sign-bg"]),
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.black,
+
         onTap: (index){
           setState(() {
             _index = index;
@@ -38,6 +42,12 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _index ,
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.grey,
+        showSelectedLabels: true,
+        selectedLabelStyle: TextStyle(color: Colors.white , fontSize: 14),
+        iconSize: 30,
+        showUnselectedLabels: false,
+        selectedIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        unselectedIconTheme: IconThemeData(color: Colors.grey),
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home) , title: Text("Home")),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_basket) , title: Text("Basket")),

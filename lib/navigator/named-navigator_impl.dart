@@ -6,6 +6,7 @@ import 'package:skroot/ui/authentication/log_in/log_in_page.dart';
 import 'package:skroot/ui/authentication/reset_password/reset_password.dart';
 import 'package:skroot/ui/authentication/sign_up/sign_up.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_page.dart';
+import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_page.dart';
 import 'package:skroot/ui/main/main_page.dart';
 import 'package:skroot/ui/splash/splash_view.dart';
 
@@ -25,6 +26,7 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.ENTER_PHONE :return MaterialPageRoute(builder: (_) => EnterPhoneNumber());
       case Routes.HOME_ROUTER :return MaterialPageRoute(builder: (_) => MainPage());
       case Routes.INTRO :return MaterialPageRoute(builder: (_) => IntroPage());
+      case Routes.MY_CARS_ROUTER :return MaterialPageRoute(builder: (_) => MyCarsPage());
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());

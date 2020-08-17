@@ -40,6 +40,7 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
       SharedPreferenceManager preferenceManager = SharedPreferenceManager();
 //      var token = await preferenceManager.readString(CachingKey.AUTH_TOKEN);
       yield (Start(null));
+      print("PHONE IS ${phoneController.value}");
       var userResponse = await AuthenticationRepo.login(LoginRequest(
           phone: "+971"+phoneController.value,
           password: passwordController.value,

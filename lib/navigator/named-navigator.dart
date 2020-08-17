@@ -7,6 +7,7 @@ class Routes {
   static const RESET_PASSWORD = "RESET_PASSWORD";
   static const HOME_ROUTER = "HOME_ROUTER";
   static const ENTER_PHONE = "ENTER_PHONE";
+  static const MY_CARS_ROUTER = "MY_CARS_ROUTER";
 }
 
 abstract class NamedNavigator {
