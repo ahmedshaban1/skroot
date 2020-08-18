@@ -7,6 +7,7 @@ import 'package:skroot/ui/authentication/reset_password/reset_password.dart';
 import 'package:skroot/ui/authentication/sign_up/sign_up.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/add_car/add_car_page.dart';
+import 'package:skroot/ui/main/account/internal_screens/my_cars/edit_car/edit_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_page.dart';
 import 'package:skroot/ui/main/master_page//brands/brands_page.dart';
 import 'package:skroot/ui/main/master_page/brands/internal/parts/parts_page.dart';
@@ -39,6 +40,7 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.PRODUCT_DETAILS :return MaterialPageRoute(builder: (_) => ProductDetails());
       case Routes.ADD_CAR_TOUTER :return MaterialPageRoute(builder: (_) => AddCarPage());
       case Routes.MY_CARS_ROUTER :return MaterialPageRoute(builder: (_) => MyCarsPage());
+      case Routes.EDIT_CAR_ROUTER :return MaterialPageRoute(builder: (_) => EditCarPage(editCarArguments: settings.arguments,));
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());

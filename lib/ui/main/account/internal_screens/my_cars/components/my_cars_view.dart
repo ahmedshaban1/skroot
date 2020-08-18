@@ -5,8 +5,9 @@ import 'package:skroot/ui/main/account/internal_screens/my_cars/components/my_ca
 
 class MyCarsView extends StatelessWidget {
   final MyCarsResponse data;
+  final Function onEditClick;
 
-  const MyCarsView({Key key, this.data}) : super(key: key);
+  const MyCarsView({Key key, this.data, this.onEditClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,12 @@ class MyCarsView extends StatelessWidget {
             brandName: data.data[index].carBrand.name.en,
             modelName: data.data[index].carBrandModel.name.en,
             year: data.data[index].year.toString(),
+            onDeleteClick:(){
+
+            } ,
+            onEditClick: (){
+              onEditClick(index);
+            },
           );
     });
   }

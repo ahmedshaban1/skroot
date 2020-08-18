@@ -17,3 +17,9 @@ class AddCarRequest {
     return data;
   }
 }
+
+class EditCarArguments{
+  final int carBrandId , carModelId , carYear , carId ;
+  final String carBrandName , carModelName;
+  EditCarArguments(this.carBrandId, this.carModelId, this.carYear, this.carBrandName, this.carModelName , this.carId);
+}

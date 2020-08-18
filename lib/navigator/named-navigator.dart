@@ -14,6 +14,7 @@ class Routes {
   static const ADD_CAR_TOUTER = "ADD_CAR_TOUTER";
   static const PRODUCT_DETAILS = "PRODUCT_DETAILS";
   static const MY_CARS_ROUTER = "MY_CARS_ROUTER";
+  static const EDIT_CAR_ROUTER = "EDIT_CAR_ROUTER";
 }
 
 abstract class NamedNavigator {

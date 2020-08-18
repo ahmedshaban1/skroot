@@ -8,6 +8,7 @@ import 'package:skroot/app/appState.dart';
 import 'package:skroot/models/cars/brands/car_brands_model.dart';
 import 'package:skroot/models/cars/model/brand_model_response.dart';
 import 'package:skroot/models/lists/country_model.dart';
+import 'package:skroot/models/requests/authed_user/my_cars.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/common/error_dialog.dart';
@@ -16,17 +17,28 @@ import 'package:skroot/ui/main/account/internal_screens/my_cars/add_car/add_car_
 import 'package:skroot/ui/main/master_page/brands/get_brand_bloc.dart';
 import 'package:skroot/ui/main/master_page/brands/internal/models/get_brand_model_bloc.dart';
 
-class AddCarPage extends StatefulWidget {
+import 'edit_car_bloc.dart';
+
+class EditCarPage extends StatefulWidget {
+
+ final EditCarArguments editCarArguments;
+
+  const EditCarPage({Key key, this.editCarArguments}) : super(key: key);
   @override
-  _AddCarPageState createState() => _AddCarPageState();
+  _EditCarPageState createState() => _EditCarPageState();
 }
 
-class _AddCarPageState extends State<AddCarPage> {
-  List<CountryModel> years = [];
+class _EditCarPageState extends State<EditCarPage> {
 
+  List<CountryModel> years = [];
   @override
   void initState() {
     // TODO: implement initState
+
+    editCarBloc.updateCarBrandId(widget.editCarArguments.carBrandId);
+    editCarBloc.updateCarModel(widget.editCarArguments.carModelId);
+    editCarBloc.updateCarYear(widget.editCarArguments.carYear);
+    editCarBloc.updateCarId(widget.editCarArguments.carId);
     getBrandsBloC.add(Click());
     for (int i = 0; i < 50; i++) {
       years.add(CountryModel(
@@ -63,14 +75,14 @@ class _AddCarPageState extends State<AddCarPage> {
                         nameEn: countriesResponse.data[i].name.en));
                   }
                   return StreamBuilder<int>(
-                      stream: addCarBloc.carBrandStream,
+                      stream: editCarBloc.carBrandStream,
                       builder: (context, snapshot) {
                         return CustomBottomSheet(
-                          text: "Car Brand",
+                          text: widget.editCarArguments.carBrandName,
                           inputIcon: FontAwesomeIcons.globeAfrica,
                           list: list,
                           onItemClick: (index) {
-                            addCarBloc.updateCarBrandId(list[index].id);
+                            editCarBloc.updateCarBrandId(list[index].id);
                             getBrandModelBloC.idChanged(list[index].id);
                             getBrandModelBloC.add(Click());
                           },
@@ -78,7 +90,7 @@ class _AddCarPageState extends State<AddCarPage> {
                       });
                 } else {
                   return CustomBottomSheet(
-                      text: "Car Brand",
+                      text: widget.editCarArguments.carBrandName,
                       inputIcon: FontAwesomeIcons.globeAfrica,
                       list: [],
                       onItemClick: (index) {});
@@ -100,20 +112,20 @@ class _AddCarPageState extends State<AddCarPage> {
                         nameEn: countriesResponse.data[i].name.en));
                   }
                   return StreamBuilder<int>(
-                      stream: addCarBloc.carModelStream,
+                      stream: editCarBloc.carModelStream,
                       builder: (context, snapshot) {
                         return CustomBottomSheet(
-                          text: "Car Model",
+                          text: widget.editCarArguments.carModelName,
                           inputIcon: FontAwesomeIcons.globeAfrica,
                           list: list,
                           onItemClick: (index) {
-                            addCarBloc.updateCarModel(list[index].id);
+                            editCarBloc.updateCarModel(list[index].id);
                           },
                         );
                       });
                 } else {
                   return CustomBottomSheet(
-                      text: "Car Model",
+                      text: widget.editCarArguments.carModelName,
                       inputIcon: FontAwesomeIcons.globeAfrica,
                       list: [],
                       onItemClick: (index) {});
@@ -121,23 +133,23 @@ class _AddCarPageState extends State<AddCarPage> {
               },
             ),
             StreamBuilder<int>(
-                stream: addCarBloc.carYearStream,
+                stream: editCarBloc.carYearStream,
                 builder: (context, snapshot) {
                   return CustomBottomSheet(
-                      text: "Car Year",
+                      text: widget.editCarArguments.carYear.toString(),
                       inputIcon: FontAwesomeIcons.globeAfrica,
                       list: years,
                       onItemClick: (index) {
-                        addCarBloc.updateCarYear(years[index].id);
+                        editCarBloc.updateCarYear(years[index].id);
                       });
                 }),
             StreamBuilder<bool>(
-                stream: addCarBloc.submitChanged,
+                stream: editCarBloc.submitChanged,
                 builder: (context, snapshot) {
                   return CustomButton(
                     onButtonPress: () {
                       if(snapshot.hasData){
-                        addCarBloc.add(Click());
+                        editCarBloc.add(Click());
                         showLoadingDialog(context);
                       }else{
                         ErrorDialog(
@@ -149,7 +161,7 @@ class _AddCarPageState extends State<AddCarPage> {
                             buttonText: "OK");
                       }
                     },
-                    text: "Add Car",
+                    text: "Edit Car",
                   );
                 }
             )

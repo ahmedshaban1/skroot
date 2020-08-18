@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/models/my_cars/my_cars_response.dart';
+import 'package:skroot/models/requests/authed_user/my_cars.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/components/my_cars_view.dart';
@@ -57,6 +58,19 @@ class _MyCarsPageState extends State<MyCarsPage> {
           var data = state.model as MyCarsResponse;
           return MyCarsView(
             data: data,
+            onEditClick: (int index) async {
+              var result =await NamedNavigatorImpl().push(Routes.EDIT_CAR_ROUTER , arguments: EditCarArguments(
+                data.data[index].carBrand.id,
+                data.data[index].carBrandModel.id,
+                data.data[index].year,
+                data.data[index].carBrand.name.en,
+                data.data[index].carBrandModel.name.en,
+                data.data[index].id
+              ));
+              if(result == true){
+                myCarsBloc.add(Hydrate());
+              }
+              },
           );
         },
       ),
