@@ -17,11 +17,10 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
     primaryColor: Color(lightThemeColors['primary']),
     accentColor: Color(lightThemeColors['secondary']),
     backgroundColor: Color(lightThemeColors['surface-dim']),
-    scaffoldBackgroundColor: Color(lightThemeColors['surface-dim']),
+    scaffoldBackgroundColor: Color(lightThemeColors['surface-bright']),
     bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
     dividerColor: Color(lightThemeColors['border']),
     cardColor: Color(lightThemeColors['surface-bright']),
-    bottomAppBarColor: Colors.black,
     highlightColor: Color(lightThemeColors['primary']).withOpacity(0.1),
     colorScheme: Theme.of(context).colorScheme.copyWith(
           onPrimary: TinyColor(Color(lightThemeColors['primary'])).isLight()
@@ -88,7 +87,6 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
   );
 
   var darkTheme = ThemeData(
-
     primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
     primaryColor: Color(darkThemeColors['primary']),
@@ -98,7 +96,6 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
     bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
     dividerColor: Color(darkThemeColors['border']),
     cardColor: Color(darkThemeColors['surface-dim']),
-    bottomAppBarColor: Colors.black,
     highlightColor: Color(darkThemeColors['primary']).withOpacity(0.1),
     colorScheme: Theme.of(context).colorScheme.copyWith(
           onPrimary: TinyColor(Color(darkThemeColors['primary'])).isLight()
@@ -160,8 +157,6 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
         ),
     appBarTheme: AppBarTheme(
         elevation: 0.0,
-        iconTheme: IconThemeData(color: Colors.white ),
-        textTheme: TextTheme(title: TextStyle(color: Colors.white , fontSize: 18 )),
         color: Color(darkThemeColors['surface-dim']),
         brightness: Brightness.dark),
   );

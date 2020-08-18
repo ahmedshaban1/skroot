@@ -55,6 +55,7 @@ class SharedPreferenceManager {
     return Future.value(sharedPreferences.getString(key.value) ?? "");
   }
 }
+final preferencesManager = SharedPreferenceManager();
 
 class NotValidCacheTypeException implements Exception {
   String message() => "Not a valid cahing type";

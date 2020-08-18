@@ -68,11 +68,7 @@ class Validator{
 
   var selectedId = StreamTransformer<int,int>.fromHandlers(
       handleData: (id , sink){
-        if(id != null){
           sink.add(id);
-        }else{
-          sink.addError("Enter a valid City Id");
-        }
       }
   );
 
@@ -108,11 +104,7 @@ class Validator{
 
   var noThing = StreamTransformer<String,String>.fromHandlers(
       handleData: (num , sink){
-        if(int.parse(num) > 0){
           sink.add(num);
-        }else{
-          sink.addError('ادخل رقم اكبر من الصفر');
-        }
       }
   );
 

@@ -7,7 +7,11 @@ class Routes {
   static const RESET_PASSWORD = "RESET_PASSWORD";
   static const HOME_ROUTER = "HOME_ROUTER";
   static const ENTER_PHONE = "ENTER_PHONE";
-  static const MY_CARS_ROUTER = "MY_CARS_ROUTER";
+  static const BRANDS = "BRANDS";
+  static const PRODUCT = "PRODUCT";
+  static const MODEL = "MODEL";
+  static const PARTS = "PARTS";
+  static const PRODUCT_DETAILS = "PRODUCT_DETAILS";
 }
 
 abstract class NamedNavigator {

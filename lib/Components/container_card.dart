@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:skroot/Components/CustomNetworkImage.dart';
 class ContainerCard{
   Widget containerCard(
 
-      {String name,
+      {
+        var model,
+        String name,
         Color containerColor,
         Color textColor,
         GestureTapCallback onTap,
-        double width ,double radius ,double height , Widget widget}) {
+        double width ,double radius ,double height , bool widget}) {
     return InkWell(
       onTap: onTap,
       child: Card(
@@ -20,7 +23,20 @@ class ContainerCard{
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 30)),
               color: containerColor
           ),
-          child: widget != null ? widget : Center(
+          child: widget ?? false  ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CustomNetworkImage().imageNewWorkImage(
+                image: model.imageUrl ,
+                height: 50 ,
+                width: 50
+              ),
+              SizedBox(height: 2,),
+              Text("From" , style: TextStyle(color: Colors.black87 , fontSize: 10),),
+              Text("model.name" , style: TextStyle(color: Colors.black87 , fontSize: 13),),
+
+            ],
+          ) : Center(
               child: Text(
                 name,
                 style: TextStyle(

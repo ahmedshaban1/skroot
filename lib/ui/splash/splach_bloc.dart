@@ -2,10 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/app/appState.dart';
 import 'package:skroot/helpers/shared_preference_manger.dart';
-import 'package:skroot/models/requests/sign_up/sign_up_request.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
-import 'package:skroot/network/repos/authentication_repos.dart';
 
 class SplashBloc extends Bloc<AppEvent, AppState> {
   @override
@@ -22,7 +20,7 @@ class SplashBloc extends Bloc<AppEvent, AppState> {
       var status = await mSharedPreferenceManager.readBoolean(
           CachingKey.IS_LOGGED_IN);
       print("Status =========>" + status.toString());
-      mNamedNavigator.push(Routes.HOME_ROUTER , replace: true , clean: true);
+      mNamedNavigator.push(Routes.LOGIN_ROUTER , replace: true , clean: true);
 
 //      AuthenticationRepo
 //          .signUp(SignUpRequest(name: "Jemy",

@@ -69,18 +69,18 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 text: "My Cars",
                 onClick: () {
-                  NamedNavigatorImpl().push(Routes.MY_CARS_ROUTER );
+              //    NamedNavigatorImpl().push(Routes.MY_CARS_ROUTER );
                 },
               ),
-              ProfileItem(
-                icon: Icon(
-                  Icons.receipt,
-                  color: Colors.white,
-                  size: 14,
-                ),
-                text: "My Orders",
-                onClick: () {},
-              ),
+//              ProfileItem(
+//                icon: Icon(
+//                  Icons.receipt,
+//                  color: Colors.white,
+//                  size: 14,
+//                ),
+//                text: "My Orders",
+//                onClick: () {},
+//              ),
               ProfileItem(
                 icon: Icon(
                   Icons.credit_card,

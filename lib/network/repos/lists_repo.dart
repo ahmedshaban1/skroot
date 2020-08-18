@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:dio/dio.dart';
 import 'package:skroot/models/lists/countries_response.dart';
 import 'package:skroot/models/lists/slider_response.dart';
 import 'package:skroot/network/networkUtlis.dart';
@@ -18,7 +19,8 @@ class ListsRepo {
         CountriesResponse(), "locations/countries/$countryId/cities");
   }
 
-  static Future<IntroResponse> fetchIntroList(){
+  static Future<IntroResponse> fetchIntroList() {
     return NetworkUtil.internal().get(IntroResponse(), "general/intro-slides");
   }
+
 }

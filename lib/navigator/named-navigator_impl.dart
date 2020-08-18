@@ -6,7 +6,11 @@ import 'package:skroot/ui/authentication/log_in/log_in_page.dart';
 import 'package:skroot/ui/authentication/reset_password/reset_password.dart';
 import 'package:skroot/ui/authentication/sign_up/sign_up.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_page.dart';
-import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_page.dart';
+import 'package:skroot/ui/main/master_page//brands/brands_page.dart';
+import 'package:skroot/ui/main/master_page/brands/internal/parts/parts_page.dart';
+import 'package:skroot/ui/main/master_page/brands/internal/products/internal/product_details.dart';
+import 'package:skroot/ui/main/master_page/brands/internal/models//model_page.dart';
+import 'package:skroot/ui/main/master_page/brands/internal/products/product_page.dart';
 import 'package:skroot/ui/main/main_page.dart';
 import 'package:skroot/ui/splash/splash_view.dart';
 
@@ -26,7 +30,11 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.ENTER_PHONE :return MaterialPageRoute(builder: (_) => EnterPhoneNumber());
       case Routes.HOME_ROUTER :return MaterialPageRoute(builder: (_) => MainPage());
       case Routes.INTRO :return MaterialPageRoute(builder: (_) => IntroPage());
-      case Routes.MY_CARS_ROUTER :return MaterialPageRoute(builder: (_) => MyCarsPage());
+      case Routes.BRANDS :return MaterialPageRoute(builder: (_) => BrandsPage(models: settings.arguments,));
+      case Routes.MODEL :return MaterialPageRoute(builder: (_) => ModelPage());
+      case Routes.PARTS :return MaterialPageRoute(builder: (_) => PartsPage(models: settings.arguments,));
+      case Routes.PRODUCT :return MaterialPageRoute(builder: (_) => ProductPage());
+      case Routes.PRODUCT_DETAILS :return MaterialPageRoute(builder: (_) => ProductDetails());
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());

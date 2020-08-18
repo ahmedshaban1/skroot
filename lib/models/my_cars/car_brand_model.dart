@@ -1,6 +1,5 @@
-import 'package:skroot/models/my_cars/name_model.dart';
+  import 'package:skroot/models/my_cars/name_model.dart';
 
-import 'package:skroot/models/my_cars/name_model.dart';
 
 class CarBrand {
   int id;

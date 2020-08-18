@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:skroot/app/appEvent.dart';
@@ -26,9 +27,9 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 
   Function(String) get updatePassword => passwordController.sink.add;
 
-  Stream<String> get phoneNumber => phoneController.stream.transform(number);
+  Stream<String> get phoneNumber => phoneController.stream.transform(noThing);
 
-  Stream<String> get password => passwordController.stream.transform(passwordValidator);
+  Stream<String> get password => passwordController.stream.transform(noThing);
 
   Stream<bool> get submitChanged =>
       Rx.combineLatest2( password, phoneNumber ,( n ,p  )=>true);
@@ -63,15 +64,12 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 
       else {
         NamedNavigatorImpl().pop();
-        Fluttertoast.showToast(
-            msg: userResponse.message.toString(),
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black87,
-            textColor: Colors.purple,
-            fontSize: 16.0
-        );
+        if(userResponse.field == "phone"){
+          phoneController.sink.addError(userResponse.message.toString());
+        }else{
+          passwordController.sink.addError(userResponse.message.toString());
+        }
+
       }
     }
 

@@ -49,6 +49,9 @@ dependencies:
   pin_entry_text_field: ^0.1.4
   introduction_screen: ^1.0.7
   international_phone_input: ^1.0.4
+  flutter_swiper: ^1.1.6
+  country_code_picker: ^1.4.0
+
 
 
   font_awesome_flutter:

@@ -82,7 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: StreamBuilder<String>(
                             stream: logInBloc.phoneNumber,
                             builder: (context, snapshot) {
-
                             return Container(
                               height: 60,
                               decoration: BoxDecoration(
@@ -97,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                                         fillColor: Color(lightThemeColors['sign-bg']),
                                       hintText: AppLocalization.of(context)
                                           .getLocalizedText("phone"),
+                                        errorText: snapshot.error,
                                         hintStyle: const TextStyle(
                                             color: Color(0xff707070),
                                             fontSize: 15.0,

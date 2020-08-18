@@ -40,12 +40,12 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Stream<String> get phoneNumber => phoneController.stream.transform(number);
 
   Stream<String> get userName =>
-      userNameController.stream.transform(nameValidator);
+      userNameController.stream.transform(noThing);
 
   Stream<String> get password =>
-      passwordController.stream.transform(passwordValidator);
+      passwordController.stream.transform(noThing);
 
-  Stream<String> get email => emailController.stream.transform(emailValidator);
+  Stream<String> get email => emailController.stream.transform(noThing);
 
   Stream<int> get city => cityIdController.stream.transform(selectedId);
 
@@ -85,15 +85,14 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
 
         NamedNavigatorImpl().push(Routes.SEND_CODE, arguments: "createAccount");
       } else {
+        if(signUpResponse.field.contains("email")){
+          emailController.sink.addError(signUpResponse.message);
+        }else if(signUpResponse.field.contains("name")){
+          userNameController.sink.addError(signUpResponse.message);
+        }else if(signUpResponse.field.contains("phone")){
+          phoneController.sink.addError(signUpResponse.message);
+        }
         NamedNavigatorImpl().pop();
-        Fluttertoast.showToast(
-            msg: signUpResponse.message.toString(),
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black,
-            textColor: Colors.purple,
-            fontSize: 16.0);
       }
     }
   }
