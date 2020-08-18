@@ -27,8 +27,8 @@ class _MyCarsPageState extends State<MyCarsPage> {
         title: Text("My cars"),
       ),
       floatingActionButton: RaisedButton(
-        onPressed: () {
-          var result = NamedNavigatorImpl().push(Routes.ADD_CAR_TOUTER);
+        onPressed: () async {
+          var result =await NamedNavigatorImpl().push(Routes.ADD_CAR_TOUTER);
           if(result == true){
             myCarsBloc.add(Hydrate());
           }

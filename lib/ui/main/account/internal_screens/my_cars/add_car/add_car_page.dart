@@ -28,9 +28,9 @@ class _AddCarPageState extends State<AddCarPage> {
   void initState() {
     // TODO: implement initState
     getBrandsBloC.add(Click());
-    for (int i = 1; i < 50; i++) {
+    for (int i = 0; i < 50; i++) {
       years.add(CountryModel(
-          id: 1970 + i, nameAr: (1970 + i).toString(), nameEn: (1970 + i).toString()));
+          id: DateTime.now().year - 1, nameAr: (DateTime.now().year - i).toString(), nameEn: (DateTime.now().year - i).toString()));
     }
     super.initState();
   }

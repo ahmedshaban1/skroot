@@ -48,7 +48,6 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
           fcm_token: "TEST",
           os: "ios"));
 
-
       if(userResponse.field == ""){
 //        Fluttertoast.showToast(
 //            msg: userResponse.message.toString(),
@@ -59,14 +58,25 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 //            textColor: Colors.purple,
 //            fontSize: 16.0
 //        );
+      SharedPreferenceManager().writeData(CachingKey.AUTH_TOKEN, "Bearer "+userResponse.accessToken.token);
+      SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
+//      SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
       }
 
       else {
         NamedNavigatorImpl().pop();
         if(userResponse.field == "phone"){
-          phoneController.sink.addError(userResponse.message.toString());
-        }else{
+          Fluttertoast.showToast(
+            msg: userResponse.message.toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black87,
+            textColor: Colors.purple,
+            fontSize: 16.0
+        );
+          }else{
           passwordController.sink.addError(userResponse.message.toString());
         }
 

@@ -20,7 +20,14 @@ class SplashBloc extends Bloc<AppEvent, AppState> {
       var status = await mSharedPreferenceManager.readBoolean(
           CachingKey.IS_LOGGED_IN);
       print("Status =========>" + status.toString());
-      mNamedNavigator.push(Routes.LOGIN_ROUTER , replace: true , clean: true);
+      if(status){
+        mNamedNavigator.push(Routes.HOME_ROUTER , replace: true , clean: true);
+
+      }
+      else {
+        mNamedNavigator.push(Routes.LOGIN_ROUTER , replace: true , clean: true);
+
+      }
 
 //      AuthenticationRepo
 //          .signUp(SignUpRequest(name: "Jemy",

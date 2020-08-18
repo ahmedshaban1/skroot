@@ -63,7 +63,7 @@ shownText =     widget.text;
                           Navigator.pop(context);
                           widget.onItemClick(index);
                           setState(() {
-
+                            shownText = widget.list[index].nameEn;
                           });
                         },
                         child: Container(
@@ -95,21 +95,11 @@ shownText =     widget.text;
               Expanded(
                   child: Row(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right:8.0 , left: 8.0),
-                    child: Icon(
-                      widget.inputIcon,
-                      color: Colors.white,
-                    ),
-                  ),
                   SizedBox(
                     width: 25,
                   ),
 
-                  Text(widget.text,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(lightThemeColors["sign-text"])))
+                  Text(shownText, style: TextStyle(fontWeight: FontWeight.bold, color: Color(lightThemeColors["sign-text"])))
                 ],
               )),
               Padding(

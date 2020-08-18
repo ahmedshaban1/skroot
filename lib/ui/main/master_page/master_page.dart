@@ -36,6 +36,8 @@ class _MasterPageState extends State<MasterPage> {
       backgroundColor: Color(lightThemeColors["sign-bg"]),
         body: Stack(
           children: <Widget>[
+            Image.asset("assets/images/home_image_bg.png",fit: BoxFit.cover , width:double.infinity,height: 200,),
+            Image.asset("assets/images/home_bg.png",fit: BoxFit.cover, width: double.infinity , height: 200,),
             BlocBuilder(
               bloc: getBrandsBloC,
               builder: (_,state){

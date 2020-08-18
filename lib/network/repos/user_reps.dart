@@ -21,21 +21,21 @@ class UserDataRepo
     map["Content-Type"] = "application/json";
     map["Accept"] = "application/json";
     map["Authorization"] = token;
-    return NetworkUtil.internal().post(EmptyModel(), "cars" , headers: map , body: addCarRequest);
+    return NetworkUtil.internal().post(EmptyModel(), "auth-customer/cars" , headers: map , body: addCarRequest);
   }
   static Future<EmptyModel> updateMyCar(AddCarRequest addCarRequest ,String token , int carId){
     Map<String , String> map = Map();
     map["Content-Type"] = "application/json";
     map["Accept"] = "application/json";
     map["Authorization"] = token;
-    return NetworkUtil.internal().put(EmptyModel(), "cars/$carId" , headers: map , body: addCarRequest);
+    return NetworkUtil.internal().put(EmptyModel(), "auth-customer/cars/$carId" , headers: map , body: addCarRequest);
   }
   static Future<EmptyModel> deleteCar(String token , int carId){
     Map<String , String> map = Map();
     map["Content-Type"] = "application/json";
     map["Accept"] = "application/json";
     map["Authorization"] = token;
-    return NetworkUtil.internal().delete(EmptyModel(), "cars/$carId" , headers: map);
+    return NetworkUtil.internal().delete(EmptyModel(), "auth-customer/cars/$carId" , headers: map);
   }
 
 }

@@ -50,6 +50,7 @@ class AddCarBloc extends Bloc<AppEvent, AppState> with Validator {
               year: carYear.value), token);
 
       if(response.id != 0){
+        NamedNavigatorImpl().pop();
         NamedNavigatorImpl().pop(result: true);
       }
       else {
