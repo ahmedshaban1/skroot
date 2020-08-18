@@ -8,7 +8,7 @@ class EmptyModel extends BaseMappable {
 
   @override
   Mappable fromJson(Map<String, dynamic> json) {
-    message = json['message'];
+    message = json['message']??"";
     field = json['field']??"";
     return EmptyModel(message: message , field: field);
   }
