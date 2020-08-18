@@ -26,7 +26,7 @@ class MyCarItem extends StatelessWidget {
         )
       ],
       actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.5,
+      actionExtentRatio: 0.25,
       child: Container(
         margin: EdgeInsets.all(10),
         padding: EdgeInsets.zero,
