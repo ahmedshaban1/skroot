@@ -68,7 +68,11 @@ class Validator{
 
   var selectedId = StreamTransformer<int,int>.fromHandlers(
       handleData: (id , sink){
+        if(id != null || id != 0) {
           sink.add(id);
+        } else {
+          sink.addError("Select Valid ID");
+        }
       }
   );
 

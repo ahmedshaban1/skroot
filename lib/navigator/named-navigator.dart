@@ -11,7 +11,9 @@ class Routes {
   static const PRODUCT = "PRODUCT";
   static const MODEL = "MODEL";
   static const PARTS = "PARTS";
+  static const ADD_CAR_TOUTER = "ADD_CAR_TOUTER";
   static const PRODUCT_DETAILS = "PRODUCT_DETAILS";
+  static const MY_CARS_ROUTER = "MY_CARS_ROUTER";
 }
 
 abstract class NamedNavigator {

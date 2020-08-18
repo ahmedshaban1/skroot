@@ -45,6 +45,34 @@ class NetworkUtil {
     }
     return handleResponse(response , responseType);
   }
+  Future<ResponseType> put<ResponseType extends Mappable>(ResponseType responseType,String url,
+      {Map headers, var body, encoding}) async {
+    var response;
+    dio.options.baseUrl =base_url;
+    try {
+      print(headers);
+      response = await dio.put(url, data: jsonEncode(body), options: Options(headers: headers, requestEncoder: encoding));
+    } on DioError catch (e) {
+      if (e.response != null) {
+        response = e.response;
+      }
+    }
+    return handleResponse(response , responseType);
+  }
+  Future<ResponseType> delete<ResponseType extends Mappable>(ResponseType responseType,String url,
+      {Map headers, var body, encoding}) async {
+    var response;
+    dio.options.baseUrl =base_url;
+    try {
+      print(headers);
+      response = await dio.delete(url, data: jsonEncode(body), options: Options(headers: headers, requestEncoder: encoding));
+    } on DioError catch (e) {
+      if (e.response != null) {
+        response = e.response;
+      }
+    }
+    return handleResponse(response , responseType);
+  }
 
   ResponseType handleResponse<ResponseType extends Mappable>(Response response , ResponseType responseType)  {
     final int statusCode = response.statusCode;

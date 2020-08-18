@@ -356,13 +356,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                             buttonText: "OK");
                                       }
                                     }else{
-                                      ErrorDialog(
-                                          context: context,
-                                          title: "Please you have to fill all fields",
-                                          btnAction: () {
-                                            Navigator.pop(context);
-                                          },
-                                          buttonText: "OK");
                                     }
 
                                   },

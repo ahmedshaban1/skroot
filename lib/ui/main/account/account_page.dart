@@ -69,7 +69,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 text: "My Cars",
                 onClick: () {
-              //    NamedNavigatorImpl().push(Routes.MY_CARS_ROUTER );
+                  NamedNavigatorImpl().push(Routes.MY_CARS_ROUTER );
                 },
               ),
 //              ProfileItem(
