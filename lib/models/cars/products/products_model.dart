@@ -35,7 +35,7 @@ class Data {
   CarBrand partCategory;
   int year;
   double price;
-
+  List<String> imageUrls;
   Data(
       {this.id,
         this.name,
@@ -44,6 +44,7 @@ class Data {
         this.carBrandModel,
         this.partCategory,
         this.year,
+        this.imageUrls,
         this.price});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -63,6 +64,7 @@ class Data {
         : null;
     year = json['year'];
     price = json['price'];
+    imageUrls = json['images_urls'].cast<String>();
   }
 
 

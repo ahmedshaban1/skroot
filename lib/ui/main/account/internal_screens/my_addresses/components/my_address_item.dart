@@ -11,6 +11,7 @@ class MyAddressItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      closeOnScroll: true,
       actions: <Widget>[
         IconSlideAction(
           caption: 'Delete',
@@ -32,19 +33,23 @@ class MyAddressItem extends StatelessWidget {
         padding: EdgeInsets.zero,
 
         width: MediaQuery.of(context).size.width,
-        height: 140,
         decoration: BoxDecoration(
           color: Colors.black,
               borderRadius: BorderRadius.circular(15),
 
         ),
-        child: Column(
-          children: <Widget>[
-            Text(title , style: TextStyle(color: Colors.white , fontSize: 16 , fontWeight: FontWeight.bold) ,textAlign: TextAlign.start,),
-            SizedBox(height: 5,),
-            Text( address, style: TextStyle(color: Colors.grey , fontSize: 14 , fontWeight: FontWeight.normal),textAlign: TextAlign.start),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(title , style: TextStyle(color: Colors.white , fontSize: 16 , fontWeight: FontWeight.bold) ,textAlign: TextAlign.start,),
+              SizedBox(height: 5,),
+              Text( address, style: TextStyle(color: Colors.grey , fontSize: 14 , fontWeight: FontWeight.normal),textAlign: TextAlign.start),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

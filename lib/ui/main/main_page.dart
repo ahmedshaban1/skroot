@@ -21,8 +21,8 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _pages = [
     MasterPage(),
-    MasterPage(),
-    MasterPage(),
+    Center(child: Text("Basket"),),
+    Center(child: Text("Notifications"),),
     AccountPage(),
   ];
   @override

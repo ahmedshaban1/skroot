@@ -22,9 +22,9 @@ class AddAddressRequest {
   }
 }
 class EditAddressArguments{
-  final int cityId , zipCode , countryId    ;
-  final String cityName , countryName , street ,title ;
+  final int cityId , zipCode , countryId  , addressId   ;
+  final String cityName , countryName , street ,title  , phone;
 
-  EditAddressArguments({this.cityId, this.zipCode, this.countryId, this.cityName, this.countryName, this.street, this.title});
+  EditAddressArguments( {this.addressId,this.phone, this.cityId, this.zipCode, this.countryId, this.cityName, this.countryName, this.street, this.title});
 
 }

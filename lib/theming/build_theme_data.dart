@@ -82,7 +82,9 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
         ),
     appBarTheme: AppBarTheme(
         elevation: 0.0,
-        color: Color(lightThemeColors['surface-bright']),
+        textTheme: TextTheme(title: TextStyle(color: Colors.white)),
+        color: Color(lightThemeColors['surface-dim']),
+        iconTheme: IconThemeData(color: Colors.white),
         brightness: Brightness.light),
   );
 

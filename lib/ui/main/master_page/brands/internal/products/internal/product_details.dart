@@ -83,11 +83,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                     Text(
-                      "Descriptions",
+                      "Description",
                       style: Theme.of(context).textTheme.title.copyWith(
                         fontSize: 18
                       ),
                       textAlign: TextAlign.start,
+                    ),
+                    Text(
+                      widget.model.description.en,
+                      textAlign: TextAlign.start,
+                      maxLines: 100,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -122,12 +127,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                       ],
                     ),
-                    Text(
-                      widget.model.description.en,
-                      textAlign: TextAlign.start,
-                      maxLines: 100,
-                    ),
-
                     CustomButton(
                       onButtonPress: () {
                       },

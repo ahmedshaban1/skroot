@@ -5,6 +5,7 @@ import 'package:skroot/models/my_cars/my_cars_response.dart';
 import 'package:skroot/models/requests/authed_user/my_cars.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
+import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/components/my_cars_view.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_bloc.dart';
 
@@ -23,6 +24,7 @@ class _MyCarsPageState extends State<MyCarsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(lightThemeColors["surface-dim"]),
       appBar: AppBar(
         centerTitle: true,
         title: Text("My cars"),
@@ -71,6 +73,11 @@ class _MyCarsPageState extends State<MyCarsPage> {
                 myCarsBloc.add(Hydrate());
               }
               },
+            onDeleteClick: (int id){
+              myCarsBloc.updateCarId(id);
+              myCarsBloc.add(Delete());
+            },
+
           );
         },
       ),

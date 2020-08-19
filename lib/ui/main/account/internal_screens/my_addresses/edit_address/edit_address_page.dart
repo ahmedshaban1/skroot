@@ -11,6 +11,7 @@ import 'package:skroot/models/cars/brands/car_brands_model.dart';
 import 'package:skroot/models/cars/model/brand_model_response.dart';
 import 'package:skroot/models/lists/countries_response.dart';
 import 'package:skroot/models/lists/country_model.dart';
+import 'package:skroot/models/requests/authed_user/my_addresses.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/authentication/sign_up/cities_bloc.dart';
@@ -26,19 +27,30 @@ import 'package:skroot/ui/main/account/internal_screens/my_addresses/add_address
 import 'package:skroot/ui/main/account/internal_screens/my_addresses/add_address/add_address_bloc.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_addresses/add_address/add_address_bloc.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_addresses/add_address/add_address_bloc.dart';
+import 'package:skroot/ui/main/account/internal_screens/my_addresses/edit_address/edit_address_bloc.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/add_car/add_car_bloc.dart';
 import 'package:skroot/ui/main/master_page/brands/get_brand_bloc.dart';
 import 'package:skroot/ui/main/master_page/brands/internal/models/get_brand_model_bloc.dart';
 
-class AddAddressPage extends StatefulWidget {
+class EditAddressPage extends StatefulWidget {
+  final EditAddressArguments editAddressArguments;
+
+  const EditAddressPage({Key key, this.editAddressArguments}) : super(key: key);
   @override
-  _AddAddressPageState createState() => _AddAddressPageState();
+  _EditAddressPageState createState() => _EditAddressPageState();
 }
 
-class _AddAddressPageState extends State<AddAddressPage> {
+class _EditAddressPageState extends State<EditAddressPage> {
 
   @override
   void initState() {
+    editAddressBloc.updateAddressId(widget.editAddressArguments.addressId);
+    editAddressBloc.updatePhoneNumber(widget.editAddressArguments.phone );
+    editAddressBloc.updateStreet(widget.editAddressArguments.street);
+    editAddressBloc.updateTitle(widget.editAddressArguments.title);
+    editAddressBloc.updateCityId(widget.editAddressArguments.cityId);
+    editAddressBloc.updateCountryId(widget.editAddressArguments.countryId);
+    editAddressBloc.updateZipCode(widget.editAddressArguments.zipCode);
       countriesBloc.add(Hydrate());
     super.initState();
   }
@@ -52,8 +64,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
       },
       child: Scaffold(
         backgroundColor: Color(lightThemeColors["surface-dim"]),
+
         appBar: AppBar(
-          title: Text("Add Address"),
+          title: Text("Edit Address"),
         ),
         body: ListView(
           padding: EdgeInsets.all(15),
@@ -62,9 +75,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StreamBuilder<String>(
-                  stream: addAddressBloc.titleStream,
+                  stream: editAddressBloc.titleStream,
                   builder: (context, snapshot) {
                     return InputFieldArea(
+
                       icon: Padding(
                         padding: const EdgeInsets.only(
                             right: 8.0, left: 8.0),
@@ -75,7 +89,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       ),
                       hint: "full name",
                       errorTxt: snapshot.error,
-                      changedFunction: addAddressBloc.updateTitle,
+                      changedFunction: editAddressBloc.updateTitle,
                       textInputType: TextInputType.text,
                       inputFieldWithBorder: false,
 
@@ -85,7 +99,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StreamBuilder<String>(
-                  stream: addAddressBloc.streetStream,
+                  stream: editAddressBloc.streetStream,
                   builder: (context, snapshot) {
                     return InputFieldArea(
                       icon: Padding(
@@ -98,7 +112,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       ),
                       hint: "Street",
                       errorTxt: snapshot.error,
-                      changedFunction: addAddressBloc.updateStreet,
+                      changedFunction: editAddressBloc.updateStreet,
                       textInputType: TextInputType.text,
                       inputFieldWithBorder: false,
 
@@ -120,14 +134,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         nameEn: countriesResponse.data[i].nameEn));
                   }
                   return StreamBuilder<int>(
-                      stream: addAddressBloc.countryIdStream,
+                      stream: editAddressBloc.countryIdStream,
                       builder: (context, snapshot) {
                         return CustomBottomSheet(
-                          text: "Country",
+                          text: widget.editAddressArguments.countryName,
                           inputIcon: FontAwesomeIcons.globeAfrica,
                           list: list,
                           onItemClick: (index) {
-                            addAddressBloc.updateCountryId(list[index].id);
+                            editAddressBloc.updateCountryId(list[index].id);
                             citiesBloc.updateCountryId(list[index].id);
                             citiesBloc.add(Click());
                           },
@@ -135,7 +149,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       });
                 } else {
                   return CustomBottomSheet(
-                      text: "Country",
+                      text: widget.editAddressArguments.countryName,
                       inputIcon: FontAwesomeIcons.globeAfrica,
                       list: [],
                       onItemClick: (index) {});
@@ -162,20 +176,20 @@ class _AddAddressPageState extends State<AddAddressPage> {
                                 nameEn: countriesResponse.data[i].nameEn));
                           }
                           return StreamBuilder<int>(
-                              stream: addAddressBloc.cityIdStream,
+                              stream: editAddressBloc.cityIdStream,
                               builder: (context, snapshot) {
                                 return CustomBottomSheet(
-                                  text: "City",
+                                  text: widget.editAddressArguments.cityName,
                                   inputIcon: FontAwesomeIcons.globeAfrica,
                                   list: list,
                                   onItemClick: (index) {
-                                    addAddressBloc.updateCityId(list[index].id);
+                                    editAddressBloc.updateCityId(list[index].id);
                                   },
                                 );
                               });
                         } else {
                           return CustomBottomSheet(
-                              text: "City",
+                              text: widget.editAddressArguments.cityName,
                               inputIcon: FontAwesomeIcons.globeAfrica,
                               list: [],
                               onItemClick: (index) {});
@@ -185,7 +199,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   ),
                   Expanded(
                     child: StreamBuilder<int>(
-                        stream: addAddressBloc.zipCode,
+                        stream: editAddressBloc.zipCode,
                         builder: (context, snapshot) {
                           return InputFieldArea(
                             icon: Padding(
@@ -199,7 +213,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             hint: "ZIP Code",
                             errorTxt: snapshot.error,
                             changedFunction: (data) {
-                              addAddressBloc.updateZipCode(int.parse(data));
+                              editAddressBloc.updateZipCode(int.parse(data));
                             },
                             textInputType: TextInputType.number,
                             inputFieldWithBorder: false,
@@ -212,7 +226,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StreamBuilder<String>(
-                  stream: addAddressBloc.phoneNumberStream,
+                  stream: editAddressBloc.phoneNumberStream,
                   builder: (context, snapshot) {
                     return InputFieldArea(
                       icon: Padding(
@@ -225,19 +239,19 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       ),
                       hint: "Phone Number",
                       errorTxt: snapshot.error,
-                      changedFunction: addAddressBloc.updatePhoneNumber,
+                      changedFunction: editAddressBloc.updatePhoneNumber,
                       textInputType: TextInputType.phone,
                       inputFieldWithBorder: false,
                     );
                   }),
             ),
             StreamBuilder<bool>(
-                stream: addAddressBloc.submitChanged,
+                stream: editAddressBloc.submitChanged,
                 builder: (context, snapshot) {
                   return CustomButton(
                     onButtonPress: () {
                       if(snapshot.hasData){
-                        addAddressBloc.add(Click());
+                        editAddressBloc.add(Click());
                         showLoadingDialog(context);
                       }else{
                         ErrorDialog(
@@ -249,7 +263,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             buttonText: "OK");
                       }
                     },
-                    text: "Add Address",
+                    text: "Edit Address",
                   );
                 }
             )

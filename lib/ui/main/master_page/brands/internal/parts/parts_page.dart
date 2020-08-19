@@ -70,7 +70,6 @@ class _PartsPageState extends State<PartsPage> {
                                               carPartId: model.data[index].id,
                                               carBrandId: widget.model.carBrandId,
                                               carBrandModelId: widget.model.carBrandModelId
-
                                           ));
 
 

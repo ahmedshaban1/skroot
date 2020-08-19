@@ -27,7 +27,7 @@ class ModelCard extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: Colors.black87,
                       image: DecorationImage(
-                          image: Image.asset("assets/images/logo.png").image,
+                          image: Image.network(model.imageUrl).image,
                           fit: BoxFit.cover)),
                 ),
                 SizedBox(

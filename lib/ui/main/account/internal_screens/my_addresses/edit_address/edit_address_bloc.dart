@@ -11,11 +11,12 @@ import 'package:skroot/models/requests/authed_user/my_addresses.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/network/repos/user_reps.dart';
 
-class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
+class EditAddressBloc extends Bloc<AppEvent, AppState> with Validator {
   @override
   AppState get initialState => Start(null);
 
   final cityId = BehaviorSubject<int>();
+  final addressId = BehaviorSubject<int>();
   final countryId = BehaviorSubject<int>();
   final zipCode = BehaviorSubject<int>();
 
@@ -24,6 +25,8 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
   final phoneNumber = BehaviorSubject<String>();
 
   Function(int) get updateCityId => cityId.sink.add;
+
+  Function(int) get updateAddressId => addressId.sink.add;
 
   Function(int) get updateCountryId => countryId.sink.add;
 
@@ -41,7 +44,7 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
 
   Stream<int> get zipCodeStream => zipCode.stream.transform(selectedId);
 
-  Stream<String> get titleStream => title.stream.transform(addressValidator);
+  Stream<String> get titleStream => title.stream.transform(nameValidator);
 
   Stream<String> get streetStream => street.stream.transform(nameValidator);
 
@@ -65,7 +68,7 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
 
       var token =
           await mSharedPreferenceManager.readString(CachingKey.AUTH_TOKEN);
-      EmptyModel response = await UserDataRepo.addAddressRequest(
+      EmptyModel response = await UserDataRepo.updateMyAddress(
           AddAddressRequest(
               title: title.value,
               phone: phoneNumber.value,
@@ -73,7 +76,8 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
               country_id: countryId.value,
               street: street.value,
               zip_code: zipCode.value),
-          token);
+          token,
+          addressId.value);
 
       if (response.id != 0) {
         NamedNavigatorImpl().pop();
@@ -98,7 +102,8 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
     title.close();
     street.close();
     phoneNumber.close();
+    addressId.close();
   }
 }
 
-final addAddressBloc = AddAddressBloc();
+final editAddressBloc = EditAddressBloc();

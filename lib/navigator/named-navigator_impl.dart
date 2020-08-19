@@ -6,6 +6,10 @@ import 'package:skroot/ui/authentication/log_in/log_in_page.dart';
 import 'package:skroot/ui/authentication/reset_password/reset_password.dart';
 import 'package:skroot/ui/authentication/sign_up/sign_up.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_page.dart';
+import 'package:skroot/ui/filter/filter_page.dart';
+import 'package:skroot/ui/main/account/internal_screens/my_addresses/add_address/add_address_page.dart';
+import 'package:skroot/ui/main/account/internal_screens/my_addresses/edit_address/edit_address_page.dart';
+import 'package:skroot/ui/main/account/internal_screens/my_addresses/my_addresses_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/add_car/add_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/edit_car/edit_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_page.dart';
@@ -43,6 +47,10 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.MY_CARS_ROUTER :return MaterialPageRoute(builder: (_) => MyCarsPage());
       case Routes.TOPICS :return MaterialPageRoute(builder: (_) => Topics(type:settings.arguments));
       case Routes.EDIT_CAR_ROUTER :return MaterialPageRoute(builder: (_) => EditCarPage(editCarArguments: settings.arguments,));
+      case Routes.ADD_ADDRESS_ROUTER :return MaterialPageRoute(builder: (_) => AddAddressPage());
+      case Routes.MY_ADDRESSES_ROUTER :return MaterialPageRoute(builder: (_) => MyAddressesPage());
+      case Routes.EDIT_ADDRESSES_ROUTER :return MaterialPageRoute(builder: (_) => EditAddressPage(editAddressArguments: settings.arguments,));
+      case Routes.FILTER_PAGE_ROUTER :return MaterialPageRoute(builder: (_) => FilterPage());
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());

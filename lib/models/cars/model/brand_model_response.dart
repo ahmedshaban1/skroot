@@ -40,12 +40,14 @@ class BrandsModelResponse extends BaseMappable{
 class Data {
   int id;
   Name name;
+  String imageUrl;
 
-  Data({this.id, this.name});
+  Data({this.id, this.name , this.imageUrl});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'] != null ? new Name.fromJson(json['name']) : null;
+    imageUrl = json['image_url'] ??"";
   }
 
 }

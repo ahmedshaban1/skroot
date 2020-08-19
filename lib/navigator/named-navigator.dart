@@ -16,6 +16,10 @@ class Routes {
   static const MY_CARS_ROUTER = "MY_CARS_ROUTER";
   static const EDIT_CAR_ROUTER = "EDIT_CAR_ROUTER";
   static const TOPICS = "TOPICS";
+  static const ADD_ADDRESS_ROUTER = "ADD_ADDRESS_ROUTER";
+  static const MY_ADDRESSES_ROUTER = "MY_ADDRESSES_ROUTER";
+  static const EDIT_ADDRESSES_ROUTER = "EDIT_ADDRESSES_ROUTER";
+  static const FILTER_PAGE_ROUTER = "FILTER_PAGE_ROUTER";
 }
 
 abstract class NamedNavigator {

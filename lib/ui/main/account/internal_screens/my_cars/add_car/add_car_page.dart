@@ -9,6 +9,7 @@ import 'package:skroot/models/cars/brands/car_brands_model.dart';
 import 'package:skroot/models/cars/model/brand_model_response.dart';
 import 'package:skroot/models/lists/country_model.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
+import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/common/error_dialog.dart';
 import 'package:skroot/ui/common/loading_dialog.dart';
@@ -43,6 +44,7 @@ class _AddCarPageState extends State<AddCarPage> {
         return;
       },
       child: Scaffold(
+        backgroundColor: Color(lightThemeColors["surface-dim"]),
         appBar: AppBar(
           title: Text("add car"),
         ),
