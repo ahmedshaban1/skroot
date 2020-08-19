@@ -23,5 +23,6 @@
   "forget-password" : "Reset Password",
   "sub-reset" : "Please set your new password",
   "sub-forget" : "Please set your new password",
-  "re-set" : "Re-set"
+  "re-set" : "Re-set",
+  "home" : "Find Your Part"
 }

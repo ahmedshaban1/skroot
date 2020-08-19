@@ -112,6 +112,12 @@ class Validator{
       }
   );
 
+  var noThingBool = StreamTransformer<bool,bool>.fromHandlers(
+      handleData: (num , sink){
+        sink.add(num);
+      }
+  );
+
   var linkValidator = StreamTransformer<String,String>.fromHandlers(
       handleData: (link , sink){
         if(link.contains("http")){

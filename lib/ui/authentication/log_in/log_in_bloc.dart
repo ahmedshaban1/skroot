@@ -60,6 +60,11 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 //        );
       SharedPreferenceManager().writeData(CachingKey.AUTH_TOKEN, "Bearer "+userResponse.accessToken.token);
       SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
+      preferenceManager.writeData(CachingKey.USER_ID, userResponse.user.id);
+      preferenceManager.writeData(CachingKey.AUTH_TOKEN, "Bearer "+userResponse.accessToken.token);
+      preferenceManager.writeData(CachingKey.USER_IMAGE, userResponse.user.avatarUrl);
+      preferenceManager.writeData(CachingKey.USER_NAME, userResponse.user.name);
+      preferenceManager.writeData(CachingKey.MOBILE_NUMBER, userResponse.user.phone);
 //      SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
       }

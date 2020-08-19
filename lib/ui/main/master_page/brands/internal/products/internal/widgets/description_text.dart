@@ -10,7 +10,7 @@ class CustomDescriptionText extends StatelessWidget {
       children: <Widget>[
         Text(type),
         SizedBox(width: 5,),
-        Text(txt , style: TextStyle(color: Colors.white),),
+        Text(txt , style: TextStyle(color: Colors.white),overflow: TextOverflow.ellipsis,),
 
       ],
     );

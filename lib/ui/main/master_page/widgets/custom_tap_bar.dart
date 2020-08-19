@@ -2,10 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:skroot/Components/container_card.dart';
 import 'package:skroot/theming/colors.dart';
+import 'package:skroot/ui/main/master_page/widgets/pages/pages_streams.dart';
+// ignore: must_be_immutable
 class CustomTabBar extends StatefulWidget {
   final list ;
+  bool showNewParts ;
+  bool showUsedParts ;
+  bool showAccessories ;
 
-  const CustomTabBar({Key key, this.list}) : super(key: key);
+   CustomTabBar({Key key, this.list, this.showNewParts, this.showUsedParts, this.showAccessories}) : super(key: key);
   @override
   _CustomTabBarState createState() => _CustomTabBarState();
 }
@@ -17,7 +22,6 @@ class _CustomTabBarState extends State<CustomTabBar> {
     return Container(
       margin: EdgeInsets.only(right :15.0 , left :15.0),
       height:  45,
-      color: Color(lightThemeColors["sign-bg"]),
       alignment: Alignment.center,
       width: width,
       child: ListView.builder(
@@ -36,9 +40,24 @@ class _CustomTabBarState extends State<CustomTabBar> {
               });
             }
             if(index==0){
+              pagesStreams.usedPartsChanged(false);
+              pagesStreams.accessoriesChanged(false);
+              pagesStreams.newPartsChanged(true);
+
+            }else if (index == 1){
+              pagesStreams.usedPartsChanged(true);
+              pagesStreams.accessoriesChanged(false);
+              pagesStreams.newPartsChanged(false);
             }else{
+              pagesStreams.usedPartsChanged(false);
+              pagesStreams.accessoriesChanged(true);
+              pagesStreams.newPartsChanged(false);
             }
+
             print("index is + $index");
+            print("new parts is + ${pagesStreams.newParts.value}");
+            print("used parts is + ${pagesStreams.usedParts.value}");
+            print("accessories is + ${pagesStreams.accessories.value}");
             setState(() {
               widget.list[index]["containerColor"] = Color(lightThemeColors["sign-bg"]);
               widget.list[index]["txtColor"] = Colors.white;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 import 'package:skroot/Components/custom_back_arrow.dart';
@@ -341,6 +342,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                   snapshot: snapshot.hasData,
                                   onButtonPress: () {
                                     print("_______________ snapshot is  ${snapshot.error}" );
+                                    Fluttertoast.showToast(
+                                        msg: snapshot.error.toString(),
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.black,
+                                        textColor: Colors.purple,
+                                        fontSize: 16.0);
 
                                     if(snapshot.hasData){
                                       if (isChecked) {

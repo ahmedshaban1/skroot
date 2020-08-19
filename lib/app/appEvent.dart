@@ -17,3 +17,4 @@ class Add extends AppEvent {}
 class AnimationEnd extends AppEvent{}
 
 class Hydrate extends AppEvent{}
+class GetShared extends AppEvent{}

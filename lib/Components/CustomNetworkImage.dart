@@ -20,7 +20,7 @@ class CustomNetworkImage {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 10.0)),
               image: DecorationImage(
-                  fit: BoxFit.cover, image: Image.asset(defaultImage).image))),
+                  fit: BoxFit.cover, image: Image.asset(defaultImage ?? "assets/images/logo.png").image))),
       imageBuilder: (context, provider) {
         return Container(
             width: width ?? 40,

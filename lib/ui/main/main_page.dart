@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
       body:_pages[_index] ,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.black,
+        backgroundColor: Color(lightThemeColors["sign-bg"]),
 
         onTap: (index){
           setState(() {

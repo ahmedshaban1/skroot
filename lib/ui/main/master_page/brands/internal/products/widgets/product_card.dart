@@ -4,8 +4,9 @@ import 'package:skroot/theming/colors.dart';
 
 class ProductCard extends StatelessWidget {
   final onTap;
+  final model ;
 
-  const ProductCard({Key key, this.onTap}) : super(key: key);
+  const ProductCard({Key key, this.onTap, this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

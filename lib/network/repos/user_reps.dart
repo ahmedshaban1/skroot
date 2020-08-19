@@ -3,6 +3,7 @@ import 'package:skroot/models/my_addresses/my_addresses_response.dart';
 import 'package:skroot/models/my_cars/my_cars_response.dart';
 import 'package:skroot/models/requests/authed_user/my_addresses.dart';
 import 'package:skroot/models/requests/authed_user/my_cars.dart';
+import 'package:skroot/models/topics_model.dart';
 
 import '../networkUtlis.dart';
 
@@ -69,6 +70,19 @@ class UserDataRepo
     map["Accept"] = "application/json";
     map["Authorization"] = token;
     return NetworkUtil.internal().delete(EmptyModel(), "auth-customer/addresses/$carId" , headers: map);
+  }
+
+  static Future<TopicsModel> getTerms(){
+    Map<String , String> map = Map();
+    map["Content-Type"] = "application/json";
+    map["Accept"] = "application/json";
+    return NetworkUtil.internal().delete(TopicsModel(), "pages/terms" , headers: map);
+  }
+  static Future<TopicsModel> getPrivacy(){
+    Map<String , String> map = Map();
+    map["Content-Type"] = "application/json";
+    map["Accept"] = "application/json";
+    return NetworkUtil.internal().delete(TopicsModel(), "pages/privacy" , headers: map);
   }
 
 

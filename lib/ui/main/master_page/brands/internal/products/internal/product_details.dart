@@ -2,13 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:skroot/Components/custom_swiper.dart';
+import 'package:skroot/Components/image_bg.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/main/widgets/custom_app_bar_bg.dart';
-import 'package:skroot/ui/main/widgets/custom_flitter.dart';
 import 'widgets/description_text.dart';
 
 class ProductDetails extends StatefulWidget {
+  final model ;
+
+  const ProductDetails({Key key, this.model}) : super(key: key);
+
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
@@ -22,9 +26,10 @@ class _ProductDetailsState extends State<ProductDetails> {
         backgroundColor: Color(lightThemeColors["sign-bg"]),
         body: Stack(
           children: <Widget>[
+            ImageBG(),
             Container(
               padding: EdgeInsets.only(
-                top: height * .15,
+                top: height * .08,
                 bottom: 10,
               ),
               child: Padding(
@@ -39,7 +44,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Part Name",
+                          widget.model.name.en,
                           style: Theme.of(context).textTheme.title,
                           textAlign: TextAlign.start,
                         ),
@@ -49,9 +54,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                       height: 200,
                       child: CustomSwiper(
                         model: [
-                          "assets/images/logo.png",
-                          "assets/images/logo.png",
-                          "assets/images/logo.png",
+                          widget.model.partCategory.imageUrl,
+                          widget.model.partCategory.imageUrl,
+                          widget.model.partCategory.imageUrl,
                         ],
                       ),
                     ),
@@ -61,18 +66,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            CustomDescriptionText(txt: "FLAT",type: "Brand",),
-                            SizedBox(width: 50,),
-                            CustomDescriptionText(txt: "128",type: "Model",),
+                            CustomDescriptionText(txt: widget.model.carBrand.name.en,type: "Brand",),
+                            SizedBox(width: 30,),
+                            CustomDescriptionText(txt: widget.model.carBrandModel.name.en,type: "Model",),
                           ],
                         ),
-                        CustomDescriptionText(type: "Year",txt: "1822 - 2525 - 1545",),
+                        CustomDescriptionText(type: "Year",txt: widget.model.year.toString(),),
                         CustomDescriptionText(type: "Chases Number",txt: "65656",),
                         Row(
                           children: <Widget>[
-                            CustomDescriptionText(txt: "Type",type: "Type",),
+                            CustomDescriptionText(txt: widget.model.partCategory.name.en,type: "Type",),
                             SizedBox(width: 50,),
-                            CustomDescriptionText(txt: "45/UED",type: "price",),
+                            CustomDescriptionText(txt: widget.model.price.toString(),type: "price",),
                           ],
                         ),
                       ],
@@ -118,7 +123,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                     Text(
-                      "highly durable full-grain leather which is soft and has natural look and feel , modern style with type of chair strong and while color. ",
+                      widget.model.description.en,
                       textAlign: TextAlign.start,
                       maxLines: 100,
                     ),
@@ -135,9 +140,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             Column(
               children: <Widget>[
                 CustomAppBarBg(
-                  text: "Part Name",
+                  text: widget.model.name.en,
                 ),
-                CustomFilter(),
               ],
             )
           ],

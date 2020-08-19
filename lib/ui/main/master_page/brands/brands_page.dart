@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:skroot/Components/container_card.dart';
 import 'package:skroot/Components/customAppBar.dart';
+import 'package:skroot/Components/image_bg.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/main/widgets/custom_app_bar_bg.dart';
 import 'package:skroot/ui/main/widgets/custom_flitter.dart';
+
+import 'internal/models/get_brand_model_bloc.dart';
 class BrandsPage extends StatefulWidget {
   final models ;
 
@@ -23,8 +26,9 @@ class _BrandsPageState extends State<BrandsPage> {
         backgroundColor: Color(lightThemeColors["sign-bg"]),
         body: Stack(
           children: <Widget>[
+            ImageBG(),
             Container(
-              padding: EdgeInsets.only(top: height*.15 , bottom: 10,),
+              padding: EdgeInsets.only(top: height*.1 , bottom: 10,),
               child: ListView(
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
@@ -43,7 +47,7 @@ class _BrandsPageState extends State<BrandsPage> {
                       children: List.generate(widget.models.length, (index) {
                         return ContainerCard().containerCard(
                           onTap: (){
-                            NamedNavigatorImpl().push(Routes.MODEL);
+                            NamedNavigatorImpl().push(Routes.MODEL , arguments: widget.models[index]);
                           },
                             model: widget.models[index],
                             widget: true,
@@ -62,8 +66,6 @@ class _BrandsPageState extends State<BrandsPage> {
                 CustomAppBarBg(
                   text: "Select Your Brand",
                 ),
-                CustomFilter(),
-
               ],
             )
           ],

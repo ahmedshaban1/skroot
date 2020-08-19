@@ -18,6 +18,7 @@ class GetBrandModelBloC extends Bloc<AppEvent, AppState> with Validator {
   Stream<AppState> mapEventToState(AppEvent event) async* {
     if (event is Click) {
       yield (Start(null));
+      print("__________________ ${modelIdController.value}");
       var model =  await CarsRepos.brandsModels(modelIdController.value);
       yield Done(model);
     }

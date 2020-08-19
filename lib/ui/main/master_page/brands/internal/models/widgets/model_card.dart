@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:skroot/models/cars/model/brand_model_response.dart';
 class ModelCard extends StatelessWidget {
   final onTap;
+  final Data model ;
 
-  const ModelCard({Key key, this.onTap}) : super(key: key);
+  const ModelCard({Key key, this.onTap, this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -35,7 +37,7 @@ class ModelCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("KUV 100 NXT" ,  style: TextStyle(fontWeight: FontWeight.bold , color: Colors.grey[300])),
+                      Text(model.name.en ,  style: TextStyle(fontWeight: FontWeight.bold , color: Colors.grey[300])),
                       Row(
                         children: <Widget>[
                           Text("253 " , style: TextStyle(fontWeight: FontWeight.bold , color: Colors.grey[300]),),

@@ -33,7 +33,7 @@ class ContainerCard{
               ),
               SizedBox(height: 2,),
               Text("From" , style: TextStyle(color: Colors.black87 , fontSize: 10),),
-              Text("model.name" , style: TextStyle(color: Colors.black87 , fontSize: 13),),
+              Text(model.name.en , style: TextStyle(color: Colors.black87 , fontSize: 13),),
 
             ],
           ) : Center(

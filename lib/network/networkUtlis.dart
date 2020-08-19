@@ -14,12 +14,12 @@ class NetworkUtil {
   Dio dio = Dio();
   String base_url = "http://mowagdy.com/skroot/public/api/v1/";
 
-  Future<ResponseType> get<ResponseType extends Mappable>(ResponseType responseType, String url, {Map headers}) async {
+  Future<ResponseType> get<ResponseType extends Mappable>(ResponseType responseType, String url, {Map headers , Map queryParameters}) async {
     var response;
     try {
       dio.options.baseUrl = base_url;
       print("HERE I COME");
-      response = await dio.get(url,options: Options(headers: headers , ) );
+      response = await dio.get(url,options: Options(headers: headers , ) ,queryParameters:queryParameters );
     } on DioError catch (e) {
       print("HERE I COMEW");
 

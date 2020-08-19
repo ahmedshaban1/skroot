@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
+import 'package:skroot/ui/main/master_page/brands/internal/products/get_products_bloc.dart';
 
 class CustomAppBarBg extends StatelessWidget {
   final text;
@@ -25,6 +27,11 @@ class CustomAppBarBg extends StatelessWidget {
         children: <Widget>[
          InkWell(
                   onTap: (){
+                    getProductsBloC.modelIdChanged(null);
+                    getProductsBloC.catIdChanged(null);
+                    getProductsBloC.brandIdChanged(null);
+                    getProductsBloC.yearChanged(null);
+                    getProductsBloC.add(Click());
                     NamedNavigatorImpl().pop();
                   },
                   child: Container(

@@ -91,6 +91,14 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
           userNameController.sink.addError(signUpResponse.message);
         }else if(signUpResponse.field.contains("phone")){
           phoneController.sink.addError(signUpResponse.message);
+          Fluttertoast.showToast(
+              msg: signUpResponse.token.toString(),
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.purple,
+              fontSize: 16.0);
         }
         NamedNavigatorImpl().pop();
       }

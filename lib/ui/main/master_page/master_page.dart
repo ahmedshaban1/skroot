@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skroot/Components/container_card.dart';
-import 'package:skroot/app/appEvent.dart';
-import 'package:skroot/app/appState.dart';
-import 'package:skroot/models/cars/brands/car_brands_model.dart';
-import 'package:skroot/models/cars/parts/parts_model.dart';
-import 'package:skroot/navigator/named-navigator.dart';
-import 'package:skroot/navigator/named-navigator_impl.dart';
-import 'package:skroot/network/repos/lists_repo.dart';
-import 'package:skroot/network/repos/user_reps.dart';
+import 'package:skroot/Components/image_bg.dart';
 import 'package:skroot/theming/colors.dart';
-import 'package:skroot/ui/common/loader.component.dart';
-import 'package:skroot/ui/main/master_page/brands/get_brand_bloc.dart';
-import 'package:skroot/ui/main/master_page/brands/internal/parts/get_parts_bloc.dart';
 import 'package:skroot/ui/main/master_page/widgets/custom_tap_bar.dart';
-import 'package:skroot/ui/main/master_page/widgets/master_title_row.dart';
-import 'package:skroot/ui/main/master_page/widgets/recently_add_card.dart';
+import 'package:skroot/ui/main/master_page/widgets/master_bg.dart';
+import 'file:///G:/FlutterProj/skroot_app/lib/ui/main/master_page/widgets/pages/accessories/accessories.dart';
+import 'package:skroot/ui/main/master_page/widgets/pages/pages_streams.dart';
+import 'package:skroot/ui/main/master_page/widgets/pages/used_parts.dart';
+import 'widgets/pages/new_parts.dart';
+
 class MasterPage extends StatefulWidget {
   @override
   _MasterPageState createState() => _MasterPageState();
 }
-
 class _MasterPageState extends State<MasterPage> {
   @override
   void initState() {
-    getBrandsBloC.add(Click());
-    getPartsBloC.add(Click());
+    pagesStreams.usedPartsChanged(false);
+    pagesStreams.accessoriesChanged(false);
+    pagesStreams.newPartsChanged(true);
     super.initState();
   }
   @override
@@ -36,125 +28,55 @@ class _MasterPageState extends State<MasterPage> {
       backgroundColor: Color(lightThemeColors["sign-bg"]),
         body: Stack(
           children: <Widget>[
-            Image.asset("assets/images/home_image_bg.png",fit: BoxFit.cover , width:double.infinity,height: 200,),
-            Image.asset("assets/images/home_bg.png",fit: BoxFit.cover, width: double.infinity , height: 200,),
-            BlocBuilder(
-              bloc: getBrandsBloC,
-              builder: (_,state){
-                if(state is Done){
-                  var brandsModel = state.model as CarBrandResponse ;
-                  return Container(
-                    padding: EdgeInsets.only(top: height*.18 , bottom: 10,),
-                    child: ListView(
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      children: <Widget>[
-                        CustomTabBar(
-                          list: list,
-                        ),
-                        SizedBox(height: 10,),
-                        MasterTitleRow(
-                          onTap: (){
-                            NamedNavigatorImpl().push(Routes.BRANDS , arguments: brandsModel.data);
-                          },
-                          title: "Shop by brand",
-                        ),
-                        SizedBox(height: 5,),
-                        Container(
-                          alignment: Alignment.center,
-                          height: height *.18,
-                          width: width,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: 2,
-                              itemBuilder: (_, index) =>  Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: ContainerCard().containerCard(
-                                    model : brandsModel.data[index] ,
-                                    onTap: (){
-                                      NamedNavigatorImpl().push(Routes.MODEL);
-                                    },
-                                    widget: true,
-                                    height: height*.18,
-                                    radius: 10,
-                                    containerColor: Colors.white,
-                                    width : width),
-                              )),
-                        ),
-                        SizedBox(height: 10,),
-                        BlocBuilder(
-                          bloc:getPartsBloC,
-                          builder: (_, state) {
-                            if(state is Done){
-                              var model = state.model as PartsCategoriesResponse ;
-                              return   MasterTitleRow(
-                                onTap: (){
-                                  NamedNavigatorImpl().push(Routes.PARTS , arguments:  model.data);
-                                },
-                                title: "Shop by Category",
-                              );
-
-                            }
-                            return Container();
-                          },
-                        ),
-
-                        SizedBox(height: 5,),
-                        Container(
-                          height: height *.18,
-                          width: width,
-                          child: BlocBuilder(
-                            bloc:getPartsBloC,
-                            builder: (_, state) {
-                              if(state is Done){
-                                var model = state.model as PartsCategoriesResponse ;
-                                return ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: 3,
-                                    itemBuilder: (_, index) =>  Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: ContainerCard().containerCard(
-                                        model: model.data[index],
-                                          onTap: (){
-                                            NamedNavigatorImpl().push(Routes.PRODUCT);
-                                          },
-                                          widget: true,
-                                          height: height*.18,
-                                          radius: 10,
-                                          containerColor: Colors.white,
-                                          width : width),
-                                    ));
-
-                              }
-                              return Container();
-                              },
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        MasterTitleRow(
-                          onTap: null,
-                          title: "Recently added",
-                        ),
-                        ListView.builder(
-                            physics: ScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            itemBuilder: (_, index) =>  RecentlyAddCard())
-
-
-                      ],
-                    ),
-                  ) ;
-                }
-                return Center(
-                  child: AppLoader()
-                );
-              },
-            ),
+            ImageBG(image: "assets/images/home_page_bg_full.png",),
+            //master bg
+            MasterBg(),
+            // master
             Container(
-              padding: EdgeInsets.only(top: height*.13, bottom: 10,),
+              padding: EdgeInsets.only(top: height*.2 , bottom: 10,),
+              child: ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                children: <Widget>[
+                  CustomTabBar(
+                    list: list,
+                  ),
+                  StreamBuilder<bool>(
+                    stream: pagesStreams.newStream,
+                    builder: (context, snapshot) {
+                      return Visibility(
+                        visible: pagesStreams.newParts.value,
+                        child: NewParts(),
+                      );
+                    }
+                  ),
+                  StreamBuilder<bool>(
+                    stream: pagesStreams.usedStream,
+                    builder: (context, snapshot) {
+                      return Visibility(
+                        visible: pagesStreams.usedParts.value,
+                        child: UsedParts(),
+                      );
+                    }
+                  ),
+                  StreamBuilder<bool>(
+                    stream: pagesStreams.accessoriesStream,
+                    builder: (context, snapshot) {
+                      return Visibility(
+                        visible: pagesStreams.accessories.value,
+                        child: Accessories(),
+                      );
+                    }
+                  ),
+
+
+
+                ],
+              ),
+            ),
+            // search
+            Container(
+              padding: EdgeInsets.only(top: height*.15, bottom: 10,),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

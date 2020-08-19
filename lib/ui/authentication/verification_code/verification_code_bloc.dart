@@ -37,7 +37,14 @@ class VerificationCodeBloc extends Bloc<AppEvent, AppState> with Validator {
       var response =await AuthenticationRepo.verifyAccount(VerificationRequest(phone: mobile , token: codeController.value));
 
       if(response.field == ""){
+        preferenceManager.writeData(CachingKey.USER_ID, response.user.id);
+        preferenceManager.writeData(CachingKey.AUTH_TOKEN, "Bearer "+response.accessToken.token);
+        preferenceManager.writeData(CachingKey.USER_IMAGE, response.user.avatarUrl);
+        preferenceManager.writeData(CachingKey.USER_NAME, response.user.name);
+        preferenceManager.writeData(CachingKey.MOBILE_NUMBER, response.user.phone);
+        SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
+
       }
 
       else {

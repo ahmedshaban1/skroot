@@ -9,6 +9,7 @@ import 'package:skroot/ui/authentication/verification_code/verification_code_pag
 import 'package:skroot/ui/main/account/internal_screens/my_cars/add_car/add_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/edit_car/edit_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_page.dart';
+import 'package:skroot/ui/main/account/topices/topoics.dart';
 import 'package:skroot/ui/main/master_page//brands/brands_page.dart';
 import 'package:skroot/ui/main/master_page/brands/internal/parts/parts_page.dart';
 import 'package:skroot/ui/main/master_page/brands/internal/products/internal/product_details.dart';
@@ -34,12 +35,13 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.HOME_ROUTER :return MaterialPageRoute(builder: (_) => MainPage());
       case Routes.INTRO :return MaterialPageRoute(builder: (_) => IntroPage());
       case Routes.BRANDS :return MaterialPageRoute(builder: (_) => BrandsPage(models: settings.arguments,));
-      case Routes.MODEL :return MaterialPageRoute(builder: (_) => ModelPage());
-      case Routes.PARTS :return MaterialPageRoute(builder: (_) => PartsPage(models: settings.arguments,));
-      case Routes.PRODUCT :return MaterialPageRoute(builder: (_) => ProductPage());
-      case Routes.PRODUCT_DETAILS :return MaterialPageRoute(builder: (_) => ProductDetails());
+      case Routes.MODEL :return MaterialPageRoute(builder: (_) => ModelPage(model: settings.arguments,));
+      case Routes.PARTS :return MaterialPageRoute(builder: (_) => PartsPage(model: settings.arguments,));
+      case Routes.PRODUCT :return MaterialPageRoute(builder: (_) => ProductPage(body: settings.arguments,));
+      case Routes.PRODUCT_DETAILS :return MaterialPageRoute(builder: (_) => ProductDetails(model: settings.arguments,));
       case Routes.ADD_CAR_TOUTER :return MaterialPageRoute(builder: (_) => AddCarPage());
       case Routes.MY_CARS_ROUTER :return MaterialPageRoute(builder: (_) => MyCarsPage());
+      case Routes.TOPICS :return MaterialPageRoute(builder: (_) => Topics(type:settings.arguments));
       case Routes.EDIT_CAR_ROUTER :return MaterialPageRoute(builder: (_) => EditCarPage(editCarArguments: settings.arguments,));
     }
 
