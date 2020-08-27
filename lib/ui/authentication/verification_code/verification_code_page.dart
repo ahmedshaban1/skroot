@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:skroot/Components/custom_back_arrow.dart';
 import 'package:skroot/app/appEvent.dart';
@@ -77,17 +78,26 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             ),
                           ],
                         ),
-                        PinEntryTextField(
-                          onSubmit: (String pin){
-                              print("PIN IS $pin");//e
-                            verificationCodeBloc.updateCode(pin);
-                          }, // end onSubmit
-                          fields: 4,
-                          showFieldAsBox: true,
+                        Padding(
+                          padding: const EdgeInsets.only(left :50.0 , right: 50.0),
+                          child: PinCodeTextField(
+                            length: 4,
+                            pinTheme: PinTheme(),
+
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            textInputType: TextInputType.number,
+                            autoFocus: true,
+                            onCompleted: (String value) {
+                              verificationCodeBloc.updateCode(value);
+                            },
+                            onSubmitted: (String value) {
+                              verificationCodeBloc.updateCode(value);
+                            },
+
+                          ),
                         ),
                         CustomButton(
                           onButtonPress: () {
-
                             if(widget.stateOfCode == "createAccount"){
                               verificationCodeBloc.add(Click());// nd show
                               showLoadingDialog(context);

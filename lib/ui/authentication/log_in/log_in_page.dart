@@ -78,88 +78,43 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-//                      Padding(
-//                        padding: const EdgeInsets.all(8.0),
-//                        child: StreamBuilder<String>(
-//                            stream: logInBloc.phoneNumber,
-//                            builder: (context, snapshot) {
-//                            return Container(
-//                              height: 60,
-//                              decoration: BoxDecoration(
-//                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-//                                  color: Color(lightThemeColors['sign-bg'])),
-//                              child: Padding(
-//                                padding: const EdgeInsets.all(8.0),
-//                                child: InternationalPhoneInput(
-//                                  initialSelection:"+971" ,
-//                                    decoration: InputDecoration(
-//                                        border: InputBorder.none,
-//                                        fillColor: Color(lightThemeColors['sign-bg']),
-//                                      hintText: AppLocalization.of(context)
-//                                          .getLocalizedText("phone"),
-//                                        errorText: snapshot.error,
-//                                        hintStyle: const TextStyle(
-//                                            color: Color(0xff707070),
-//                                            fontSize: 15.0,
-//                                            decoration: TextDecoration.none,
-//                                            fontWeight: FontWeight.bold,
-//                                            fontFamily: 'cairo')
-//                                    ),
-//                                  errorText: snapshot.error,
-//                                  onPhoneNumberChange:(x,y,z) =>logInBloc.updatePhone(x),
-//                                    showCountryCodes: true,
-//                                  showCountryFlags: false,
-//
-////                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
-//                                ),
-//                              ),
-//                            );
-//
-//                            }),
-//                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: StreamBuilder<String>(
                             stream: logInBloc.phoneNumber,
                             builder: (context, snapshot) {
-                            return Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  color: Color(lightThemeColors['sign-bg'])),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
-                                child: InputFieldArea(
-                                  hint: AppLocalization.of(context)
-                                         .getLocalizedText("phone"),
-                                  suffixIcon: StreamBuilder<String>(
-                                      stream: logInBloc.phoneController,
-                                      builder: (context, snapshot) {
-                                        return CountryCodePicker(
-                                          textStyle: TextStyle(color: Colors.grey[300]),
-                                          showFlag: false,
-                                          onChanged: (code) {
-                                            FocusScope.of(context).requestFocus(FocusNode());
-                                            logInBloc.countryCodeChanged(code.dialCode);
-                                            print("on change ${code.name} ${code.dialCode} ${code.name}");
-                                          },
-                                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                          initialSelection: '+966',
-                                          favorite: ['+02', 'EG' , '+966' ,],
-                                          comparator: (a, b) => b.name.compareTo(a.name),
-                                          //Get the country information relevant to the initial selection
-                                          onInit: (code) {
-                                            logInBloc.countryCodeChanged(code.dialCode);
-                                            print("on init ${code.name} ${code
-                                                .dialCode} ${code.name}");
-                                          },
-                                        );
-                                      }
-                                  ),
-                                  errorTxt: snapshot.error,
-                                  changedFunction: logInBloc.updatePhone,
-                                  textInputType: TextInputType.number,
+                            return Padding(
+                              padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+                              child: InputFieldArea(
+                                hint: AppLocalization.of(context).getLocalizedText("phone"),
+                                suffixIcon: StreamBuilder<String>(
+                                    stream: logInBloc.phoneController,
+                                    builder: (context, snapshot) {
+                                      return CountryCodePicker(
+                                        padding: EdgeInsets.all(0.0),
+                                        textStyle: TextStyle(color: Colors.grey[300]),
+                                        showFlag: false,
+                                        onChanged: (code) {
+                                          FocusScope.of(context).requestFocus(FocusNode());
+                                          logInBloc.countryCodeChanged(code.dialCode);
+                                          print("on change ${code.name} ${code.dialCode} ${code.name}");
+                                        },
+                                        // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                        initialSelection: '+971',
+                                        favorite: ['+02', 'EG' , '+971',],
+                                        comparator: (a, b) => b.name.compareTo(a.name),
+                                        //Get the country information relevant to the initial selection
+                                        onInit: (code) {
+                                          logInBloc.countryCodeChanged(code.dialCode);
+                                          print("on init ${code.name} ${code
+                                              .dialCode} ${code.name}");
+                                        },
+                                      );
+                                    }
                                 ),
+                                errorTxt: snapshot.error,
+                                changedFunction: logInBloc.updatePhone,
+                                textInputType: TextInputType.number,
                               ),
                             );
 
@@ -171,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                             stream: logInBloc.password,
                             builder: (context, snapshot) {
                               return InputFieldArea(
-                                icon: Padding(
+                                suffixIcon: Padding(
                                   padding: const EdgeInsets.only(left: 8.0 , right: 8.0),
                                   child: Icon(Icons.lock_outline, color: Colors.white,),
                                 ),
@@ -190,18 +145,8 @@ class _LoginPageState extends State<LoginPage> {
                           return CustomButton(
                             onButtonPress: () {
                               print("____________ phone : ${logInBloc.phoneController.value})");
-                              if(snapshot.hasData){
                                 logInBloc.add(Click());
                                 showLoadingDialog(context);
-                              }else{
-                                ErrorDialog(
-                                    context: context,
-                                    title: "Please you have to fill all fields",
-                                    btnAction: () {
-                                      Navigator.pop(context);
-                                    },
-                                    buttonText: "OK");
-                              }
                             },
                             text: AppLocalization.of(context)
                                 .getLocalizedText("cap-login"),

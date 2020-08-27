@@ -55,62 +55,70 @@ class InputFieldArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return show != null
         ?  Container(
-                height: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Color(lightThemeColors['sign-bg'])),
-                child: TextField(
-                  autofocus: false,
-                  focusNode: inputScopeSur,
-                  keyboardType: textInputType,
-                  onChanged: changedFunction,
-                  controller: controller,
-                  style:  TextStyle(
-                      color: Color(lightThemeColors["sign-text"]), fontFamily: 'cairo'),
-                  obscureText: show,
-                  decoration: InputDecoration(
-                    errorText: errorTxt,
-                    border: InputBorder.none,
-                    hintText: hint,
-                    icon: icon,
-                    hintStyle: const TextStyle(
-                        color: Color(0xff707070),
-                        fontSize: 15.0,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'cairo'),
-                    contentPadding: const EdgeInsets.only(
-                        top: 5.0, right: 5.0, bottom: 5.0, left: 5.0),
+                child: Theme(
+                  data: ThemeData(primaryColor: Color(lightThemeColors['sign-bg'])),
+                  child: TextField(
+                    autofocus: false,
+                    focusNode: inputScopeSur,
+                    keyboardType: textInputType,
+                    onChanged: changedFunction,
+                    controller: controller,
+                    style:  TextStyle(
+                        color: Color(lightThemeColors["sign-text"]), fontFamily: 'cairo'),
+                    obscureText: show,
+                    decoration: InputDecoration(
+                      errorText: errorTxt,
+                      border:  OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintText: hint,
+                      icon: icon,
+                      prefixIcon: suffixIcon,
+                      hintStyle: const TextStyle(
+                          color: Color(0xff707070),
+                          fontSize: 15.0,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'cairo'),
+                      contentPadding: const EdgeInsets.only(
+                          top: 13.0, right: 5.0, bottom: 13.0, left: 10.0),
+                    ),
                   ),
                 ),
               )
             : Container(
-                height: 60,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Color(lightThemeColors['sign-bg'])),
-                child: TextField(
-                  autofocus: false,
-                  controller: controller,
-                  focusNode: inputScopeSur,
-                  keyboardType: textInputType,
-                  onChanged: changedFunction,
-                  style: const TextStyle(
-                      color:  Color(0xff707070), fontFamily: 'cairo'),
-                  decoration: InputDecoration(
-                    prefixIcon: suffixIcon,
-                    errorText: errorTxt,
-                    icon: icon,
-                    border: InputBorder.none,
-                    hintText: hint,
-                    hintStyle:  TextStyle(
-                        color: Color(lightThemeColors["sign-text"]),
-                        fontSize: 15.0,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'cairo'),
-                    contentPadding: const EdgeInsets.only(
-                        top: 5.0, right: 5.0, bottom: 5.0, left: 5.0),
+                child: Theme(
+                  data: ThemeData(
+                      primaryColor: Color(lightThemeColors['sign-bg']),
+                  ),
+                  child: TextField(
+                    autofocus: false,
+                    controller: controller,
+                    focusNode: inputScopeSur,
+                    keyboardType: textInputType,
+                    onChanged: changedFunction,
+                    style: const TextStyle(
+                        color:  Color(0xff707070), fontFamily: 'cairo'),
+                    decoration: InputDecoration(
+                      prefixIcon: suffixIcon,
+                      errorText: errorTxt,
+                      icon: icon,
+                      border:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                       hintText: hint,
+                      hintStyle:  TextStyle(
+                          color: Color(lightThemeColors["sign-text"]),
+                          fontSize: 15.0,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'cairo'),
+                      contentPadding: const EdgeInsets.only(
+                          top: 13.0, right: 5.0, bottom: 13.0, left: 5.0),
+                    ),
                   ),
                 ),
               );

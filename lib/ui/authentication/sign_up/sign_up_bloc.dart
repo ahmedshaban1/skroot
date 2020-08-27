@@ -44,10 +44,9 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Function(String) get emailChanged => emailController.sink.add;
 
 
-  Stream<String> get phoneNumber => phoneController.stream.transform(number);
+  Stream<String> get phoneNumber => phoneController.stream.transform(noThing);
 
-  Stream<String> get userName =>
-      userNameController.stream.transform(noThing);
+  Stream<String> get userName => userNameController.stream.transform(noThing);
 
   Stream<String> get password =>
       passwordController.stream.transform(noThing);
@@ -59,7 +58,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Stream<int> get country => countryIdController.stream.transform(selectedId);
 
   Stream<bool> get submitChanged =>
-      Rx.combineLatest6( password, email, userName, city , country , phoneNumber,( p, e, u , s , c , n)=>true);
+      Rx.combineLatest6( userName, phoneNumber, email, country , city , password,( p, e, u , s , c , n)=>true);
 
 
   @override
@@ -98,8 +97,11 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
           userNameController.sink.addError(signUpResponse.message);
         }else if(signUpResponse.field.contains("phone")){
           phoneController.sink.addError(signUpResponse.message);
+        }else if(signUpResponse.field.contains("password")){
+          passwordController.sink.addError(signUpResponse.message);
+        }else{
           Fluttertoast.showToast(
-              msg: signUpResponse.token.toString(),
+              msg: signUpResponse.message.toString(),
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,

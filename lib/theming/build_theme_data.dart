@@ -12,7 +12,6 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
   var lightTheme = ThemeData(
     fontFamily: "Cairo",
     primaryColorBrightness: Brightness.light,
-    brightness: Brightness.light,
     splashColor: Color(lightThemeColors['sign-bg']),
     primaryColor: Color(lightThemeColors['primary']),
     accentColor: Color(lightThemeColors['secondary']),
@@ -164,9 +163,7 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
   );
 
   return Theme(
-    data: MediaQuery.of(context).platformBrightness == Brightness.light
-        ? lightTheme
-        : darkTheme,
+    data: lightTheme,
     child: navigator,
   );
 }

@@ -42,7 +42,7 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
-    var netUtil = NetworkUtil();
+    print("___________________${phoneController.value}");
     if (event is Click) {
       SharedPreferenceManager preferenceManager = SharedPreferenceManager();
 //      var token = await preferenceManager.readString(CachingKey.AUTH_TOKEN);
@@ -74,20 +74,12 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 //      SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
       }
-
       else {
         NamedNavigatorImpl().pop();
         if(userResponse.field == "phone"){
-          Fluttertoast.showToast(
-            msg: userResponse.message.toString(),
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black87,
-            textColor: Colors.purple,
-            fontSize: 16.0
-        );
-          }else{
+          phoneController.sink.addError(userResponse.message.toString());
+
+        }else{
           passwordController.sink.addError(userResponse.message.toString());
         }
 
