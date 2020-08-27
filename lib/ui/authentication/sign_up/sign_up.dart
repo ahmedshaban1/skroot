@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -125,38 +126,42 @@ class _SignUpPageState extends State<SignUpPage> {
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
                                 color: Color(lightThemeColors['sign-bg'])),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InternationalPhoneInput(
-                                initialSelection:"+971" ,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    fillColor: Color(lightThemeColors['sign-bg']),
-                                    hintText: AppLocalization.of(context)
-                                        .getLocalizedText("phone"),
-                                    errorText: snapshot.error,
-                                    errorStyle:  const TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 15.0,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'cairo'),
-                                    hintStyle: const TextStyle(
-                                        color: Color(0xff707070),
-                                        fontSize: 15.0,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'cairo')
+                              padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+                              child: InputFieldArea(
+                                hint: AppLocalization.of(context)
+                                    .getLocalizedText("phone"),
+                                suffixIcon: StreamBuilder<String>(
+                                    stream: signUpBloC.phoneController,
+                                    builder: (context, snapshot) {
+                                      return CountryCodePicker(
+                                        textStyle: TextStyle(color: Colors.grey[300]),
+                                        showFlag: false,
+                                        onChanged: (code) {
+                                          FocusScope.of(context).requestFocus(FocusNode());
+                                          signUpBloC.countryCodeChanged(code.dialCode);
+                                          print("on change ${code.name} ${code.dialCode} ${code.name}");
+                                        },
+                                        // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                        initialSelection: '+966',
+                                        favorite: ['+02', 'EG' , '+966' ,],
+                                        comparator: (a, b) => b.name.compareTo(a.name),
+                                        //Get the country information relevant to the initial selection
+                                        onInit: (code) {
+                                          signUpBloC.countryCodeChanged(code.dialCode);
+                                          print("on init ${code.name} ${code
+                                              .dialCode} ${code.name}");
+                                        },
+                                      );
+                                    }
                                 ),
-                                errorText: snapshot.error,
-                                onPhoneNumberChange:(x,y,z)=>signUpBloC.updatePhone(x),
-                                showCountryCodes: true,
-                                showCountryFlags: false,
 
-
-//                              border: InputBorder(borderSide: BorderSide(color: Colors.black87)),
+                                errorTxt: snapshot.error,
+                                changedFunction: signUpBloC.updatePhone,
+                                textInputType: TextInputType.number,
                               ),
                             ),
                           );
+
                         }),
                   ),
                   Padding(

@@ -23,6 +23,9 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   final countryIdController = BehaviorSubject<int>();
   final cityIdController = BehaviorSubject<int>();
   final emailController = BehaviorSubject<String>();
+  final _countryCodeController = BehaviorSubject<String>();
+
+
   String msg;
 
   Function(String) get updatePhone => phoneController.sink.add;
@@ -35,7 +38,11 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
 
   Function(int) get cityIdChanged => cityIdController.sink.add;
 
+  Function(String) get countryCodeChanged => _countryCodeController.sink.add;
+
+
   Function(String) get emailChanged => emailController.sink.add;
+
 
   Stream<String> get phoneNumber => phoneController.stream.transform(number);
 
@@ -112,6 +119,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
     cityIdController.close();
     countryIdController.close();
     emailController.close();
+    _countryCodeController.close();
   }
 }
 

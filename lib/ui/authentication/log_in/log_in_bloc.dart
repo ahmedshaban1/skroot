@@ -19,6 +19,7 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 
   final phoneController = BehaviorSubject<String>();
   final passwordController = BehaviorSubject<String>();
+  final _countryCodeController = BehaviorSubject<String>();
   String msg;
 
 
@@ -26,9 +27,15 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 
   Function(String) get updatePassword => passwordController.sink.add;
 
+  Function(String) get countryCodeChanged => _countryCodeController.sink.add;
+
+
   Stream<String> get phoneNumber => phoneController.stream.transform(noThing);
 
   Stream<String> get password => passwordController.stream.transform(noThing);
+
+  Stream<String> get countryCode => _countryCodeController.stream.transform(noThing);
+
 
   Stream<bool> get submitChanged =>
       Rx.combineLatest2( password, phoneNumber ,( n ,p  )=>true);
@@ -92,6 +99,7 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
   dispose() {
     phoneController.close();
     passwordController.close();
+    _countryCodeController.close();
   }
 }
 
