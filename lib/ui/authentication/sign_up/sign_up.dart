@@ -44,7 +44,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -114,18 +113,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   }),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8.0 , right: 8.0 , top: 2.0 , bottom: 2.0),
               child: StreamBuilder<String>(
                   stream: signUpBloC.phoneNumber,
                   builder: (context, snapshot) {
                     return Padding(
-                      padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+                      padding: const EdgeInsets.only(top:2.0,bottom: 2.0),
                       child: InputFieldArea(
                         hint: AppLocalization.of(context).getLocalizedText("phone"),
                         suffixIcon: StreamBuilder<String>(
                             stream: signUpBloC.phoneController,
                             builder: (context, snapshot) {
                               return CountryCodePicker(
+
                                 padding: EdgeInsets.all(0.0),
                                 textStyle: TextStyle(color: Colors.grey[300]),
                                 showFlag: false,

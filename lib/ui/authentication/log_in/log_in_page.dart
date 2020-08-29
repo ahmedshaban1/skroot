@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                             stream: logInBloc.phoneNumber,
                             builder: (context, snapshot) {
                             return Padding(
-                              padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+                              padding: const EdgeInsets.only(top:2.0,bottom: 2.0),
                               child: InputFieldArea(
                                 hint: AppLocalization.of(context).getLocalizedText("phone"),
                                 suffixIcon: StreamBuilder<String>(

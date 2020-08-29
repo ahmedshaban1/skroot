@@ -88,8 +88,6 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
   );
 
   var darkTheme = ThemeData(
-    primaryColorBrightness: Brightness.dark,
-    brightness: Brightness.dark,
     primaryColor: Color(darkThemeColors['primary']),
     accentColor: Color(darkThemeColors['secondary']),
     backgroundColor: Color(darkThemeColors['surface-bright']),
@@ -163,7 +161,7 @@ Widget buildThemeData(BuildContext context, Widget navigator) {
   );
 
   return Theme(
-    data: lightTheme,
+    data: darkTheme,
     child: navigator,
   );
 }

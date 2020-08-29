@@ -30,9 +30,9 @@ class SkrootState extends State<Skroot>{
       initialRoute: Routes.SPLASH_ROUTER,
       onGenerateRoute: NamedNavigatorImpl.onGenerateRoute,
       navigatorKey: NamedNavigatorImpl.navigatorState,
-//      builder: (context ,widget){
-//        return buildThemeData(context ,widget);
-//      },
+      builder: (context ,widget){
+        return buildThemeData(context ,widget);
+      },
       debugShowCheckedModeBanner: false,
       supportedLocales: [
         const Locale('en', ''), // English

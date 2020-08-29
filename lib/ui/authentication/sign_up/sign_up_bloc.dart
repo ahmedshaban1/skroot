@@ -88,7 +88,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
             backgroundColor: Colors.black,
             textColor: Colors.purple,
             fontSize: 16.0);
-
+        NamedNavigatorImpl().pop();
         NamedNavigatorImpl().push(Routes.SEND_CODE, arguments: "createAccount");
       } else {
         if(signUpResponse.field.contains("email")){
