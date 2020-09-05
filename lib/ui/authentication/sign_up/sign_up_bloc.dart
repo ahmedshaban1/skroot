@@ -60,6 +60,34 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Stream<bool> get submitChanged =>
       Rx.combineLatest6( userName, phoneNumber, email, country , city , password,( p, e, u , s , c , n)=>true);
 
+  Future<bool> nullableValues(){
+    passwordController.value = null ;
+    cityIdController.value = null ;
+    countryIdController.value = null ;
+    userNameController.value = null ;
+    emailController.value = null ;
+    return NamedNavigatorImpl().push(Routes.LOGIN_ROUTER , clean: true);
+  }
+  void validationFields(){
+    if(signUpBloC.phoneController.value == null){
+      signUpBloC.phoneController.sink.addError("please enter a valid phone number");
+    }
+    if(signUpBloC.passwordController.value == null){
+      signUpBloC.passwordController.sink.addError("please enter a valid password");
+    }
+    if(signUpBloC.cityIdController.value == null){
+      signUpBloC.cityIdController.sink.addError("please enter a valid city Id");
+    }
+    if(signUpBloC.countryIdController.value == null){
+      signUpBloC.countryIdController.sink.addError("please enter a country Id");
+    }
+    if(signUpBloC.emailController.value == null){
+      signUpBloC.emailController.sink.addError("please enter a valid email");
+    }
+    if(signUpBloC.userNameController.value == null){
+      signUpBloC.userNameController.sink.addError("please enter a valid username");
+    }
+  }
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {

@@ -93,7 +93,6 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             onSubmitted: (String value) {
                               verificationCodeBloc.updateCode(value);
                             },
-
                           ),
                         ),
                         CustomButton(

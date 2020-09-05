@@ -70,6 +70,7 @@ class InputFieldArea extends StatelessWidget {
                         color: Color(lightThemeColors["sign-text"]), fontFamily: 'cairo'),
                     obscureText: show,
                     decoration: InputDecoration(
+                      fillColor:  Color(lightThemeColors['sign-bg']),
                       errorText: errorTxt,
                       border:  OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -105,6 +106,7 @@ class InputFieldArea extends StatelessWidget {
                     style: const TextStyle(
                         color:  Color(0xff707070), fontFamily: 'cairo'),
                     decoration: InputDecoration(
+                      fillColor:  Color(lightThemeColors['sign-bg']),
                       prefixIcon: suffixIcon,
                       errorText: errorTxt,
                       icon: icon,

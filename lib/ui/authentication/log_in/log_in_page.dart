@@ -8,6 +8,7 @@ import 'package:skroot/helpers/localization.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
+import 'package:skroot/ui/authentication/sign_up/sign_up_bloc.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/common/error_dialog.dart';
 import 'package:skroot/ui/common/loading_dialog.dart';
@@ -145,8 +146,17 @@ class _LoginPageState extends State<LoginPage> {
                           return CustomButton(
                             onButtonPress: () {
                               print("____________ phone : ${logInBloc.phoneController.value})");
+                              if(snapshot.hasData){
                                 logInBloc.add(Click());
                                 showLoadingDialog(context);
+                              }
+                              if(logInBloc.phoneController.value == null){
+                                logInBloc.phoneController.sink.addError("please enter a valid phone number");
+                              }
+                              if(logInBloc.passwordController.value == null){
+                                logInBloc.passwordController.sink.addError("please enter a valid password");
+                              }
+
                             },
                             text: AppLocalization.of(context)
                                 .getLocalizedText("cap-login"),
