@@ -71,14 +71,14 @@ class RecentlyAddCard extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(5)),
-                                    color: Colors.purple[200]),
+                                    color: Colors.purple[800]),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
+                                  padding: const EdgeInsets.all(4.0),
                                   child: Text(
                                     "El-Doblomasy",
                                     style: TextStyle(
                                       fontSize: 13,
-                                        color: Theme.of(context).primaryColor,
+                                        color: Colors.purpleAccent,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),

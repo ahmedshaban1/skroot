@@ -35,6 +35,7 @@ class _MasterBgState extends State<MasterBg> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(top: 30),
                     height : height *.16,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,

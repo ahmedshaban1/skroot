@@ -7,6 +7,7 @@ import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/helpers/localization.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
+import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_bloc.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/common/error_dialog.dart';
@@ -50,7 +51,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                                       "assets/images/verification_bg.png",
                                     ),
                                     fit: BoxFit.fill)),
-                            child: Center(child: Icon(Icons.message , size: 70.0,),),
+                            child: Center(child: Icon(Icons.message , size: 70.0, color: Colors.white,),),
                           ),
                         ),
 
@@ -58,10 +59,12 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              AppLocalization.of(context)
-                                  .getLocalizedText("join_us"),
+                              "Verification",
                               style: Theme.of(context).textTheme.title.copyWith(
-                                  color: Theme.of(context).primaryColor
+                                  color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                letterSpacing: 2
                               ),
                             ),
                             SizedBox(
@@ -69,20 +72,54 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width * .7,
-                              child: Text(
-                                AppLocalization.of(context)
-                                    .getLocalizedText("sign_des"),
-                                style: Theme.of(context).textTheme.display1,
+                              child: Text("We have sent you message with otp code to your number to verification",
+                                style: Theme.of(context).textTheme.display1.copyWith(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.normal
+                                    ,letterSpacing: 1
+                                ),
                                 textAlign: TextAlign.center,
+
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            Container(
+                              width: MediaQuery.of(context).size.width * .7,
+                              child: Text("One Time Password",
+                                style: Theme.of(context).textTheme.display1.copyWith(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.normal
+                                    ,letterSpacing: 2
+                                ),
+                                textAlign: TextAlign.start,
+
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(height: 10,),
+
                         Padding(
                           padding: const EdgeInsets.only(left :50.0 , right: 50.0),
                           child: PinCodeTextField(
+                            backgroundColor: Colors.transparent,
+
+                            textStyle: TextStyle(color: Colors.white , fontSize: 20 ),
                             length: 4,
-                            pinTheme: PinTheme(),
+                            pinTheme: PinTheme(
+                              disabledColor: Colors.transparent,
+                              inactiveColor: Colors.transparent,
+                              activeColor: Colors.transparent,
+                              activeFillColor: Color(lightThemeColors['sign-bg']),
+                              inactiveFillColor: Color(lightThemeColors['sign-bg']),
+                              selectedColor: Colors.transparent,
+                              selectedFillColor: Color(lightThemeColors['sign-bg']),
+                              borderWidth: 4,
+                              fieldHeight: 60,
+                              fieldWidth: 60
+                            ),
 
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             textInputType: TextInputType.number,
@@ -92,7 +129,12 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             },
                             onSubmitted: (String value) {
                               verificationCodeBloc.updateCode(value);
-                            },
+                            }, onChanged: (String value) {
+
+                          }, appContext: context,
+                            enableActiveFill: true,
+
+
                           ),
                         ),
                         CustomButton(
@@ -121,8 +163,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
 //                              );
 //                            }
                           },
-                          text: AppLocalization.of(context)
-                              .getLocalizedText("create"),
+                          text:"Verify",
                         ),
                       ],
                     );

@@ -79,27 +79,26 @@ class _MasterPageState extends State<MasterPage> {
               ),
             ),
             // search
-            InkWell(
-              onTap: () {
-                NamedNavigatorImpl().push(Routes.FILTER_PAGE_ROUTER);
-              },
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: height * .15,
-                  bottom: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        NamedNavigatorImpl().push(Routes.FILTER_PAGE_ROUTER);
-                      },
-                      child: Card(
-                        elevation: 2.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+            Container(
+              padding: EdgeInsets.only(
+                top: height * .15,
+                bottom: 10,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                    },
+                    child: Card(
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      child: InkWell(
+                        onTap: (){
+                          NamedNavigatorImpl().push(Routes.FILTER_PAGE_ROUTER);
+                        },
                         child: Container(
                           width: width * .8,
                           height: 50,
@@ -117,7 +116,8 @@ class _MasterPageState extends State<MasterPage> {
                               border: InputBorder.none,
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.search, color: Colors.white),
-                                onPressed: () {},
+                                onPressed: () {
+                                },
                               ),
                               hintText: "Search on a brand",
                               hintStyle: TextStyle(color: Colors.grey),
@@ -131,8 +131,8 @@ class _MasterPageState extends State<MasterPage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
