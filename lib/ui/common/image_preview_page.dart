@@ -8,7 +8,7 @@ import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'loading_dialog.dart';
 
 class ImagesPreviewPage extends StatelessWidget {
-  final List<String> images;
+  final List<dynamic> images;
 
   const ImagesPreviewPage({Key key, this.images}) : super(key: key);
 

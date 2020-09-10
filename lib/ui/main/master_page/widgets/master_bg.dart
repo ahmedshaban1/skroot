@@ -28,15 +28,15 @@ class _MasterBgState extends State<MasterBg> {
           bloc: getFromShared,
           builder: (_ , state){
             return Container(
-              padding: EdgeInsets.only( top: 20 , right: 18 , left: 18),
-              height: height*.16,
+              padding: EdgeInsets.only(   right: 18 , left: 18),
+              height: height*.17,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(top: 30),
-                    height : height *.16,
+                    height : height *.17,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

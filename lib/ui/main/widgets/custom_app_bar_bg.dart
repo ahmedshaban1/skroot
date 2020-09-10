@@ -47,13 +47,16 @@ class CustomAppBarBg extends StatelessWidget {
                   ),
                 ),
           Expanded(
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.title.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
+            child: Padding(
+              padding: const EdgeInsets.only(top :8.0),
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.title.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
             ),
           ),
           InkWell(

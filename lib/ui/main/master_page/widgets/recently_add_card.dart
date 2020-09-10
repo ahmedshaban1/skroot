@@ -3,15 +3,22 @@ import 'package:skroot/Components/CustomNetworkImage.dart';
 import 'package:skroot/models/cars/accessories/accessories_model.dart';
 import 'package:skroot/theming/colors.dart';
 
-class RecentlyAddCard extends StatelessWidget {
+class RecentlyAddCard extends StatefulWidget {
   final onTap;
   final model ;
 
   const RecentlyAddCard({Key key, this.onTap, this.model}) : super(key: key);
+
+  @override
+  _RecentlyAddCardState createState() => _RecentlyAddCardState();
+}
+
+class _RecentlyAddCardState extends State<RecentlyAddCard> {
+  bool favState = false;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Card(
         color:Color(lightThemeColors["sign-bg"]),
           shape: RoundedRectangleBorder(
@@ -24,7 +31,7 @@ class RecentlyAddCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 CustomNetworkImage().containerNewWorkImage(
-                  image: model.partCategory.imageUrl,
+                  image: widget.model.partCategory.imageUrl,
                   width: 100,
                   height: 100,
                   radius: 10
@@ -43,16 +50,23 @@ class RecentlyAddCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(model.name.en),
-                                Text(model.description.en , overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,),
+                                Text(widget.model.name.en),
+                                Text(widget.model.description.en , overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,),
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.grey,
+                          InkWell(
+                            onTap: (){
+                              setState(() {
+                                favState = !favState ;
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                               favState? Icons.favorite : Icons.favorite_border,
+                                color:favState ? Colors.red: Colors.grey,
+                              ),
                             ),
                           )
                         ],
@@ -62,7 +76,7 @@ class RecentlyAddCard extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(model.price.toStringAsFixed(2)),
+                            Text(widget.model.price.toStringAsFixed(2)),
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 12.0, right: 12.0),

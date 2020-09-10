@@ -60,7 +60,8 @@ class _ProductPageState extends State<ProductPage> {
                         return Container(
                           alignment: Alignment.center,
                           width: width,
-                          child: model.data.length == 0 ? ErrorMessage(text: "no data",) : GridView.count(
+                          child: model.data.length == 0 ? ErrorMessage(text: "no data",)
+                              : GridView.count(
                             primary: true,
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
