@@ -64,7 +64,6 @@ class _PartsPageState extends State<PartsPage> {
                               return ContainerCard().containerCard(
                                   model: model.data[index],
                                   onTap: (){
-
                                       NamedNavigatorImpl().push(Routes.PRODUCT ,
                                           arguments: BodyProductModel(
                                               carPartId: model.data[index].id,

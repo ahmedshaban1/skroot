@@ -27,9 +27,9 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   @override
   void initState() {
-    print("________________ body ${widget.body.carBrandModelId}");
-    print("________________ body ${widget.body.carBrandId}");
-    print("________________ body ${widget.body.carPartId}");
+    print("________________ body carBrandModelId ${widget.body.carBrandModelId}");
+    print("________________ body carBrandId ${widget.body.carBrandId}");
+    print("________________ body carPartId ${widget.body.carPartId}");
     getProductsBloC.modelIdChanged(widget.body.carBrandModelId);
     getProductsBloC.brandIdChanged(widget.body.carBrandId);
     getProductsBloC.catIdChanged(widget.body.carPartId);
@@ -68,7 +68,7 @@ class _ProductPageState extends State<ProductPage> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 1,
                             mainAxisSpacing: 1,
-                            childAspectRatio: 1,
+                            childAspectRatio:.8,
                             children: List.generate(model.data.length, (index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),

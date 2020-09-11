@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skroot/Components/CustomNetworkImage.dart';
 import 'package:skroot/models/cars/accessories/accessories_model.dart';
+import 'package:skroot/models/cars/products/products_model.dart';
 import 'package:skroot/theming/colors.dart';
 
 class RecentlyAddCard extends StatefulWidget {
@@ -89,7 +90,7 @@ class _RecentlyAddCardState extends State<RecentlyAddCard> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Text(
-                                    "El-Doblomasy",
+                                    widget.model.carBrand.name.en,
                                     style: TextStyle(
                                       fontSize: 13,
                                         color: Colors.purpleAccent,

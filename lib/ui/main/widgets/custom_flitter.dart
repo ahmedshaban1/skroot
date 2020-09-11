@@ -38,7 +38,7 @@ class CustomFilter extends StatelessWidget {
             ),
           ),
 
-          grid ?? true ? Container(
+          grid ?? false ? Container(
             width: 100,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

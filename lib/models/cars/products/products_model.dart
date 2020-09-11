@@ -1,7 +1,7 @@
 import 'package:skroot/network/network-mappers.dart';
 
 class ProductsModel extends BaseMappable{
-  List<Data> data;
+  List<Product> data;
   Links links;
   Meta meta;
 
@@ -10,9 +10,9 @@ class ProductsModel extends BaseMappable{
   @override
   Mappable fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<Data>();
+      data = new List<Product>();
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data.add(new Product.fromJson(v));
       });
     }
     links = json['links'] != null ? new Links.fromJson(json['links']) : null;
@@ -26,7 +26,7 @@ class ProductsModel extends BaseMappable{
 
 }
 
-class Data {
+class Product {
   int id;
   Name name;
   Name description;
@@ -36,7 +36,7 @@ class Data {
   int year;
   double price;
   List<String> imageUrls;
-  Data(
+  Product(
       {this.id,
         this.name,
         this.description,
@@ -47,7 +47,7 @@ class Data {
         this.imageUrls,
         this.price});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'] != null ? new Name.fromJson(json['name']) : null;
     description = json['description'] != null
