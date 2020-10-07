@@ -9,6 +9,13 @@ import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/main/account/components/profile_item.dart';
 import 'package:skroot/ui/main/master_page/get_from_shared_bloc.dart';
+import 'dart:io';
+import 'package:skroot/ui/main/account/account_details/account_details_bloc.dart';
+import 'package:skroot/Components/custom_image_picker.dart';
+import 'package:skroot/ui/common/loading_dialog.dart';
+
+
+
 
 class AccountPage extends StatefulWidget {
   @override
@@ -39,23 +46,47 @@ class _AccountPageState extends State<AccountPage> {
                       height: 100,
                       width: 140,
                     )),
-                BlocBuilder(
-                  bloc: getFromShared,
-                  builder: (_ , state){
-                    if(state is Start){
-                      return Center(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 35),
-                            child: CustomNetworkImage().circleNewWorkImage(
-                                image: getFromShared.image ,
-                                radius: 40
-
-                            ),
-                          )
-                      );
-                    }
-                    return Container();
+                InkWell(
+                  onTap: (){
+                    ImagePickerDialog().show(
+                        context: context,
+                        onGet: (v) {
+                          print("_____________ user avatar image is $v");
+                          accountDetailsBloC.imageChanged(v);
+                          accountDetailsBloC.add(UpdatePhoto());
+                          showLoadingDialog(context);
+                        });
                   },
+                  child: BlocBuilder(
+                    bloc: getFromShared,
+                    builder: (_, state) {
+                      if (state is Start) {
+                        return Center(
+                            child: Container(
+                              margin: EdgeInsets.only(top: 35),
+                              child: StreamBuilder<File>(
+                                  stream: accountDetailsBloC.image,
+                                  builder: (context, snapshot) {
+                                    return snapshot.hasData
+                                        ? CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: Colors.white,
+                                      backgroundImage: Image.file(
+                                        snapshot.data,
+                                        fit: BoxFit.cover,
+                                      ).image,
+                                    )
+                                        : CustomNetworkImage()
+                                        .circleNewWorkImage(
+                                        image:
+                                        getFromShared.image,
+                                        radius: 40);
+                                  }),
+                            ));
+                      }
+                      return Container();
+                    },
+                  ),
                 )
               ],
             ),

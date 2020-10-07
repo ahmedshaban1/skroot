@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'account_details_bloc.dart';
+
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,6 @@ import 'package:skroot/ui/common/loading_dialog.dart';
 import 'package:skroot/ui/main/master_page/get_from_shared_bloc.dart';
 import 'package:skroot/ui/main/widgets/custom_app_bar_bg.dart';
 
-import 'account_details_bloc.dart';
 
 class AccountDetails extends StatefulWidget {
   @override
@@ -54,58 +55,6 @@ class _AccountDetailsState extends State<AccountDetails> {
             shrinkWrap: true,
             physics: ScrollPhysics(),
             children: [
-              Center(
-                child: Stack(
-                  children: <Widget>[
-                    Center(
-                        child: Image.asset(
-                      "assets/images/group_points.png",
-                      height: 100,
-                      width: 140,
-                    )),
-                    InkWell(
-                      onTap: () {
-                        ImagePickerDialog().show(
-                            context: context,
-                            onGet: (v) {
-                              print("_____________ user avatar image is $v");
-                              accountDetailsBloC.imageChanged(v);
-                            });
-                      },
-                      child: BlocBuilder(
-                              bloc: getFromShared,
-                              builder: (_, state) {
-                                if (state is Start) {
-                                  return Center(
-                                      child: Container(
-                                    margin: EdgeInsets.only(top: 35),
-                                    child: StreamBuilder<File>(
-                                        stream: accountDetailsBloC.image,
-                                        builder: (context, snapshot) {
-                                          return snapshot.hasData
-                                              ? CircleAvatar(
-                                                  radius: 50,
-                                                  backgroundColor: Colors.white,
-                                                  backgroundImage: Image.file(
-                                                    snapshot.data,
-                                                    fit: BoxFit.cover,
-                                                  ).image,
-                                                )
-                                              : CustomNetworkImage()
-                                                  .circleNewWorkImage(
-                                                      image:
-                                                          getFromShared.image,
-                                                      radius: 50);
-                                        }),
-                                  ));
-                                }
-                                return Container();
-                              },
-                            )
-                    )
-                  ],
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: StreamBuilder<String>(
@@ -343,7 +292,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                 snapshot: true,
                 onButtonPress: () {
                   accountDetailsBloC.add(Click());
-               //   accountDetailsBloC.add(UpdatePhoto());
+                  accountDetailsBloC.add(UpdatePhoto());
                   showLoadingDialog(context);
                 },
                 text: AppLocalization.of(context).getLocalizedText("update"),
