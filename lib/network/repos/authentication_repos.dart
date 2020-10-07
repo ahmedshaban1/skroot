@@ -37,4 +37,5 @@ class AuthenticationRepo {
           ForgetPasswordStepThreeRequest forgetPasswordStepThreeRequest) =>
       NetworkUtil.internal().post(LoginResponse(), "password/set",
           body: forgetPasswordStepThreeRequest.toJson());
+
 }

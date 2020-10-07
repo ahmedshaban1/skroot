@@ -18,3 +18,6 @@ class AnimationEnd extends AppEvent{}
 
 class Hydrate extends AppEvent{}
 class GetShared extends AppEvent{}
+class Terms extends AppEvent{}
+class Privacy extends AppEvent{}
+class UpdatePhoto extends AppEvent{}

@@ -51,7 +51,7 @@ class NetworkUtil {
     dio.options.baseUrl =base_url;
     try {
       print(headers);
-      response = await dio.put(url, data: jsonEncode(body), options: Options(headers: headers, requestEncoder: encoding));
+      response = await dio.put(url, data: jsonEncode(body), options: Options(headers: headers, requestEncoder: encoding ,));
     } on DioError catch (e) {
       if (e.response != null) {
         response = e.response;

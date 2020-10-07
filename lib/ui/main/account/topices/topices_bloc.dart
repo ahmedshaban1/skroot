@@ -13,7 +13,7 @@ class GetTopicsBloC extends Bloc<AppEvent, AppState> with Validator {
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
-    if (event is Click) {
+    if (event is Privacy) {
       yield (Start(null));
       var model =  await UserDataRepo.getPrivacy();
       yield Done(model);

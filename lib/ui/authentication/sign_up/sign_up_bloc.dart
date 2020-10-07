@@ -58,7 +58,7 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
   Stream<int> get country => countryIdController.stream.transform(selectedId);
 
   Stream<bool> get submitChanged =>
-      Rx.combineLatest6( userName, phoneNumber, email, country , city , password,( p, e, u , s , c , n)=>true);
+      Rx.combineLatest6(userName, phoneNumber, email, country , city , password,( p, e, u , s , c , n)=>true);
 
   Future<bool> nullableValues(){
     passwordController.value = null ;
@@ -116,6 +116,11 @@ class SignUpBloC extends Bloc<AppEvent, AppState> with Validator {
             backgroundColor: Colors.black,
             textColor: Colors.purple,
             fontSize: 16.0);
+        passwordController.value = null ;
+        cityIdController.value = null ;
+        countryIdController.value = null ;
+        userNameController.value = null ;
+        emailController.value = null ;
         NamedNavigatorImpl().pop();
         NamedNavigatorImpl().push(Routes.SEND_CODE, arguments: "createAccount");
       } else {

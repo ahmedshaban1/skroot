@@ -6,15 +6,16 @@ import 'package:skroot/ui/main/master_page/brands/internal/products/get_products
 class CustomAppBarBg extends StatelessWidget {
   final text;
 
-  final onDrawerClick;
 
-  final openNotification;
+  final openCard;
 
   final widget ;
+  
+  final card ;
 
 
   const CustomAppBarBg(
-      {Key key, this.text, this.onDrawerClick, this.openNotification, this.widget})
+      {Key key, this.text, this.openCard, this.widget, this.card})
       : super(key: key);
 
   @override
@@ -59,8 +60,9 @@ class CustomAppBarBg extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
-                  onTap: openNotification,
+          card
+          ? InkWell(
+                  onTap: openCard,
                   child: Container(
                     width: 70,
                     alignment: Alignment.center,
@@ -70,6 +72,8 @@ class CustomAppBarBg extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
+                ) :Container(
+                  width: 70,
                 )
         ],
       ),

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:skroot/Components/image_bg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skroot/Components/CustomNetworkImage.dart';
+import 'package:skroot/app/appEvent.dart';
+import 'package:skroot/app/appState.dart';
 import 'package:skroot/helpers/shared_preference_manger.dart';
 import 'package:skroot/navigator/named-navigator.dart';
 import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/main/account/components/profile_item.dart';
+import 'package:skroot/ui/main/master_page/get_from_shared_bloc.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -12,6 +16,11 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  @override
+  void initState() {
+    getFromShared.add(GetShared());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +39,23 @@ class _AccountPageState extends State<AccountPage> {
                       height: 100,
                       width: 140,
                     )),
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 35),
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage("url"),
-                    ),
-                  ),
+                BlocBuilder(
+                  bloc: getFromShared,
+                  builder: (_ , state){
+                    if(state is Start){
+                      return Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 35),
+                            child: CustomNetworkImage().circleNewWorkImage(
+                                image: getFromShared.image ,
+                                radius: 40
+
+                            ),
+                          )
+                      );
+                    }
+                    return Container();
+                  },
                 )
               ],
             ),
@@ -64,7 +82,9 @@ class _AccountPageState extends State<AccountPage> {
                     size: 14,
                   ),
                   text: "Account Details",
-                  onClick: () {},
+                  onClick: () {
+                    NamedNavigatorImpl().push(Routes.ACCOUNT_DETAILS );
+                  },
                 ),
                 ProfileItem(
                   icon: Icon(
@@ -158,7 +178,9 @@ class _AccountPageState extends State<AccountPage> {
                     size: 14,
                   ),
                   text: "Privacy policy",
-                  onClick: () {},
+                  onClick: () {
+                    NamedNavigatorImpl().push(Routes.TOPICS , arguments: "policy");
+                  },
                 ),
                 ProfileItem(
                   icon: Icon(

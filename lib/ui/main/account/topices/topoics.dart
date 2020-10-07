@@ -20,9 +20,9 @@ class _TopicsState extends State<Topics> {
   @override
   void initState() {
     if(widget.type.contains("terms")){
-      getTopicsBloC.add(Hydrate());
+      getTopicsBloC.add(Terms());
     }else{
-      getTopicsBloC.add(Click());
+      getTopicsBloC.add(Privacy());
     }
     super.initState();
   }

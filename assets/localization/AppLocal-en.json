@@ -24,5 +24,8 @@
   "sub-reset" : "Please set your new password",
   "sub-forget" : "Please set your new password",
   "re-set" : "Re-set",
-  "home" : "Find Your Part"
+  "home" : "Find Your Part",
+  "add_car" : "Add New Car",
+  "add_address" : "Add New Address",
+  "update" : "Update"
 }

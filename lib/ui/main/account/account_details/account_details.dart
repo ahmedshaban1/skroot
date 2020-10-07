@@ -1,106 +1,119 @@
+import 'dart:io';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:international_phone_input/international_phone_input.dart';
-import 'package:skroot/Components/custom_back_arrow.dart';
+import 'package:skroot/Components/CustomNetworkImage.dart';
 import 'package:skroot/Components/custom_bottom_sheet.dart';
+import 'package:skroot/Components/custom_image_picker.dart';
+import 'package:skroot/Components/image_bg.dart';
 import 'package:skroot/Components/inputTextField.dart';
 import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/app/appState.dart';
 import 'package:skroot/helpers/localization.dart';
 import 'package:skroot/models/lists/countries_response.dart';
-import 'package:skroot/navigator/named-navigator.dart';
-import 'package:skroot/navigator/named-navigator_impl.dart';
 import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/authentication/sign_up/cities_bloc.dart';
-import 'package:skroot/ui/authentication/sign_up/cities_bloc.dart';
-import 'package:skroot/ui/authentication/sign_up/sign_up_bloc.dart';
+import 'package:skroot/ui/authentication/sign_up/countries_bloc.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
-import 'package:skroot/ui/common/error_dialog.dart';
 import 'package:skroot/ui/common/loading_dialog.dart';
+import 'package:skroot/ui/main/master_page/get_from_shared_bloc.dart';
+import 'package:skroot/ui/main/widgets/custom_app_bar_bg.dart';
 
-import 'countries_bloc.dart';
+import 'account_details_bloc.dart';
 
-class SignUpPage extends StatefulWidget {
+class AccountDetails extends StatefulWidget {
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _AccountDetailsState createState() => _AccountDetailsState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  Color activeColor = Color(lightThemeColors["sign-text"]);
-  bool isChecked = false;
-
+class _AccountDetailsState extends State<AccountDetails> {
   @override
   void initState() {
-    // TODO: implement initState
     countriesBloc.add(Hydrate());
     citiesBloc.updateCountryId(1);
     citiesBloc.add(Click());
+    getFromShared.add(GetShared());
     super.initState();
   }
 
-  final _blank = FocusNode();
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: ()=>signUpBloC.nullableValues(),
-      child: Scaffold(
-        body: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            FocusScope.of(context).requestFocus(_blank);
-          },
-          child:ListView(
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return Scaffold(
+        body: Stack(
+      children: <Widget>[
+        Container(
+          width: width,
+          height: height,
+          padding: EdgeInsets.only(top: 30),
+          child: ListView(
             shrinkWrap: true,
             physics: ScrollPhysics(),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Stack(
                   children: <Widget>[
-                    Image.asset(
-                      "assets/images/sign_up_image.png",
-                      fit: BoxFit.cover,
-                    ),
+                    Center(
+                        child: Image.asset(
+                      "assets/images/group_points.png",
+                      height: 100,
+                      width: 140,
+                    )),
+                    InkWell(
+                      onTap: () {
+                        ImagePickerDialog().show(
+                            context: context,
+                            onGet: (v) {
+                              print("_____________ user avatar image is $v");
+                              accountDetailsBloC.imageChanged(v);
+                            });
+                      },
+                      child: BlocBuilder(
+                              bloc: getFromShared,
+                              builder: (_, state) {
+                                if (state is Start) {
+                                  return Center(
+                                      child: Container(
+                                    margin: EdgeInsets.only(top: 35),
+                                    child: StreamBuilder<File>(
+                                        stream: accountDetailsBloC.image,
+                                        builder: (context, snapshot) {
+                                          return snapshot.hasData
+                                              ? CircleAvatar(
+                                                  radius: 50,
+                                                  backgroundColor: Colors.white,
+                                                  backgroundImage: Image.file(
+                                                    snapshot.data,
+                                                    fit: BoxFit.cover,
+                                                  ).image,
+                                                )
+                                              : CustomNetworkImage()
+                                                  .circleNewWorkImage(
+                                                      image:
+                                                          getFromShared.image,
+                                                      radius: 50);
+                                        }),
+                                  ));
+                                }
+                                return Container();
+                              },
+                            )
+                    )
                   ],
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    AppLocalization.of(context)
-                        .getLocalizedText("join_us"),
-                    style: Theme.of(context).textTheme.title.copyWith(
-                        color: Theme.of(context).primaryColor),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * .7,
-                    child: Text(
-                      AppLocalization.of(context)
-                          .getLocalizedText("sign_des"),
-                      style: Theme.of(context).textTheme.display1,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: StreamBuilder<String>(
-                    stream: signUpBloC.userName,
+                    stream: accountDetailsBloC.userName,
                     builder: (context, snapshot) {
                       return InputFieldArea(
                         suffixIcon: Padding(
-                          padding: const EdgeInsets.only(
-                              right: 8.0, left: 8.0),
+                          padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                           child: Icon(
                             Icons.person_outline,
                             color: Colors.white,
@@ -109,66 +122,72 @@ class _SignUpPageState extends State<SignUpPage> {
                         hint: AppLocalization.of(context)
                             .getLocalizedText("full_name"),
                         errorTxt: snapshot.error,
-                        changedFunction: signUpBloC.userNameChanged,
+                        changedFunction: accountDetailsBloC.userNameChanged,
                         textInputType: TextInputType.text,
                         inputFieldWithBorder: false,
-
                       );
                     }),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 8.0 , right: 8.0 , top: 2.0 , bottom: 2.0),
+                padding: const EdgeInsets.only(
+                    left: 8.0, right: 8.0, top: 2.0, bottom: 2.0),
                 child: StreamBuilder<String>(
-                    stream: signUpBloC.phoneNumber,
+                    stream: accountDetailsBloC.phoneNumber,
                     builder: (context, snapshot) {
                       return Padding(
-                        padding: const EdgeInsets.only(top:2.0,bottom: 2.0),
+                        padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
                         child: InputFieldArea(
-                          hint: AppLocalization.of(context).getLocalizedText("phone"),
+                          hint: AppLocalization.of(context)
+                              .getLocalizedText("phone"),
                           suffixIcon: StreamBuilder<String>(
-                              stream: signUpBloC.phoneController,
+                              stream: accountDetailsBloC.phoneController,
                               builder: (context, snapshot) {
                                 return CountryCodePicker(
-
                                   padding: EdgeInsets.all(0.0),
                                   textStyle: TextStyle(color: Colors.grey[300]),
                                   showFlag: false,
                                   onChanged: (code) {
-                                    FocusScope.of(context).requestFocus(FocusNode());
-                                    signUpBloC.countryCodeChanged(code.dialCode);
-                                    print("on change ${code.name} ${code.dialCode} ${code.name}");
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    accountDetailsBloC
+                                        .countryCodeChanged(code.dialCode);
+                                    print(
+                                        "on change ${code.name} ${code.dialCode} ${code.name}");
                                   },
                                   // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                                   initialSelection: '+971',
-                                  favorite: ['+02', 'EG' , '+971',],
-                                  comparator: (a, b) => b.name.compareTo(a.name),
+                                  favorite: [
+                                    '+02',
+                                    'EG',
+                                    '+971',
+                                  ],
+                                  comparator: (a, b) =>
+                                      b.name.compareTo(a.name),
                                   //Get the country information relevant to the initial selection
                                   onInit: (code) {
-                                    signUpBloC.countryCodeChanged(code.dialCode);
-                                    print("on init ${code.name} ${code
-                                        .dialCode} ${code.name}");
+                                    accountDetailsBloC
+                                        .countryCodeChanged(code.dialCode);
+                                    print(
+                                        "on init ${code.name} ${code.dialCode} ${code.name}");
                                   },
                                 );
-                              }
-                          ),
+                              }),
                           errorTxt: snapshot.error,
-                          changedFunction: signUpBloC.updatePhone,
+                          changedFunction: accountDetailsBloC.updatePhone,
                           textInputType: TextInputType.number,
                         ),
                       );
-
                     }),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: StreamBuilder<String>(
-                    stream: signUpBloC.email,
+                    stream: accountDetailsBloC.email,
                     builder: (context, snapshot) {
                       return InputFieldArea(
                         inputFieldWithBorder: false,
                         suffixIcon: Padding(
-                          padding: const EdgeInsets.only(
-                              right: 8.0, left: 8.0),
+                          padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                           child: Icon(
                             Icons.email,
                             color: Colors.white,
@@ -177,7 +196,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         hint: AppLocalization.of(context)
                             .getLocalizedText("email"),
                         errorTxt: snapshot.error,
-                        changedFunction: signUpBloC.emailChanged,
+                        changedFunction: accountDetailsBloC.emailChanged,
                         textInputType: TextInputType.emailAddress,
                       );
                     }),
@@ -192,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     print("_______ : state is $state");
                     if (state is Done) {
                       return StreamBuilder<int>(
-                          stream: signUpBloC.country,
+                          stream: accountDetailsBloC.country,
                           builder: (context, snapshot) {
                             return Column(
                               children: [
@@ -208,20 +227,27 @@ class _SignUpPageState extends State<SignUpPage> {
                                   },
                                 ),
                                 Visibility(
-                                    visible : snapshot.hasError ?? false,
+                                    visible: snapshot.hasError ?? false,
                                     child: Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left :8.0 , right: 8.0),
-                                          child: Text(snapshot.hasError ? snapshot.error : "" ,
-                                            style: TextStyle(color:Colors.red ,),textAlign: TextAlign.start, ),
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, right: 8.0),
+                                          child: Text(
+                                            snapshot.hasError
+                                                ? snapshot.error
+                                                : "",
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
                                       ],
                                     ))
                               ],
                             );
-                          }
-                      );
+                          });
                     } else {
                       return CustomBottomSheet(
                           type: "country",
@@ -244,7 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     print("_______ : state is $state");
                     if (state is Done) {
                       return StreamBuilder<int>(
-                          stream: signUpBloC.city,
+                          stream: accountDetailsBloC.city,
                           builder: (context, snapshot) {
                             return Column(
                               children: [
@@ -257,20 +283,27 @@ class _SignUpPageState extends State<SignUpPage> {
                                   onItemClick: (index) {},
                                 ),
                                 Visibility(
-                                    visible : snapshot.hasError ?? false,
+                                    visible: snapshot.hasError ?? false,
                                     child: Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left :8.0 , right: 8.0),
-                                          child: Text(snapshot.hasError ? snapshot.error : "" ,
-                                            style: TextStyle(color:Colors.red ,),textAlign: TextAlign.start, ),
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, right: 8.0),
+                                          child: Text(
+                                            snapshot.hasError
+                                                ? snapshot.error
+                                                : "",
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
                                       ],
                                     ))
                               ],
                             );
-                          }
-                      );
+                          });
                     } else {
                       return CustomBottomSheet(
                           type: "city",
@@ -286,12 +319,11 @@ class _SignUpPageState extends State<SignUpPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: StreamBuilder<String>(
-                    stream: signUpBloC.password,
+                    stream: accountDetailsBloC.password,
                     builder: (context, snapshot) {
                       return InputFieldArea(
                         suffixIcon: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0),
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                           child: Icon(
                             Icons.lock_outline,
                             color: Colors.white,
@@ -302,103 +334,32 @@ class _SignUpPageState extends State<SignUpPage> {
                         textInputType: TextInputType.text,
                         show: true,
                         inputFieldWithBorder: false,
-                        changedFunction: signUpBloC.updatePassword,
+                        changedFunction: accountDetailsBloC.updatePassword,
                         errorTxt: snapshot.error,
                       );
                     }),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    InkWell(
-                      onTap:(){
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        if (isChecked != false) {
-                          setState(() {
-                            activeColor =
-                                Color(lightThemeColors["sign-text"]);
-                            isChecked = false;
-                          });
-                        } else {
-                          setState(() {
-                            activeColor = Theme.of(context).primaryColor;
-                            isChecked = true;
-                          });
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0),
-                        child: CircleAvatar(
-                          radius: 10,
-                          backgroundColor: activeColor,
-                          child: Icon(
-                            Icons.done,
-                            size: 12,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        NamedNavigatorImpl().push(Routes.TOPICS , arguments: "terms");
-                      },
-                      child: Container(
-                        child: Text(
-                          AppLocalization.of(context)
-                              .getLocalizedText("terms"),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Color(
-                                  lightThemeColors["sign-text"]),
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               CustomButton(
                 snapshot: true,
                 onButtonPress: () {
-                  if(
-                  signUpBloC.userNameController.value != null &&
-                  signUpBloC.emailController.value != null &&
-                  signUpBloC.passwordController.value != null &&
-                  signUpBloC.cityIdController.value != null &&
-                  signUpBloC.countryIdController.value != null
-                  ){
-                    if (isChecked) {
-                      signUpBloC.add(Click());
-                      showLoadingDialog(context);
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: "Please you have to accept the conditions",
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.black,
-                          textColor: Colors.purple,
-                          fontSize: 16.0);
-                    }
-                  }else{
-                    signUpBloC.validationFields();
-                  }
-
+                  accountDetailsBloC.add(Click());
+               //   accountDetailsBloC.add(UpdatePhoto());
+                  showLoadingDialog(context);
                 },
-                text: AppLocalization.of(context).getLocalizedText("create"),
+                text: AppLocalization.of(context).getLocalizedText("update"),
               )
-
             ],
           ),
-
         ),
-      ),
-    );
+        Column(
+          children: <Widget>[
+            CustomAppBarBg(
+              card: false,
+              text: "My Account",
+            ),
+          ],
+        )
+      ],
+    ));
   }
-  bool snapshot = false ;
 }
