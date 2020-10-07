@@ -160,7 +160,9 @@ class _AccountPageState extends State<AccountPage> {
                     size: 14,
                   ),
                   text: "Contact Us",
-                  onClick: () {},
+                  onClick: () {
+                    NamedNavigatorImpl().push(Routes.CONTACT_US );
+                  },
                 ),
                 ProfileItem(
                   icon: Icon(
@@ -197,37 +199,32 @@ class _AccountPageState extends State<AccountPage> {
 
           InkWell(
             onTap: (){
-
+              SharedPreferenceManager().logout();
+              NamedNavigatorImpl().push(Routes.SPLASH_ROUTER , clean: true);
             },
-            child: InkWell(
-              onTap: (){
-                SharedPreferenceManager().logout();
-                NamedNavigatorImpl().push(Routes.SPLASH_ROUTER , clean: true);
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 5),
-                decoration: BoxDecoration(
-                    color: Colors.black12, borderRadius: BorderRadius.only(bottomRight: Radius.circular(20) , bottomLeft: Radius.circular(20))),
-                padding: EdgeInsets.all(2),
-                child:Padding (
-                  padding: const EdgeInsets.all(9.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(shape: BoxShape.circle ,  color: Colors.black26 ),
-                            child: Icon(Icons.exit_to_app , color: Colors.red,),
-                          ),
-                          SizedBox(width: 10,),
-                          Text("Logout" , style: TextStyle(color: Colors.red  , fontSize: 22 , fontWeight: FontWeight.bold ),)
-                        ],
-                      ),
-                    ],
-                  ),
+            child: Container(
+              margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 5),
+              decoration: BoxDecoration(
+                  color: Colors.black12, borderRadius: BorderRadius.only(bottomRight: Radius.circular(20) , bottomLeft: Radius.circular(20))),
+              padding: EdgeInsets.all(2),
+              child:Padding (
+                padding: const EdgeInsets.all(9.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(shape: BoxShape.circle ,  color: Colors.black26 ),
+                          child: Icon(Icons.exit_to_app , color: Colors.red,),
+                        ),
+                        SizedBox(width: 10,),
+                        Text("Logout" , style: TextStyle(color: Colors.red  , fontSize: 22 , fontWeight: FontWeight.bold ),)
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

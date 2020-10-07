@@ -27,5 +27,7 @@
   "home" : "Find Your Part",
   "add_car" : "Add New Car",
   "add_address" : "Add New Address",
-  "update" : "Update"
+  "update" : "Update",
+  "send" : "Send",
+  "message" : "Enter Your Message"
 }

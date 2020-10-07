@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skroot/theming/colors.dart';
 
 class CustomTextContainer{
   Widget customText({BuildContext context , String text}){
@@ -8,7 +9,7 @@ class CustomTextContainer{
       height: 50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          border: Border.all(color: Colors.grey)
+        color: Color(lightThemeColors["sign-bg"])
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -368,6 +368,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   if(
                   signUpBloC.userNameController.value != null &&
                   signUpBloC.emailController.value != null &&
+                  signUpBloC.phoneController.value != null &&
                   signUpBloC.passwordController.value != null &&
                   signUpBloC.cityIdController.value != null &&
                   signUpBloC.countryIdController.value != null

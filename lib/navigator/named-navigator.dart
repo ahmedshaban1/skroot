@@ -21,6 +21,7 @@ class Routes {
   static const EDIT_ADDRESSES_ROUTER = "EDIT_ADDRESSES_ROUTER";
   static const FILTER_PAGE_ROUTER = "FILTER_PAGE_ROUTER";
   static const ACCOUNT_DETAILS = "ACCOUNT_DETAILS";
+  static const CONTACT_US = "CONTACT_US";
 }
 
 abstract class NamedNavigator {

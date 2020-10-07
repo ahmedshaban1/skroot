@@ -7,6 +7,7 @@ import 'package:skroot/ui/authentication/reset_password/reset_password.dart';
 import 'package:skroot/ui/authentication/sign_up/sign_up.dart';
 import 'package:skroot/ui/authentication/verification_code/verification_code_page.dart';
 import 'package:skroot/ui/filter/filter_page.dart';
+import 'package:skroot/ui/main/account/contact_us/contact_us.dart';
 import 'file:///G:/FlutterProj/skroot_app/lib/ui/main/account/account_details/account_details.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_addresses/add_address/add_address_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_addresses/edit_address/edit_address_page.dart';
@@ -53,6 +54,7 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.EDIT_ADDRESSES_ROUTER :return MaterialPageRoute(builder: (_) => EditAddressPage(editAddressArguments: settings.arguments,));
       case Routes.FILTER_PAGE_ROUTER :return MaterialPageRoute(builder: (_) => FilterPage());
       case Routes.ACCOUNT_DETAILS :return MaterialPageRoute(builder: (_) => AccountDetails());
+      case Routes.CONTACT_US :return MaterialPageRoute(builder: (_) => ContactUs());
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());
