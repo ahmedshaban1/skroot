@@ -110,9 +110,7 @@ class _NewPartsState extends State<NewParts> {
                                       model: model.data[index],
                                       onTap: (){
                                         NamedNavigatorImpl().push(Routes.PRODUCT ,arguments:
-                                        BodyProductModel(
-                                          carPartId: model.data[index].id
-                                        ));
+                                        BodyProductModel(carPartId: model.data[index].id));
                                       },
                                       widget: true,
                                       height: height*.18,

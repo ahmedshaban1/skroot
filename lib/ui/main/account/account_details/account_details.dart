@@ -56,7 +56,6 @@ class _AccountDetailsState extends State<AccountDetails> {
             physics: ScrollPhysics(),
             children: [
               SizedBox(height: 20,),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: StreamBuilder<String>(
@@ -173,7 +172,8 @@ class _AccountDetailsState extends State<AccountDetails> {
                                   inputIcon: FontAwesomeIcons.globeAfrica,
                                   list: countriesResponse.data,
                                   onItemClick: (index) {
-                                    citiesBloc.updateCountryId(1);
+                                    accountDetailsBloC.countryIdChanged(countriesResponse.data[index].id);
+                                    citiesBloc.updateCountryId(countriesResponse.data[index].id);
                                     citiesBloc.add(Click());
                                   },
                                 ),
@@ -231,7 +231,9 @@ class _AccountDetailsState extends State<AccountDetails> {
                                       .getLocalizedText("city"),
                                   inputIcon: FontAwesomeIcons.globeAfrica,
                                   list: countriesResponse.data,
-                                  onItemClick: (index) {},
+                                  onItemClick: (index) {
+                                    accountDetailsBloC.cityIdChanged(countriesResponse.data[index].id);
+                                  },
                                 ),
                                 Visibility(
                                     visible: snapshot.hasError ?? false,
@@ -266,29 +268,6 @@ class _AccountDetailsState extends State<AccountDetails> {
                     }
                   },
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: StreamBuilder<String>(
-                    stream: accountDetailsBloC.password,
-                    builder: (context, snapshot) {
-                      return InputFieldArea(
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: Icon(
-                            Icons.lock_outline,
-                            color: Colors.white,
-                          ),
-                        ),
-                        hint: AppLocalization.of(context)
-                            .getLocalizedText("password"),
-                        textInputType: TextInputType.text,
-                        show: true,
-                        inputFieldWithBorder: false,
-                        changedFunction: accountDetailsBloC.updatePassword,
-                        errorTxt: snapshot.error,
-                      );
-                    }),
               ),
               CustomButton(
                 snapshot: true,
