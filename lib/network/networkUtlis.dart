@@ -12,7 +12,7 @@ class NetworkUtil {
   factory NetworkUtil() => _instance;
 
   Dio dio = Dio();
-  String base_url = "http://mowagdy.com/skroot/public/api/v1/";
+  String base_url = "https://mowagdy.com/skroot/public/api/v1/";
 
   Future<ResponseType> get<ResponseType extends Mappable>(ResponseType responseType, String url, {Map headers , Map queryParameters}) async {
     var response;
@@ -45,6 +45,21 @@ class NetworkUtil {
     }
     return handleResponse(response , responseType);
   }
+
+  Future<ResponseType> postForm<ResponseType extends Mappable>(ResponseType responseType,String url,
+      {Map headers, FormData body, encoding}) async {
+    var response;
+    dio.options.baseUrl =base_url;
+    try {
+      print(headers);
+      response = await dio.post(url, data: body, options: Options(headers: headers, requestEncoder: encoding));
+    } on DioError catch (e) {
+      if (e.response != null) {
+        response = e.response;
+      }
+    }
+    return handleResponse(response , responseType);
+  }
   Future<ResponseType> put<ResponseType extends Mappable>(ResponseType responseType,String url,
       {Map headers, var body, encoding}) async {
     var response;
@@ -52,6 +67,20 @@ class NetworkUtil {
     try {
       print(headers);
       response = await dio.put(url, data: jsonEncode(body), options: Options(headers: headers, requestEncoder: encoding ,));
+    } on DioError catch (e) {
+      if (e.response != null) {
+        response = e.response;
+      }
+    }
+    return handleResponse(response , responseType);
+  }
+  Future<ResponseType> putForm<ResponseType extends Mappable>(ResponseType responseType,String url,
+      {Map headers, FormData body, encoding}) async {
+    var response;
+    dio.options.baseUrl =base_url;
+    try {
+      print(headers);
+      response = await dio.put(url, data: body, options: Options(headers: headers, requestEncoder: encoding ,));
     } on DioError catch (e) {
       if (e.response != null) {
         response = e.response;

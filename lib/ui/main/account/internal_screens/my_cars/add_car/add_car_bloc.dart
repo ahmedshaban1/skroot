@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,6 +20,7 @@ class AddCarBloc extends Bloc<AppEvent, AppState> with Validator {
   final carBrandId = BehaviorSubject<int>();
   final carModelId = BehaviorSubject<int>();
   final carYear = BehaviorSubject<int>();
+  var imageCodeController = BehaviorSubject<File>();
 
   Function(int) get updateCarBrandId => carBrandId.sink.add;
 
@@ -30,6 +33,10 @@ class AddCarBloc extends Bloc<AppEvent, AppState> with Validator {
   Stream<int> get carModelStream => carModelId.stream.transform(selectedId);
 
   Stream<int> get carYearStream => carYear.stream.transform(selectedId);
+
+  Function(File) get imageChanged => imageCodeController.sink.add;
+
+  Stream<File> get image => imageCodeController.stream.asBroadcastStream();
 
   Stream<bool> get submitChanged => Rx.combineLatest3(
       carBrandStream, carModelStream, carYearStream, (a, b, c) => true);
@@ -47,11 +54,14 @@ class AddCarBloc extends Bloc<AppEvent, AppState> with Validator {
           AddCarRequest(
               car_brand_id: carBrandId.value,
               car_brand_model_id: carModelId.value,
-              year: carYear.value), token);
+              year: carYear.value,
+          image: imageCodeController.value), token);
 
       if(response.id != 0){
         NamedNavigatorImpl().pop();
         NamedNavigatorImpl().pop(result: true);
+        imageCodeController.value = null;
+        imageCodeController = BehaviorSubject<File>();
       }
       else {
         Fluttertoast.showToast(

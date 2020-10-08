@@ -32,6 +32,7 @@ class InputFieldArea extends StatelessWidget {
 
   final onFocus;
 
+
   final inputScopeDes;
 
   InputFieldArea(
@@ -103,14 +104,17 @@ class InputFieldArea extends StatelessWidget {
                     focusNode: inputScopeSur,
                     keyboardType: textInputType,
                     onChanged: changedFunction,
+
                     style: const TextStyle(
                         color:  Color(0xff707070), fontFamily: 'cairo'),
                     decoration: InputDecoration(
+                      disabledBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                       fillColor:  Color(lightThemeColors['sign-bg']),
                       prefixIcon: suffixIcon,
                       errorText: errorTxt,
                       icon: icon,
-                      border:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      border:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10) ,)),
                        hintText: hint,
                       hintStyle:  TextStyle(
                           color: Color(lightThemeColors["sign-text"]),

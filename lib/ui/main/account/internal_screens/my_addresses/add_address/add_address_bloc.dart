@@ -15,13 +15,13 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
   @override
   AppState get initialState => Start(null);
 
-  final cityId = BehaviorSubject<int>();
-  final countryId = BehaviorSubject<int>();
-  final zipCode = BehaviorSubject<int>();
+  var cityId = BehaviorSubject<int>();
+  var countryId = BehaviorSubject<int>();
+  var zipCode = BehaviorSubject<int>();
 
-  final title = BehaviorSubject<String>();
-  final street = BehaviorSubject<String>();
-  final phoneNumber = BehaviorSubject<String>();
+  var title = BehaviorSubject<String>();
+  var street = BehaviorSubject<String>();
+  var phoneNumber = BehaviorSubject<String>();
 
   Function(int) get updateCityId => cityId.sink.add;
 
@@ -43,7 +43,7 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
 
   Stream<String> get titleStream => title.stream.transform(addressValidator);
 
-  Stream<String> get streetStream => street.stream.transform(nameValidator);
+  Stream<String> get streetStream => street.stream.transform(streetValidator);
 
   Stream<String> get phoneNumberStream => phoneNumber.stream.transform(number);
 
@@ -76,8 +76,28 @@ class AddAddressBloc extends Bloc<AppEvent, AppState> with Validator {
           token);
 
       if (response.id != 0) {
+//        cityId.value = null;
+//        countryId.value = null;
+//        zipCode.value = null;
+        title.close();
+        title = BehaviorSubject<String>();
+        cityId.close();
+        cityId= BehaviorSubject<int>();
+
+        countryId.close();
+        countryId= BehaviorSubject<int>();
+        zipCode.close();
+        zipCode= BehaviorSubject<int>();
+        street.close();
+        street = BehaviorSubject<String>();
+        phoneNumber.close();
+        phoneNumber = BehaviorSubject<String>();
+
+        //        street.value = null;
+//        phoneNumber.value = null;
         NamedNavigatorImpl().pop();
         NamedNavigatorImpl().pop(result: true);
+
       } else {
         Fluttertoast.showToast(
             msg: response.message,

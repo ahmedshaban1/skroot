@@ -1,8 +1,11 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skroot/Components/custom_bottom_sheet_with_no_types.dart';
+import 'package:skroot/Components/custom_image_picker.dart';
 import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/app/appState.dart';
 import 'package:skroot/models/cars/brands/car_brands_model.dart';
@@ -32,6 +35,8 @@ class EditCarPage extends StatefulWidget {
 class _EditCarPageState extends State<EditCarPage> {
 
   List<CountryModel> years = [];
+  File selctedImage;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,6 +45,7 @@ class _EditCarPageState extends State<EditCarPage> {
     editCarBloc.updateCarModel(widget.editCarArguments.carModelId);
     editCarBloc.updateCarYear(widget.editCarArguments.carYear);
     editCarBloc.updateCarId(widget.editCarArguments.carId);
+
     getBrandsBloC.add(Click());
     for (int i = 0; i < 50; i++) {
       years.add(CountryModel(
@@ -62,6 +68,47 @@ class _EditCarPageState extends State<EditCarPage> {
         ),
         body: ListView(
           children: <Widget>[
+            InkWell(
+                onTap: () {
+                  ImagePickerDialog().show(
+                      context: context,
+                      onGet: (v) {
+                        print("_____________ user avatar image is $v");
+                        editCarBloc.imageChanged(v);
+                        setState(() {
+                          selctedImage = v;
+                        });
+                      });
+                },
+                child: BlocBuilder(
+                  bloc: editCarBloc,
+                  builder: (_, state) {
+                    return Center(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 35),
+                          child: selctedImage != null
+                              ? CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.white,
+                            backgroundImage: Image
+                                .file(
+                              selctedImage,
+                              fit: BoxFit.cover,
+                            )
+                                .image,
+                          )
+                              : CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.white,
+                            backgroundImage: Image.network(
+                              widget.editCarArguments.image,
+                              fit: BoxFit.cover,
+                            ).image,
+                          ),
+                        ));
+                  },
+                )),
+
             BlocBuilder(
               bloc: getBrandsBloC,
               builder: (context, state) {

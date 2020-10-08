@@ -28,10 +28,19 @@ class Validator{
 
   var addressValidator = StreamTransformer<String,String>.fromHandlers(
       handleData: (name , sink){
-        if(name.length > 4){
+        if(name.length > 3){
           sink.add(name);
         }else{
-          sink.addError('اكتب العنوان كامل');
+          sink.addError('Enter full title name');
+        }
+      }
+  );
+  var streetValidator = StreamTransformer<String,String>.fromHandlers(
+      handleData: (name , sink){
+        if(name.length > 10){
+          sink.add(name);
+        }else{
+          sink.addError('Enter Valid street describtion');
         }
       }
   );

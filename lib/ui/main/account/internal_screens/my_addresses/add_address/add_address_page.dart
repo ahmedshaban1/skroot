@@ -39,7 +39,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
   @override
   void initState() {
-      countriesBloc.add(Hydrate());
+    countriesBloc.add(Hydrate());
     super.initState();
   }
 
@@ -73,12 +73,11 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           color: Colors.white,
                         ),
                       ),
-                      hint: "full name",
+                      hint: "Address Title",
                       errorTxt: snapshot.error,
                       changedFunction: addAddressBloc.updateTitle,
                       textInputType: TextInputType.text,
                       inputFieldWithBorder: false,
-
                     );
                   }),
             ),

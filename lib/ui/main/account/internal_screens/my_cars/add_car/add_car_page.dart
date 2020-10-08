@@ -1,8 +1,10 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skroot/Components/custom_bottom_sheet_with_no_types.dart';
+import 'package:skroot/Components/custom_image_picker.dart';
 import 'package:skroot/app/appEvent.dart';
 import 'package:skroot/app/appState.dart';
 import 'package:skroot/models/cars/brands/car_brands_model.dart';
@@ -25,13 +27,23 @@ class AddCarPage extends StatefulWidget {
 class _AddCarPageState extends State<AddCarPage> {
   List<CountryModel> years = [];
 
+  File selctedImage;
+
   @override
   void initState() {
     // TODO: implement initState
     getBrandsBloC.add(Click());
     for (int i = 0; i < 50; i++) {
       years.add(CountryModel(
-          id: DateTime.now().year - i, nameAr: (DateTime.now().year - i).toString(), nameEn: (DateTime.now().year - i).toString()));
+          id: DateTime
+              .now()
+              .year - i,
+          nameAr: (DateTime
+              .now()
+              .year - i).toString(),
+          nameEn: (DateTime
+              .now()
+              .year - i).toString()));
     }
     super.initState();
   }
@@ -39,7 +51,7 @@ class _AddCarPageState extends State<AddCarPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: (){
+      onWillPop: () {
         NamedNavigatorImpl().pop(result: false);
         return;
       },
@@ -50,6 +62,55 @@ class _AddCarPageState extends State<AddCarPage> {
         ),
         body: ListView(
           children: <Widget>[
+            InkWell(
+                onTap: () {
+                  ImagePickerDialog().show(
+                      context: context,
+                      onGet: (v) {
+                        print("_____________ user avatar image is $v");
+                        addCarBloc.imageChanged(v);
+                        setState(() {
+                          selctedImage = v;
+                        });
+                      });
+                },
+                child: BlocBuilder(
+                  bloc: addCarBloc,
+                  builder: (_, state) {
+                    return Center(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 35),
+                          child: selctedImage != null
+                              ? CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.white,
+                            backgroundImage: Image
+                                .file(
+                              selctedImage,
+                              fit: BoxFit.cover,
+                            )
+                                .image,
+                          )
+                              : Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(5),
+                                border:
+                                Border.all(color: Colors.grey),
+                                shape: BoxShape.rectangle),
+                            child: Center(
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ));
+                  },
+                )),
             BlocBuilder(
               bloc: getBrandsBloC,
               builder: (context, state) {
@@ -138,10 +199,10 @@ class _AddCarPageState extends State<AddCarPage> {
                 builder: (context, snapshot) {
                   return CustomButton(
                     onButtonPress: () {
-                      if(snapshot.hasData){
+                      if (snapshot.hasData) {
                         addCarBloc.add(Click());
                         showLoadingDialog(context);
-                      }else{
+                      } else {
                         ErrorDialog(
                             context: context,
                             title: "Please you have to fill all fields",
@@ -153,8 +214,7 @@ class _AddCarPageState extends State<AddCarPage> {
                     },
                     text: "Add Car",
                   );
-                }
-            )
+                })
           ],
         ),
       ),

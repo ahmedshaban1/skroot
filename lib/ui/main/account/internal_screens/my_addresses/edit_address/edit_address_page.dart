@@ -42,8 +42,18 @@ class EditAddressPage extends StatefulWidget {
 
 class _EditAddressPageState extends State<EditAddressPage> {
 
+  TextEditingController titleController;
+  TextEditingController streetController;
+  TextEditingController phoneController;
+  TextEditingController zipController;
+
   @override
   void initState() {
+
+    titleController = TextEditingController(text: widget.editAddressArguments.title);
+    streetController = TextEditingController(text: widget.editAddressArguments.street);
+    phoneController = TextEditingController(text: widget.editAddressArguments.phone);
+    zipController = TextEditingController(text: widget.editAddressArguments.zipCode.toString());
     editAddressBloc.updateAddressId(widget.editAddressArguments.addressId);
     editAddressBloc.updatePhoneNumber(widget.editAddressArguments.phone );
     editAddressBloc.updateStreet(widget.editAddressArguments.street);
@@ -78,7 +88,6 @@ class _EditAddressPageState extends State<EditAddressPage> {
                   stream: editAddressBloc.titleStream,
                   builder: (context, snapshot) {
                     return InputFieldArea(
-
                       icon: Padding(
                         padding: const EdgeInsets.only(
                             right: 8.0, left: 8.0),
@@ -87,7 +96,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
                           color: Colors.white,
                         ),
                       ),
-                      hint: "full name",
+                      controller: titleController,
                       errorTxt: snapshot.error,
                       changedFunction: editAddressBloc.updateTitle,
                       textInputType: TextInputType.text,
@@ -111,6 +120,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
                         ),
                       ),
                       hint: "Street",
+                      controller: streetController,
                       errorTxt: snapshot.error,
                       changedFunction: editAddressBloc.updateStreet,
                       textInputType: TextInputType.text,
@@ -211,6 +221,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
                               ),
                             ),
                             hint: "ZIP Code",
+                            controller: zipController,
                             errorTxt: snapshot.error,
                             changedFunction: (data) {
                               editAddressBloc.updateZipCode(int.parse(data));
@@ -238,6 +249,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
                         ),
                       ),
                       hint: "Phone Number",
+                      controller: phoneController,
                       errorTxt: snapshot.error,
                       changedFunction: editAddressBloc.updatePhoneNumber,
                       textInputType: TextInputType.phone,

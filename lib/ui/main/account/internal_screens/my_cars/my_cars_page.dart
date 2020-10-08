@@ -46,7 +46,8 @@ class _MyCarsPageState extends State<MyCarsPage> {
                     data.data[index].year,
                     data.data[index].carBrand.name.en,
                     data.data[index].carBrandModel.name.en,
-                    data.data[index].id
+                    data.data[index].id,
+                    data.data[index].imageUrl
                   ));
                   if(result == true){
                     myCarsBloc.add(Hydrate());

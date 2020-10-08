@@ -32,14 +32,25 @@ class UserDataRepo
     map["Content-Type"] = "application/json";
     map["Accept"] = "application/json";
     map["Authorization"] = token;
-    return NetworkUtil.internal().post(EmptyModel(), "auth-customer/cars" , headers: map , body: addCarRequest);
+    print(token);
+    return NetworkUtil.internal().postForm(EmptyModel(), "auth-customer/cars" , headers: map , body: FormData.fromMap({
+      "car_brand_id" : addCarRequest.car_brand_id,
+      "car_brand_model_id" :addCarRequest.car_brand_model_id,
+      "year" :addCarRequest.year,
+      "image": addCarRequest.image !=null ?MultipartFile.fromFileSync(addCarRequest.image.path ) :null
+    }));
   }
   static Future<EmptyModel> updateMyCar(AddCarRequest addCarRequest ,String token , int carId){
     Map<String , String> map = Map();
     map["Content-Type"] = "application/json";
     map["Accept"] = "application/json";
     map["Authorization"] = token;
-    return NetworkUtil.internal().put(EmptyModel(), "auth-customer/cars/$carId" , headers: map , body: addCarRequest);
+    return NetworkUtil.internal().postForm(EmptyModel(), "auth-customer/cars/$carId" , headers: map , body: FormData.fromMap({
+      "car_brand_id" : addCarRequest.car_brand_id,
+      "car_brand_model_id" :addCarRequest.car_brand_model_id,
+      "year" :addCarRequest.year,
+      "image":addCarRequest.image !=null ?MultipartFile.fromFileSync(addCarRequest.image.path ) : null
+    }));
   }
   static Future<EmptyModel> deleteCar(String token , int carId){
     Map<String , String> map = Map();
@@ -99,9 +110,9 @@ class UserDataRepo
     map["Accept"] = "application/json";
     map["Authorization"] = token;
     FormData formData = FormData.fromMap({
-      "avatar" : await MultipartFile.fromFile(avatar.path)
+      "avatar" :  MultipartFile.fromFileSync(avatar.path)
     });
-    return NetworkUtil.internal().post(AvatarModel(), "auth-customer/settings/upload-avatar" , headers: map , body: formData);
+    return NetworkUtil.internal().postForm(AvatarModel(), "auth-customer/settings/upload-avatar" , headers: map , body: formData);
   }
 
   static Future<UpdateUserResponse> updateUserData(SignUpRequest userDate ,String token) async{

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,7 +21,11 @@ class EditCarBloc extends Bloc<AppEvent, AppState> with Validator {
   final carModelId = BehaviorSubject<int>();
   final carYear = BehaviorSubject<int>();
   final carId = BehaviorSubject<int>();
+  var imageCodeController = BehaviorSubject<File>();
 
+  Function(File) get imageChanged => imageCodeController.sink.add;
+
+  Stream<File> get image => imageCodeController.stream.asBroadcastStream();
 
   Function(int) get updateCarBrandId => carBrandId.sink.add;
 
@@ -46,11 +52,18 @@ class EditCarBloc extends Bloc<AppEvent, AppState> with Validator {
 
       var token =
           await mSharedPreferenceManager.readString(CachingKey.AUTH_TOKEN);
-      EmptyModel response = await UserDataRepo.updateMyCar(
+
+      EmptyModel response = imageCodeController.hasValue ? await UserDataRepo.updateMyCar(
           AddCarRequest(
               car_brand_id: carBrandId.value,
+              image: imageCodeController.value,
               car_brand_model_id: carModelId.value,
-              year: carYear.value), token , carId.value);
+              year: carYear.value), token , carId.value ,) :await UserDataRepo.updateMyCar(
+        AddCarRequest(
+            car_brand_id: carBrandId.value,
+            car_brand_model_id: carModelId.value,
+            image: null,
+            year: carYear.value), token , carId.value ,) ;
 
       if(response.id != 0){
         NamedNavigatorImpl().pop();

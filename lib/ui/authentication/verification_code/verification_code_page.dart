@@ -109,6 +109,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             textStyle: TextStyle(color: Colors.white , fontSize: 20 ),
                             length: 4,
                             pinTheme: PinTheme(
+                              shape: PinCodeFieldShape.box,
                               disabledColor: Colors.transparent,
                               inactiveColor: Colors.transparent,
                               activeColor: Colors.transparent,

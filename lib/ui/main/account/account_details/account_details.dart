@@ -55,6 +55,8 @@ class _AccountDetailsState extends State<AccountDetails> {
             shrinkWrap: true,
             physics: ScrollPhysics(),
             children: [
+              SizedBox(height: 20,),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: StreamBuilder<String>(

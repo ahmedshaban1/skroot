@@ -52,9 +52,10 @@ class _AccountPageState extends State<AccountPage> {
                         context: context,
                         onGet: (v) {
                           print("_____________ user avatar image is $v");
+                          NamedNavigatorImpl().pop();
+                          showLoadingDialog(context);
                           accountDetailsBloC.imageChanged(v);
                           accountDetailsBloC.add(UpdatePhoto());
-                          showLoadingDialog(context);
                         });
                   },
                   child: BlocBuilder(

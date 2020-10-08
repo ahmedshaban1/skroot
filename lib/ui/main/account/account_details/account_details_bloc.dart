@@ -127,8 +127,8 @@ class AccountDetailsBloC extends Bloc<AppEvent, AppState> with Validator {
           fontSize: 16.0);
 
     } else {
-      AvatarModel response = await UserDataRepo.updateUserAvatar(
-          imageCodeController.value,
+      print("HERE IS UPDATE DATA");
+      AvatarModel response = await UserDataRepo.updateUserAvatar(imageCodeController.value,
           await preferencesManager.readString(CachingKey.AUTH_TOKEN));
       NamedNavigatorImpl().pop();
       if(response.avatar != null){

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:skroot/theming/colors.dart';
 
 class MyAddressItem extends StatelessWidget {
   final String title , address;
@@ -34,7 +35,7 @@ class MyAddressItem extends StatelessWidget {
 
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Color(lightThemeColors["surface-dim"]),
               borderRadius: BorderRadius.circular(15),
 
         ),
@@ -44,10 +45,9 @@ class MyAddressItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title , style: TextStyle(color: Colors.white , fontSize: 16 , fontWeight: FontWeight.bold) ,textAlign: TextAlign.start,),
+              Text(title , style: TextStyle(color: Colors.white , fontSize: 19 , fontWeight: FontWeight.bold) ,textAlign: TextAlign.start,),
               SizedBox(height: 5,),
-              Text( address, style: TextStyle(color: Colors.grey , fontSize: 14 , fontWeight: FontWeight.normal),textAlign: TextAlign.start),
-
+              Text( address, style: TextStyle(color: Colors.grey , fontSize: 17 , fontWeight: FontWeight.normal),textAlign: TextAlign.start),
             ],
           ),
         ),
