@@ -42,6 +42,9 @@ class VerificationCodeBloc extends Bloc<AppEvent, AppState> with Validator {
         preferenceManager.writeData(CachingKey.USER_IMAGE, response.user.avatarUrl);
         preferenceManager.writeData(CachingKey.USER_NAME, response.user.name);
         preferenceManager.writeData(CachingKey.MOBILE_NUMBER, response.user.phone);
+        preferenceManager.writeData(CachingKey.COUNTRY, response.user.country.nameEn);
+        preferenceManager.writeData(CachingKey.EMAIL, response.user.email);
+        preferenceManager.writeData(CachingKey.CITY, response.user.city.nameEn);
         SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
 

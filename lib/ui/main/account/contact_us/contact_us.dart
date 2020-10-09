@@ -13,6 +13,7 @@ import 'package:skroot/ui/main/master_page/widgets/master_bg.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:skroot/ui/common/CustomButton.dart';
 import 'package:skroot/ui/common/loading_dialog.dart';
+import 'package:skroot/ui/main/widgets/custom_app_bar_bg.dart';
 
 
 
@@ -35,12 +36,6 @@ class _ContactUsState extends State<ContactUs> {
     return Scaffold(
         body: Stack(
           children: <Widget>[
-            ImageBG(image: "assets/images/home_page_bg_full.png",),
-            //master bg
-            MasterBg(
-              title: "Contact Us"  ,
-            ),
-            // master
             Container(
               padding: EdgeInsets.only(top: height*.15 , bottom: 10,),
               child: ListView(
@@ -184,9 +179,11 @@ class _ContactUsState extends State<ContactUs> {
                   
                 ],
               ),
-            )
-            // search
-
+            ),
+            CustomAppBarBg(
+              card: false,
+              text: "Help Center",
+            ),
           ],
         ));
   }

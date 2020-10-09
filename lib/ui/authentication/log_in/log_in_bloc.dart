@@ -64,22 +64,23 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
 //            textColor: Colors.purple,
 //            fontSize: 16.0
 //        );
-      SharedPreferenceManager().writeData(CachingKey.AUTH_TOKEN, "Bearer "+userResponse.accessToken.token);
       SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
       preferenceManager.writeData(CachingKey.USER_ID, userResponse.user.id);
       preferenceManager.writeData(CachingKey.AUTH_TOKEN, "Bearer "+userResponse.accessToken.token);
       preferenceManager.writeData(CachingKey.USER_IMAGE, userResponse.user.avatarUrl);
       preferenceManager.writeData(CachingKey.USER_NAME, userResponse.user.name);
       preferenceManager.writeData(CachingKey.MOBILE_NUMBER, userResponse.user.phone);
-//      SharedPreferenceManager().writeData(CachingKey.IS_LOGGED_IN, true);
+      preferenceManager.writeData(CachingKey.COUNTRY, userResponse.user.country.nameEn);
+      preferenceManager.writeData(CachingKey.CITY, userResponse.user.city.nameEn);
+      preferenceManager.writeData(CachingKey.EMAIL, userResponse.user.email);
+      preferenceManager.writeData(CachingKey.MOBILE_NUMBER, userResponse.user.phone);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
       }
       else {
         NamedNavigatorImpl().pop();
         if(userResponse.field == "phone"){
           phoneController.sink.addError(userResponse.message.toString());
-
-        }else{
+        }else if(userResponse.code == "WrongPassword"){
           passwordController.sink.addError(userResponse.message.toString());
         }
 

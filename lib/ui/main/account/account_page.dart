@@ -56,6 +56,8 @@ class _AccountPageState extends State<AccountPage> {
                           showLoadingDialog(context);
                           accountDetailsBloC.imageChanged(v);
                           accountDetailsBloC.add(UpdatePhoto());
+                          accountDetailsBloC.imageChanged(null);
+
                         });
                   },
                   child: BlocBuilder(
@@ -193,7 +195,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   text: "Contact Us",
                   onClick: () {
-                    NamedNavigatorImpl().push(Routes.CONTACT_US );
+
                   },
                 ),
                 ProfileItem(
@@ -223,7 +225,10 @@ class _AccountPageState extends State<AccountPage> {
                     size: 14,
                   ),
                   text: "Help Center",
-                  onClick: () {},
+                  onClick: () {
+                    NamedNavigatorImpl().push(Routes.CONTACT_US );
+
+                  },
                 ),
               ],
             ),
@@ -231,6 +236,7 @@ class _AccountPageState extends State<AccountPage> {
 
           InkWell(
             onTap: (){
+              accountDetailsBloC.imageChanged(null);
               SharedPreferenceManager().logout();
               NamedNavigatorImpl().push(Routes.SPLASH_ROUTER , clean: true);
             },

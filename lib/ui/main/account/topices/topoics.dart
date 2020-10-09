@@ -8,6 +8,7 @@ import 'package:skroot/theming/colors.dart';
 import 'package:skroot/ui/common/loader.component.dart';
 import 'package:skroot/ui/main/account/topices/topices_bloc.dart';
 import 'package:skroot/ui/main/master_page/widgets/master_bg.dart';
+import 'package:skroot/ui/main/widgets/custom_app_bar_bg.dart';
 class Topics extends StatefulWidget {
   final String type ;
 
@@ -39,12 +40,6 @@ class _TopicsState extends State<Topics> {
               var model = state.model as TopicsModel ;
               return Stack(
                 children: <Widget>[
-                  ImageBG(image: "assets/images/home_page_bg_full.png",),
-                  //master bg
-                  MasterBg(
-                    title: model.title.en ,
-                  ),
-                  // master
                   Container(
                     padding: EdgeInsets.only(top: height*.1 , bottom: 10,),
                     child: ListView(
@@ -58,7 +53,10 @@ class _TopicsState extends State<Topics> {
                       ],
                     ),
                   ),
-                  // search
+                  CustomAppBarBg(
+                    card: false,
+                    text: model.title.en,
+                  ),
 
                 ],
               );

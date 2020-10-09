@@ -6,7 +6,6 @@ import 'package:skroot/ui/main/master_page/brands/internal/products/get_products
 class CustomAppBarBg extends StatelessWidget {
   final text;
 
-
   final openCard;
 
   final widget ;
@@ -15,7 +14,7 @@ class CustomAppBarBg extends StatelessWidget {
 
 
   const CustomAppBarBg(
-      {Key key, this.text, this.openCard, this.widget, this.card})
+      {Key key, this.text, this.openCard, this.widget, this.card = false})
       : super(key: key);
 
   @override
@@ -60,7 +59,7 @@ class CustomAppBarBg extends StatelessWidget {
               ),
             ),
           ),
-          card
+          card ?? false
           ? InkWell(
                   onTap: openCard,
                   child: Container(

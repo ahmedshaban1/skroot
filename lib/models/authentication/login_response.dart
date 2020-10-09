@@ -6,24 +6,12 @@ class LoginResponse extends BaseMappable{
   AccessToken accessToken;
   String field;
   String message;
+  String code ;
 
 
-  LoginResponse({this.user, this.settings, this.accessToken , this.field , this.message});
+  LoginResponse({this.user, this.settings, this.accessToken , this.field , this.message , this.code});
 
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.user != null) {
-      data['user'] = this.user.toJson();
-    }
-    if (this.settings != null) {
-      data['settings'] = this.settings.toJson();
-    }
-    if (this.accessToken != null) {
-      data['access_token'] = this.accessToken.toJson();
-    }
-    return data;
-  }
 
   @override
   Mappable fromJson(Map<String,dynamic > json) {
@@ -36,7 +24,8 @@ class LoginResponse extends BaseMappable{
         : null;
     field = json["field"]??"";
     message = json["message"]??"";
-    return LoginResponse(user: user , settings: settings , accessToken: accessToken , field: field , message: message);
+    code = json["code"]??"";
+    return LoginResponse(user: user , settings: settings , accessToken: accessToken , field: field ,code : code , message: message);
   }
 }
 
