@@ -60,11 +60,16 @@ class ContactUsBloC extends Bloc<AppEvent, AppState> with Validator {
     if(contactUsBloC.userNameController.value == null){
       contactUsBloC.userNameController.sink.addError("please enter a valid username");
     }
+
   }
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     var netUtil = NetworkUtil();
+
+
+
+
   }
 
   dispose() {

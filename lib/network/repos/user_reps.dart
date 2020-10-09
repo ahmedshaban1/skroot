@@ -120,7 +120,7 @@ class UserDataRepo
     map["Content-Type"] = "application/json";
     map["Accept"] = "application/json";
     map["Authorization"] = token;
-    return NetworkUtil.internal().put(UpdateUserResponse(), "auth-customer/settings" , headers: map , body: userDate.toJson());
+    return NetworkUtil.internal().post(UpdateUserResponse(), "auth-customer/settings" , headers: map , body: userDate);
   }
 
 

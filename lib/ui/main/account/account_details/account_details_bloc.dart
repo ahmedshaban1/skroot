@@ -109,8 +109,7 @@ class AccountDetailsBloC extends Bloc<AppEvent, AppState> with Validator {
           email: emailController.value,
           countryId: countryIdController.value.toString(),
           cityId: cityIdController.value.toString(),
-          name: userNameController.value,
-          password: passwordController.value) , await preferenceManager.readString(CachingKey.AUTH_TOKEN));
+          name: userNameController.value) , await preferenceManager.readString(CachingKey.AUTH_TOKEN));
       NamedNavigatorImpl().pop();
       preferenceManager.writeData(CachingKey.USER_ID, response.user.id);
       preferenceManager.writeData(CachingKey.AUTH_TOKEN, "Bearer "+response.accessToken.token);
@@ -125,6 +124,8 @@ class AccountDetailsBloC extends Bloc<AppEvent, AppState> with Validator {
           backgroundColor: Colors.black,
           textColor: Colors.purple,
           fontSize: 16.0);
+
+      NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
 
     } else {
       print("HERE IS UPDATE DATA");
