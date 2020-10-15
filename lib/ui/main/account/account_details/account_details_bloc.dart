@@ -79,9 +79,6 @@ class AccountDetailsBloC extends Bloc<AppEvent, AppState> with Validator {
     if (phoneController.value == null) {
       phoneController.sink.addError("please enter a valid phone number");
     }
-    if (passwordController.value == null) {
-      passwordController.sink.addError("please enter a valid password");
-    }
     if (cityIdController.value == null) {
       cityIdController.sink.addError("please enter a valid city Id");
     }
@@ -116,6 +113,12 @@ class AccountDetailsBloC extends Bloc<AppEvent, AppState> with Validator {
       preferenceManager.writeData(CachingKey.USER_IMAGE, response.user.avatarUrl);
       preferenceManager.writeData(CachingKey.USER_NAME, response.user.name);
       preferenceManager.writeData(CachingKey.MOBILE_NUMBER, response.user.phone);
+      preferenceManager.writeData(CachingKey.COUNTRY, response.user.country.nameEn);
+      preferenceManager.writeData(CachingKey.COUNTRY_ID, response.user.country.id);
+      preferenceManager.writeData(CachingKey.CITY, response.user.city.nameEn);
+      preferenceManager.writeData(CachingKey.CITY_ID, response.user.city.id);
+      preferenceManager.writeData(CachingKey.EMAIL, response.user.email);
+      preferenceManager.writeData(CachingKey.MOBILE_NUMBER, response.user.phone);
       Fluttertoast.showToast(
           msg: "Done",
           toastLength: Toast.LENGTH_LONG,
@@ -124,7 +127,6 @@ class AccountDetailsBloC extends Bloc<AppEvent, AppState> with Validator {
           backgroundColor: Colors.black,
           textColor: Colors.purple,
           fontSize: 16.0);
-
       NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
 
     } else {

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skroot/navigator/named-navigator.dart';
+import 'package:skroot/navigator/named-navigator_impl.dart';
 class CustomFilter extends StatelessWidget {
   final grid ;
   final onTapGrid ;
@@ -19,6 +21,7 @@ class CustomFilter extends StatelessWidget {
         children: <Widget>[
           InkWell(
             onTap: (){
+              NamedNavigatorImpl().push(Routes.FILTER_PAGE_ROUTER);
             },
             child: Container(
               alignment: Alignment.center,

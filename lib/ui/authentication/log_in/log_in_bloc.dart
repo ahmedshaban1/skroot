@@ -17,8 +17,8 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
   @override
   AppState get initialState => Start(null);
 
-  final phoneController = BehaviorSubject<String>();
-  final passwordController = BehaviorSubject<String>();
+  var phoneController = BehaviorSubject<String>();
+  var passwordController = BehaviorSubject<String>();
   final _countryCodeController = BehaviorSubject<String>();
   String msg;
 
@@ -54,7 +54,12 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
           fcm_token: "TEST",
           os: "ios"));
 
-      if(userResponse.field == ""){
+      if(userResponse.field == "" && userResponse.code == ""){
+
+        phoneController.value = null;
+        passwordController.value = null;
+        phoneController = BehaviorSubject<String>();
+        passwordController = BehaviorSubject<String>();
 //        Fluttertoast.showToast(
 //            msg: userResponse.message.toString(),
 //            toastLength: Toast.LENGTH_LONG,
@@ -71,7 +76,9 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
       preferenceManager.writeData(CachingKey.USER_NAME, userResponse.user.name);
       preferenceManager.writeData(CachingKey.MOBILE_NUMBER, userResponse.user.phone);
       preferenceManager.writeData(CachingKey.COUNTRY, userResponse.user.country.nameEn);
+      preferenceManager.writeData(CachingKey.COUNTRY_ID, userResponse.user.country.id);
       preferenceManager.writeData(CachingKey.CITY, userResponse.user.city.nameEn);
+      preferenceManager.writeData(CachingKey.CITY_ID, userResponse.user.city.id);
       preferenceManager.writeData(CachingKey.EMAIL, userResponse.user.email);
       preferenceManager.writeData(CachingKey.MOBILE_NUMBER, userResponse.user.phone);
         NamedNavigatorImpl().push(Routes.HOME_ROUTER , clean: true);
@@ -80,7 +87,7 @@ class LogInBloc extends Bloc<AppEvent, AppState> with Validator {
         NamedNavigatorImpl().pop();
         if(userResponse.field == "phone"){
           phoneController.sink.addError(userResponse.message.toString());
-        }else if(userResponse.code == "WrongPassword"){
+        }else if(userResponse.field ==""){
           passwordController.sink.addError(userResponse.message.toString());
         }
 

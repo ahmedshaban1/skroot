@@ -17,6 +17,7 @@ class GetFromShared extends Bloc<AppEvent, AppState> {
   String countryCode = "" ;
   String phone = "" ;
   int countryId  ;
+  int cityId  ;
   int type  ;
   int id ;
   bool signIn  ;
@@ -35,6 +36,8 @@ class GetFromShared extends Bloc<AppEvent, AppState> {
        image = await _manager.readString(CachingKey.USER_IMAGE);
        username = await _manager.readString(CachingKey.USER_NAME);
        cityName = await _manager.readString(CachingKey.CITY);
+       cityId = await _manager.readInteger(CachingKey.CITY_ID);
+       countryId = await _manager.readInteger(CachingKey.COUNTRY_ID);
        countryName = await _manager.readString(CachingKey.COUNTRY);
        email = await _manager.readString(CachingKey.EMAIL);
        token = await _manager.readString(CachingKey.AUTH_TOKEN);

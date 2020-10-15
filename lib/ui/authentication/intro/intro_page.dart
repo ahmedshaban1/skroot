@@ -58,7 +58,7 @@ class _IntroPageState extends State<IntroPage> {
             }
             return IntroductionScreen(
                 onDone: () {
-                  NamedNavigatorImpl().push(Routes.HOME_ROUTER, clean: true);
+                  NamedNavigatorImpl().push(Routes.LOGIN_ROUTER, clean: true);
                 },
                 showSkipButton: true,
                 showNextButton: true,

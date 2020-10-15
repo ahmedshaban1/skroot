@@ -15,6 +15,7 @@ import 'package:skroot/ui/main/account/internal_screens/my_addresses/my_addresse
 import 'package:skroot/ui/main/account/internal_screens/my_cars/add_car/add_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/edit_car/edit_car_page.dart';
 import 'package:skroot/ui/main/account/internal_screens/my_cars/my_cars_page.dart';
+import 'package:skroot/ui/main/account/report_problem/report_problem_page.dart';
 import 'package:skroot/ui/main/account/topices/topoics.dart';
 import 'package:skroot/ui/main/master_page//brands/brands_page.dart';
 import 'package:skroot/ui/main/master_page/brands/internal/parts/parts_page.dart';
@@ -55,6 +56,7 @@ class NamedNavigatorImpl implements NamedNavigator {
       case Routes.FILTER_PAGE_ROUTER :return MaterialPageRoute(builder: (_) => FilterPage());
       case Routes.ACCOUNT_DETAILS :return MaterialPageRoute(builder: (_) => AccountDetails());
       case Routes.CONTACT_US :return MaterialPageRoute(builder: (_) => ContactUs());
+      case Routes.REPORT_PROBLEM_ROUTER :return MaterialPageRoute(builder: (_) => ReportProblemPage());
     }
 
 //    return MaterialPageRoute(builder: (_) => Container());

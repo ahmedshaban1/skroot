@@ -77,7 +77,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           children: <Widget>[
                             CustomDescriptionText(txt: widget.model.partCategory.name.en,type: "Type",),
                             SizedBox(width: 50,),
-                            CustomDescriptionText(txt: widget.model.price.toString(),type: "price",),
+                            CustomDescriptionText(txt: widget.model.price.toString() + " AED",type: "price",),
                           ],
                         ),
                       ],

@@ -47,7 +47,7 @@ class _ProductCardState extends State<ProductCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                     widget.model.price.toString(),
+                     widget.model.price.toString() + " AED",
                       style: TextStyle(color: Colors.grey[300], fontSize: 12),
                     ),
                     Padding(

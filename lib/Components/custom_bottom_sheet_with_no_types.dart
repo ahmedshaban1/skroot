@@ -54,7 +54,7 @@ shownText =     widget.text;
                       topLeft: const Radius.circular(10.0),
                       topRight: const Radius.circular(10.0),
                     ),
-                    color: Color(lightThemeColors['sign-text'])),
+                    color: Color(lightThemeColors['sign-bg'])),
                 child: ListView.builder(
                     itemCount: widget.list.length,
                     itemBuilder: (_, index) {
@@ -66,17 +66,23 @@ shownText =     widget.text;
                             shownText = widget.list[index].nameEn;
                           });
                         },
-                        child: Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: Text(
-                            "${widget.list[index].nameEn}",
-                            style: Theme.of(context).textTheme.title.copyWith(
-                              fontWeight: FontWeight.w200 ,
-                              fontSize: 18,
-                              color: Colors.white
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text(
+                                "${widget.list[index].nameEn}",
+                                style: Theme.of(context).textTheme.title.copyWith(
+                                  fontWeight: FontWeight.w200 ,
+                                  fontSize: 18,
+                                  color: Colors.white
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
+
+                            Divider(height: 1 , color: Colors.white,)
+                          ],
                         ),
                       );
                     }),

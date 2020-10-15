@@ -17,9 +17,9 @@ class AddCarBloc extends Bloc<AppEvent, AppState> with Validator {
   @override
   AppState get initialState => Start(null);
 
-  final carBrandId = BehaviorSubject<int>();
-  final carModelId = BehaviorSubject<int>();
-  final carYear = BehaviorSubject<int>();
+  var carBrandId = BehaviorSubject<int>();
+  var carModelId = BehaviorSubject<int>();
+  var carYear = BehaviorSubject<int>();
   var imageCodeController = BehaviorSubject<File>();
 
   Function(int) get updateCarBrandId => carBrandId.sink.add;
@@ -57,11 +57,17 @@ class AddCarBloc extends Bloc<AppEvent, AppState> with Validator {
               year: carYear.value,
           image: imageCodeController.value), token);
 
-      if(response.id != 0){
+      if(response.field ==""){
         NamedNavigatorImpl().pop();
         NamedNavigatorImpl().pop(result: true);
         imageCodeController.value = null;
         imageCodeController = BehaviorSubject<File>();
+        carBrandId.value = null;
+        carBrandId = BehaviorSubject<int>();
+     carModelId.value = null;
+        carModelId = BehaviorSubject<int>();
+     carYear.value = null;
+        carYear = BehaviorSubject<int>();
       }
       else {
         Fluttertoast.showToast(

@@ -102,7 +102,12 @@ class _AccessoriesState extends State<Accessories> {
                   children: List.generate(model.data.length, (index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image.network("adsadasd" , height: 60,width: 60,fit: BoxFit.cover,),
+                      child: ProductCard(
+                          onTap : (){
+                            NamedNavigatorImpl().push(Routes.PRODUCT_DETAILS , arguments: model.data[index] );
+                          },
+                          model : model.data[index]
+                      ),
                     );
                   }),
                 );

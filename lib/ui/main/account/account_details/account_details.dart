@@ -37,9 +37,17 @@ class _AccountDetailsState extends State<AccountDetails> {
 
   addToController() async {
     getFromShared.add(GetShared());
+    print("EMAIL IS "+getFromShared.email);
     name = TextEditingController(text: getFromShared.username);
     email = TextEditingController(text: getFromShared.email);
     phone = TextEditingController(text: getFromShared.phone);
+    accountDetailsBloC.cityIdChanged(getFromShared.cityId);
+    accountDetailsBloC.countryIdChanged(getFromShared.countryId);
+    accountDetailsBloC.emailChanged(getFromShared.email);
+    accountDetailsBloC.userNameChanged(getFromShared.username);
+    accountDetailsBloC.updatePhone(getFromShared.phone);
+
+
 
   }
   @override
@@ -148,7 +156,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                           print("_______ : state is $state");
                           if (state is Done) {
                             return StreamBuilder<int>(
-                                stream: accountDetailsBloC.country,
+                                stream: accountDetailsBloC.country??"Country",
                                 builder: (context, snapshot) {
                                   return Column(
                                     children: [
@@ -212,7 +220,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                                     children: [
                                       CustomBottomSheet(
                                         type: "city",
-                                        text: getFromShared.cityName,
+                                        text: getFromShared.cityName ?? "City",
                                         inputIcon: FontAwesomeIcons.globeAfrica,
                                         list: countriesResponse.data,
                                         onItemClick: (index) {},
@@ -242,37 +250,13 @@ class _AccountDetailsState extends State<AccountDetails> {
                           } else {
                             return CustomBottomSheet(
                                 type: "city",
-                                text: AppLocalization.of(context)
-                                    .getLocalizedText("city"),
+                                text: "City",
                                 inputIcon: FontAwesomeIcons.globeAfrica,
                                 list: [],
                                 onItemClick: (index) {});
                           }
                         },
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: StreamBuilder<String>(
-                          stream: accountDetailsBloC.password,
-                          builder: (context, snapshot) {
-                            return InputFieldArea(
-                              suffixIcon: Padding(
-                                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                                child: Icon(
-                                  Icons.lock_outline,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              hint: AppLocalization.of(context)
-                                  .getLocalizedText("password"),
-                              textInputType: TextInputType.text,
-                              show: true,
-                              inputFieldWithBorder: false,
-                              changedFunction: accountDetailsBloC.updatePassword,
-                              errorTxt: snapshot.error,
-                            );
-                          }),
                     ),
                     CustomButton(
                       snapshot: true,

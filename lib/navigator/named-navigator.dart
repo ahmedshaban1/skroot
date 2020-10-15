@@ -22,6 +22,7 @@ class Routes {
   static const FILTER_PAGE_ROUTER = "FILTER_PAGE_ROUTER";
   static const ACCOUNT_DETAILS = "ACCOUNT_DETAILS";
   static const CONTACT_US = "CONTACT_US";
+  static const REPORT_PROBLEM_ROUTER = "REPORT_PROBLEM_ROUTER";
 }
 
 abstract class NamedNavigator {

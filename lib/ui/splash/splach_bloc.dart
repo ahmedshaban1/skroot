@@ -22,10 +22,9 @@ class SplashBloc extends Bloc<AppEvent, AppState> {
       print("Status =========>" + status.toString());
       if(status){
         mNamedNavigator.push(Routes.HOME_ROUTER , replace: true , clean: true);
-
       }
       else {
-        mNamedNavigator.push(Routes.LOGIN_ROUTER , replace: true , clean: true);
+        mNamedNavigator.push(Routes.INTRO , replace: true , clean: true);
       }
 
 //      AuthenticationRepo

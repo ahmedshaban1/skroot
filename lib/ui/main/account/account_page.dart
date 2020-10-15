@@ -52,12 +52,10 @@ class _AccountPageState extends State<AccountPage> {
                         context: context,
                         onGet: (v) {
                           print("_____________ user avatar image is $v");
-                          NamedNavigatorImpl().pop();
                           showLoadingDialog(context);
+                          NamedNavigatorImpl().pop();
                           accountDetailsBloC.imageChanged(v);
                           accountDetailsBloC.add(UpdatePhoto());
-                          accountDetailsBloC.imageChanged(null);
-
                         });
                   },
                   child: BlocBuilder(
@@ -205,7 +203,10 @@ class _AccountPageState extends State<AccountPage> {
                     size: 14,
                   ),
                   text: "Report a problem",
-                  onClick: () {},
+                  onClick: () {
+                    NamedNavigatorImpl().push(Routes.REPORT_PROBLEM_ROUTER );
+
+                  },
                 ),
                 ProfileItem(
                   icon: Icon(
@@ -236,9 +237,8 @@ class _AccountPageState extends State<AccountPage> {
 
           InkWell(
             onTap: (){
-              accountDetailsBloC.imageChanged(null);
               SharedPreferenceManager().logout();
-              NamedNavigatorImpl().push(Routes.SPLASH_ROUTER , clean: true);
+              NamedNavigatorImpl().push(Routes.LOGIN_ROUTER , clean: true);
             },
             child: Container(
               margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 5),

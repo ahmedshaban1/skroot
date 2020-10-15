@@ -76,7 +76,9 @@ class CachingKey extends Enum<String> {
   static const CachingKey MOBILE_NUMBER = const CachingKey('MOBILE_NUMBER');
   static const CachingKey ADDRESS = const CachingKey('ADDRESS');
   static const CachingKey CITY = const CachingKey('CITY');
+  static const CachingKey CITY_ID = const CachingKey('CITY_ID');
   static const CachingKey EMAIL = const CachingKey('EMAIL');
   static const CachingKey COUNTRY = const CachingKey('COUNTRY');
+  static const CachingKey COUNTRY_ID = const CachingKey('COUNTRY_ID');
 }
 

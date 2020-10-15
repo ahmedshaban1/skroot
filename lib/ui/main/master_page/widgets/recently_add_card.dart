@@ -77,7 +77,7 @@ class _RecentlyAddCardState extends State<RecentlyAddCard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(widget.model.price.toStringAsFixed(2)),
+                            Text(widget.model.price.toStringAsFixed(2) + " AED"),
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 12.0, right: 12.0),
