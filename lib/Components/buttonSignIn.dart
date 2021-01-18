@@ -61,7 +61,7 @@ class SignInButton extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    colors: btnColor != null ?[btnColor , btnColor] :[Theme.of(context).primaryColor, Theme.of(context).accentColor]),
+                    colors:  btnColor != null ?[btnColor , btnColor] :[Theme.of(context).primaryColor, Theme.of(context).accentColor]),
                 borderRadius: new BorderRadius.circular(5.0),
                 ),
             child: Stack(

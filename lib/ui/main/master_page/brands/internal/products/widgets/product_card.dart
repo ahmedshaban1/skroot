@@ -37,7 +37,7 @@ class _ProductCardState extends State<ProductCard> {
                 CustomNetworkImage().containerNewWorkImage(
                     image: widget.model.partCategory.imageUrl,
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * .2,
+                    height: MediaQuery.of(context).size.height * .18,
                     radius: 30
                 ),
                 SizedBox(

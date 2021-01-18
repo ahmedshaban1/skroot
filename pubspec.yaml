@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -38,14 +38,14 @@ dependencies:
   tinycolor: ^1.0.2
   flutter_staggered_animations: ^0.1.2
   url_launcher: ^5.4.5
-  flutter_open_whatsapp: ^0.1.2
+  flutter_open_whatsapp:
   photo_view: ^0.9.2
-  image_downloader: ^0.19.2
+  image_downloader:
   awesome_dialog:
   progress_dialog: ^1.2.0
   connectivity: ^0.4.5+1
   flutter_spinkit: ^3.1.0
-  fluttertoast: ^7.0.1
+  fluttertoast:
   pin_entry_text_field: ^0.1.4
   introduction_screen: ^1.0.7
   international_phone_input: ^1.0.4

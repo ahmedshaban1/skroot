@@ -34,7 +34,7 @@ class Product {
   CarBrandModel carBrandModel;
   CarBrand partCategory;
   int year;
-  double price;
+  var price;
   List<String> imageUrls;
   Product(
       {this.id,

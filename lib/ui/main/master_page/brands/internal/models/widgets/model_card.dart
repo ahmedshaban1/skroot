@@ -62,10 +62,21 @@ class ModelCard extends StatelessWidget {
                         unratedColor: Colors.grey,
                         itemPadding:
                         EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
+                        ratingWidget: RatingWidget(
+                            empty: Icon(
+                              Icons.star,
+                              size: 10,
+                              color: Colors.grey,
+                            ),
+                            full: Icon(
+                              Icons.star,
+                              size: 10,
+                              color: Colors.amber,
+                            ), half: Icon(
                           Icons.star,
                           size: 10,
-                          color: Colors.grey[300],
+                          color: Colors.amber,
+                        )
                         ),
                         onRatingUpdate: (double value) {},
                       ),

@@ -2,20 +2,22 @@ PODS:
   - connectivity (0.0.1):
     - Flutter
     - Reachability
-  - connectivity_for_web (0.1.0):
-    - Flutter
-  - connectivity_macos (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
-  - flutter_open_whatsapp (0.0.1):
+  - flutter_image_compress (0.0.1):
     - Flutter
-  - flutter_plugin_android_lifecycle (0.0.1):
+    - Mantle
+    - SDWebImageWebPCoder
+  - flutter_open_whatsapp (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
+    - Toast
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - image_cropper (0.0.2):
+    - Flutter
+    - TOCropViewController (~> 2.5.2)
   - image_downloader (0.0.1):
     - Flutter
   - image_picker (0.0.1):
@@ -24,78 +26,75 @@ PODS:
     - Flutter
     - libPhoneNumber-iOS
   - libPhoneNumber-iOS (0.9.15)
+  - libwebp (1.1.0):
+    - libwebp/demux (= 1.1.0)
+    - libwebp/mux (= 1.1.0)
+    - libwebp/webp (= 1.1.0)
+  - libwebp/demux (1.1.0):
+    - libwebp/webp
+  - libwebp/mux (1.1.0):
+    - libwebp/demux
+  - libwebp/webp (1.1.0)
+  - Mantle (2.1.4):
+    - Mantle/extobjc (= 2.1.4)
+  - Mantle/extobjc (2.1.4)
   - path_provider (0.0.1):
     - Flutter
-  - path_provider_linux (0.0.1):
-    - Flutter
-  - path_provider_macos (0.0.1):
-    - Flutter
   - Reachability (3.2)
+  - SDWebImage/Core (5.9.1)
+  - SDWebImageWebPCoder (0.6.1):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.7)
   - shared_preferences (0.0.1):
     - Flutter
-  - shared_preferences_linux (0.0.1):
+  - sqflite (0.0.2):
     - Flutter
-  - shared_preferences_macos (0.0.1):
-    - Flutter
-  - shared_preferences_web (0.0.1):
-    - Flutter
-  - sqflite (0.0.1):
-    - Flutter
-    - FMDB (~> 2.7.2)
+    - FMDB (>= 2.7.5)
+  - Toast (4.0.0)
+  - TOCropViewController (2.5.4)
   - url_launcher (0.0.1):
-    - Flutter
-  - url_launcher_linux (0.0.1):
-    - Flutter
-  - url_launcher_macos (0.0.1):
-    - Flutter
-  - url_launcher_web (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
-  - connectivity_for_web (from `.symlinks/plugins/connectivity_for_web/ios`)
-  - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
   - Flutter (from `Flutter`)
+  - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - flutter_open_whatsapp (from `.symlinks/plugins/flutter_open_whatsapp/ios`)
-  - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_downloader (from `.symlinks/plugins/image_downloader/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - libphonenumber (from `.symlinks/plugins/libphonenumber/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
-  - path_provider_linux (from `.symlinks/plugins/path_provider_linux/ios`)
-  - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
-  - shared_preferences_linux (from `.symlinks/plugins/shared_preferences_linux/ios`)
-  - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
-  - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
-  - url_launcher_linux (from `.symlinks/plugins/url_launcher_linux/ios`)
-  - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
-  - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
 
 SPEC REPOS:
   trunk:
     - FMDB
     - libPhoneNumber-iOS
+    - libwebp
+    - Mantle
     - Reachability
+    - SDWebImage
+    - SDWebImageWebPCoder
+    - Toast
+    - TOCropViewController
 
 EXTERNAL SOURCES:
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
-  connectivity_for_web:
-    :path: ".symlinks/plugins/connectivity_for_web/ios"
-  connectivity_macos:
-    :path: ".symlinks/plugins/connectivity_macos/ios"
   Flutter:
     :path: Flutter
+  flutter_image_compress:
+    :path: ".symlinks/plugins/flutter_image_compress/ios"
   flutter_open_whatsapp:
     :path: ".symlinks/plugins/flutter_open_whatsapp/ios"
-  flutter_plugin_android_lifecycle:
-    :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  image_cropper:
+    :path: ".symlinks/plugins/image_cropper/ios"
   image_downloader:
     :path: ".symlinks/plugins/image_downloader/ios"
   image_picker:
@@ -104,56 +103,37 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/libphonenumber/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
-  path_provider_linux:
-    :path: ".symlinks/plugins/path_provider_linux/ios"
-  path_provider_macos:
-    :path: ".symlinks/plugins/path_provider_macos/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
-  shared_preferences_linux:
-    :path: ".symlinks/plugins/shared_preferences_linux/ios"
-  shared_preferences_macos:
-    :path: ".symlinks/plugins/shared_preferences_macos/ios"
-  shared_preferences_web:
-    :path: ".symlinks/plugins/shared_preferences_web/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
-  url_launcher_linux:
-    :path: ".symlinks/plugins/url_launcher_linux/ios"
-  url_launcher_macos:
-    :path: ".symlinks/plugins/url_launcher_macos/ios"
-  url_launcher_web:
-    :path: ".symlinks/plugins/url_launcher_web/ios"
 
 SPEC CHECKSUMS:
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
-  connectivity_for_web: 2b8584556930d4bd490d82b836bcf45067ce345b
-  connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_image_compress: 082f8daaf6c1b0c9fe798251c750ef0ecd98d7ae
   flutter_open_whatsapp: 4b54cd5403cfe53414e4252fd52fc27f79635f58
-  flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
-  fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  image_cropper: 3c16d7651730ffe85897f5a1c4e2547e6b54989a
   image_downloader: 73e190d6c9f286f2649554051348d9cb319cd4b3
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   libphonenumber: bd14d5abfc5939ab0b0767234e2d8e2593af258e
   libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
+  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  Mantle: bf2e1b464f82465b9074e9de970739a2615e093a
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  path_provider_linux: 4d630dc393e1f20364f3e3b4a2ff41d9674a84e4
-  path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
+  SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
-  shared_preferences_linux: afefbfe8d921e207f01ede8b60373d9e3b566b78
-  shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
-  shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
-  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  TOCropViewController: 2a1ae1242600b1f2d996fd91a5268b2309a33b5c
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
-  url_launcher_linux: ac237cb7a8058736e4aae38bdbcc748a4b394cc0
-  url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
-  url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 
-PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0

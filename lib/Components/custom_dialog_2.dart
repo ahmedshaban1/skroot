@@ -187,12 +187,23 @@ class CustomSimpleDialog2 {
                           allowHalfRating: true,
                           itemCount: 5,
                           itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(
+                          onRatingUpdate: (double value) {}, ratingWidget: RatingWidget(
+                          full: Icon(
                             Icons.star,
                             size: 10,
                             color: Colors.amber,
                           ),
-                          onRatingUpdate: (double value) {},
+                          half: Icon(
+                            Icons.star,
+                            size: 10,
+                            color: Colors.amber,
+                          ),
+                          empty: Icon(
+                            Icons.star,
+                            size: 10,
+                            color: Colors.grey,
+                          )
+                        ),
                         ),
                         SizedBox(
                           height: 20,

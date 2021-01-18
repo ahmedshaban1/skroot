@@ -123,7 +123,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                             ),
 
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            textInputType: TextInputType.number,
+                            keyboardType: TextInputType.number,
                             autoFocus: true,
                             onCompleted: (String value) {
                               verificationCodeBloc.updateCode(value);

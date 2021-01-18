@@ -42,13 +42,13 @@ class _MyAddressesPageState extends State<MyAddressesPage> {
         padding: EdgeInsets.zero,
         child: Container(
           width:MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                Colors.deepPurple,
-                Colors.purple,
-              ],
-            ),
+                colors: [
+                  Colors.deepPurple,
+                  Colors.purple,
+                ]
+            )
           ),
           padding: const EdgeInsets.all(10.0),
           child: const Text('Add New Address',
